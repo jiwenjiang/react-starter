@@ -1,4 +1,4 @@
-﻿{
+{
   "name": "react-starter",
   "version": "1.0.0",
   "description": "react-starter",
@@ -19,10 +19,11 @@
   ],
   "author": "j_bleach",
   "license": "MIT",
+  "private": true,
   "bugs": {
     "url": "https://github.com/jiwenjiang/react-starter/issues"
   },
-  "homepage": "https://github.com/jiwenjiang/react-starter#readme",
+  "homepage": "https://github.com/jiwenjiang/react-starter",
   "dependencies": {
     "antd": "^2.7.2",
     "babel-runtime": "^6.23.0",
