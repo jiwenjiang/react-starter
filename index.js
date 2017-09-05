@@ -27,10 +27,10 @@ app.use(require('webpack-dev-middleware')(compiler, {
 app.use(require('webpack-hot-middleware')(compiler));
 
 // 代理服务器
-app.use('/common', proxyMiddleware({
-    target: 'http://admin.sosout.com',
-    changeOrigin: true
-}));
+// app.use('/common', proxyMiddleware({
+//     target: 'http://admin.sosout.com',
+//     changeOrigin: true
+// }));
 
 //将其他路由，全部返回index.html
 app.get('*', function(req, res) {
