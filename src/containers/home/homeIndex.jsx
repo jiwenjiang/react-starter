@@ -19,6 +19,7 @@ class Main extends Component {
     	super(props);
         this.state = {
              current: 0
+
         };
     }
     next() {
@@ -47,6 +48,7 @@ class Main extends Component {
             <Bcrumb title="快速入门" />
             <Row>
             	<Col span={24}>
+                    <Link to="/chart/line/4">Home</Link>
                     <Card title="项目前言" extra={<a href="https://github.com/sosout/react-antd">如果觉得不错的话，请star一下吧 😊</a>} bordered={false}>
                       <p>本工程主要基于react + redux + immutable + less + ES6/7 + webpack + fetch + react-router + antd(1.x)实现的SPA后台管理系统模板。</p>
                       <p>编码时间：8:00——9:30, 下班时间——24:00，其他时间要工作。代码未优化，处女座代码必须要优化。由于代码延后，先向大家说声抱歉。您有什么问题可以私信我<a href="https://segmentfault.com/u/sosout">segmentfault</a>。</p>

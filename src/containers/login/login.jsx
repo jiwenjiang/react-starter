@@ -14,11 +14,11 @@ const FormItem = Form.Item;
 /* 以类的方式创建一个组件 */
 class Login extends Component {
     constructor(props) {
-    	super(props);
-    	this.state = {
-    		passwordDirty: false,
-    		loginBtnText: '登录'
-    	};
+        super(props);
+        this.state = {
+            passwordDirty: false,
+            loginBtnText: '登录'
+        };
     }
     /**
      * 在初始化渲染执行之后立刻调用一次，仅客户端有效（服务器端不会调用）。
@@ -65,6 +65,7 @@ class Login extends Component {
 	    callback();
 	}
 	render() {
+
         const { loading, loginInfo, form } = this.props;
         const getFieldDecorator = form.getFieldDecorator;
 		return (

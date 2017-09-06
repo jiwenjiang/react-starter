@@ -2,12 +2,12 @@
  * 登录界面action
  * @return
  */
-import { Message } from 'antd';
-import { browserHistory } from 'react-router';
+import {Message} from 'antd';
+import {browserHistory} from 'react-router';
 import Config from '../../../config/index';
-import { RES_LOGIN, INITIAL_STATE } from '../../constants/loginTypes';
+import {RES_LOGIN, INITIAL_STATE} from '../../constants/loginTypes';
 import LoginService from '../../../services/loginService';
-import { loading } from '../index';
+import {loading} from '../index';
 
 /**
  * 登录成功
@@ -31,7 +31,7 @@ export const initialState = () => {
 }
 
 /**
- * 登录界面	
+ * 登录界面
  * @param {username} 用户名
  * @param {password} 密码
  * @return {登录信息}
@@ -43,7 +43,7 @@ export const goLogin = (params) => {
         LoginService.goLogin(params, (res) => {
             dispatch(loading(false));
             dispatch(resLogin(res));
-            if(res.length > 0) {
+            if (res.length > 0) {
                 Config.localItem(Config.localKey.userToken, (new Date()).getTime()); // 模拟登录成功返回的Token
                 browserHistory.push('/home');
             } else {
@@ -51,4 +51,4 @@ export const goLogin = (params) => {
             }
         })
     }
-} 
+}
