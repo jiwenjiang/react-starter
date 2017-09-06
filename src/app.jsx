@@ -14,6 +14,7 @@ store.subscribe(() => { // 监听state变化
     // console.log(store.getState());
 });
 
+
 // 创建根组件
 render(
     <Provider store={store}>
