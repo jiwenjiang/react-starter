@@ -1,8 +1,5 @@
 module.exports = {
     "parser": "babel-eslint",
-    "rules": {
-        "strict": 0
-    },
     "env": {
         "commonjs": true,
         "browser": true,
@@ -10,37 +7,33 @@ module.exports = {
     },
     "extends": "eslint:recommended",
     "parserOptions": {
-        "sourceType": "module"
+        "sourceType": "module",
+        "ecmaFeatures": {
+            "jsx": true
+        }
     },
     "plugins": [
         "react"
     ],
     "rules": {
-        "comma-dangle": [
-            "warn",
-            "never"
-        ],
         "indent": [
-            "warn",
+            "error",
             4
         ],
-        "linebreak-style": [
-            "warn",
-            "unix"
-        ],
-        "quotes": [
-            "error",
-            "single"
-        ],
-        "semi": [
-            "error",
-            "always"
-        ],
         "no-console": 0,
-        /* Advanced Rules*/
-        // "no-unused-expressions": "warn",
-        // "no-useless-concat": "warn",
-        // "block-scoped-var": "error",
-        // "consistent-return": "error"
+        "react/jsx-uses-react": "error",
+        "react/jsx-uses-vars": "error"
+        // "linebreak-style": [
+        //     "warn",
+        //     "unix"
+        // ],
+        // "quotes": [
+        //     "error",
+        //     "single"
+        // ]
+        // "semi": [
+        //     "error",
+        //     "always"
+        // ]
     }
 }

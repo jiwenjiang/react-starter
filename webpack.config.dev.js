@@ -57,7 +57,7 @@ module.exports = {
         }, {
             test: /\.jsx$/,
             enforce: 'pre',
-            use: ['eslint-loader', 'happypack/loader?id=jsx'],
+            use: ['happypack/loader?id=jsx'],
             include: [APP_PATH],
             exclude: /node_modules/
         }]
@@ -84,7 +84,7 @@ module.exports = {
             threadPool: happyThreadPool,
             // verboseWhenProfiling:true,
             verbose: process.env.HAPPY_VERBOSE === '1',
-            loaders: ['react-hot-loader', 'babel-loader?cacheDirectory'],
+            loaders: ['react-hot-loader', 'babel-loader?cacheDirectory', 'eslint-loader'],
             // debug:true
         }),
         new HappyPack({
@@ -92,7 +92,7 @@ module.exports = {
             threadPool: happyThreadPool,
             // verboseWhenProfiling:true,
             verbose: process.env.HAPPY_VERBOSE === '1',
-            loaders: ['react-hot-loader', 'jsx-loader', 'babel-loader?cacheDirectory']
+            loaders: ['react-hot-loader', 'jsx-loader', 'babel-loader?cacheDirectory', 'eslint-loader']
         }),
         new HappyPack({
             id: 'css',
