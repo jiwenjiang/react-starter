@@ -58,7 +58,7 @@ class Main extends Component {
 	        <Sider collapsible collapsed={this.state.collapsed} onCollapse={this.onCollapse}>
 		        <div className="layout-logo">
 		        	<Link to="/home">
-			        	<img className="logo-img" src={Config.logoSrc} />
+			        	{/*<img className="logo-img" src={Config.logoSrc} />*/}
 			        	<span className="logo-text">{Config.logoText}</span>
 		        	</Link>
 		        </div>

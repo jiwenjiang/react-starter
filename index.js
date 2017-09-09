@@ -2,14 +2,13 @@ var webpack = require('webpack');
 var express = require('express');
 var opn = require('opn');
 var config = require('./webpack.config.dev');
-var proxyMiddleware = require('http-proxy-middleware');
 
 var app = express();
 var compiler = webpack(config);
 
 app.use(require('webpack-dev-middleware')(compiler, {
-    quiet: true, // 不显示控制台信息
-    noInfo: true, // 不显示控制台信息（仅警告和错误）
+    quiet: false, // 不显示控制台信息
+    noInfo: false, // 不显示控制台信息（仅警告和错误）
     lazy: false, // 不切换懒惰模式
     publicPath: config.output.publicPath,
     hot: true,  // 是否启用热更新

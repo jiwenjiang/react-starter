@@ -13,8 +13,10 @@ Tool.ajax = function (mySetting) {
         type: 'GET', //请求的方式
         data: {}, //发给服务器的数据
         dataType: 'json',
-        success: function (text) { }, //请求成功执行方法
-        error: function () { } //请求失败执行方法
+        success: function (text) {
+        }, //请求成功执行方法
+        error: function () {
+        } //请求失败执行方法
     };
 
     var aData = []; //存储数据
@@ -55,14 +57,14 @@ Tool.ajax = function (mySetting) {
             var head = xhr.getAllResponseHeaders();
             var response = xhr.responseText;
             //将服务器返回的数据，转换成json
-            
+
             if (/application\/json/.test(head) || setting.dataType === 'json' && /^(\{|\[)([\s\S])*?(\]|\})$/.test(response)) {
                 response = JSON.parse(response);
             }
             if (xhr.status == 200) { // 请求成功
                 setting.success(response, setting, xhr);
             } else { // 请求失败
-                if(!xhr.withCredentials) {
+                if (!xhr.withCredentials) {
                     // 重新登录
                     window.location.href = '/login';
                 } else {
@@ -71,6 +73,7 @@ Tool.ajax = function (mySetting) {
             }
         }
     }
+
     xhr.end = function () {
         xhr.removeEventListener('readystatechange', httpEnd, false);
     }
@@ -87,6 +90,7 @@ Tool.ajax = function (mySetting) {
         str = str.replace(/#/g, '%23');
         return str;
     }
+
     return xhr;
 };
 
@@ -102,8 +106,10 @@ Tool.put = function (pathname, data, success, error) {
         url: target + pathname, //默认ajax请求地址
         type: 'PUT', //请求的方式
         data: data, //发给服务器的数据
-        success: success || function () { }, //请求成功执行方法
-        error: error || function () { } //请求失败执行方法
+        success: success || function () {
+        }, //请求成功执行方法
+        error: error || function () {
+        } //请求失败执行方法
     };
     return Tool.ajax(setting);
 };
@@ -120,8 +126,10 @@ Tool.delete = function (pathname, data, success, error) {
         url: target + pathname, //默认ajax请求地址
         type: 'DELETE', //请求的方式
         data: data, //发给服务器的数据
-        success: success || function () { }, //请求成功执行方法
-        error: error || function () { } //请求失败执行方法
+        success: success || function () {
+        }, //请求成功执行方法
+        error: error || function () {
+        } //请求失败执行方法
     };
     return Tool.ajax(setting);
 };
@@ -138,8 +146,10 @@ Tool.post = function (pathname, data, success, error) {
         url: target + pathname, //默认ajax请求地址
         type: 'POST', //请求的方式
         data: data, //发给服务器的数据
-        success: success || function () { }, //请求成功执行方法
-        error: error || function () { } //请求失败执行方法
+        success: success || function () {
+        }, //请求成功执行方法
+        error: error || function () {
+        } //请求失败执行方法
     };
     return Tool.ajax(setting);
 };
@@ -157,8 +167,10 @@ Tool.get = function (pathname, data, success, error) {
         url: target + pathname, //默认ajax请求地址
         type: 'GET', //请求的方式
         data: data, //发给服务器的数据
-        success: success || function () { }, //请求成功执行方法
-        error: error || function () { } //请求失败执行方法
+        success: success || function () {
+        }, //请求成功执行方法
+        error: error || function () {
+        } //请求失败执行方法
     };
     return Tool.ajax(setting);
 };

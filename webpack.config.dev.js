@@ -4,7 +4,7 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin'); //css单独打�
 var HtmlWebpackPlugin = require('html-webpack-plugin'); //生成html
 var os = require('os');
 var HappyPack = require('happypack');
-var happyThreadPool = HappyPack.ThreadPool({ size: os.cpus().length});
+var happyThreadPool = HappyPack.ThreadPool({size: os.cpus().length});
 // var bundleConfig = require("./antd/dist/bundle-config.json");
 
 // var BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin; // 分析包体依赖
@@ -16,7 +16,7 @@ var APP_FILE = path.resolve(APP_PATH, 'app'); //根目录文件app.jsx地址
 var BUILD_PATH = path.resolve(ROOT_PATH, '/antd/dist'); // 发布文件所存放的目录
 
 module.exports = {
-    devtool: 'cheap-module-eval-source-map',
+    devtool: 'source-map',
     entry: {
         app: [
             'webpack-hot-middleware/client',
@@ -33,7 +33,7 @@ module.exports = {
         rules: [{
             test: /\.js$/,
             exclude: /node_modules/,
-            use: ['happypack/loader?id=js'],
+            use: ['happypack/loader?id=js', 'eslint-loader'],
             include: [APP_PATH]
         }, {
             test: /\.css$/,
@@ -56,9 +56,10 @@ module.exports = {
             include: [APP_PATH]
         }, {
             test: /\.jsx$/,
-            exclude: /node_modules/,
-            use: ['happypack/loader?id=jsx'],
-            include: [APP_PATH]
+            enforce: 'pre',
+            use: ['eslint-loader', 'happypack/loader?id=jsx'],
+            include: [APP_PATH],
+            exclude: /node_modules/
         }]
     },
     plugins: [
@@ -91,8 +92,7 @@ module.exports = {
             threadPool: happyThreadPool,
             // verboseWhenProfiling:true,
             verbose: process.env.HAPPY_VERBOSE === '1',
-            loaders: ['react-hot-loader', 'jsx-loader', 'babel-loader?cacheDirectory'],
-            // debug:true
+            loaders: ['react-hot-loader', 'jsx-loader', 'babel-loader?cacheDirectory']
         }),
         new HappyPack({
             id: 'css',
@@ -107,14 +107,16 @@ module.exports = {
             threadPool: happyThreadPool,
             // verboseWhenProfiling:true,
             verbose: process.env.HAPPY_VERBOSE === '1',
-            loaders: [ 'style-loader', 'css-loader', 'postcss-loader', 'less-loader' ],
+            loaders: ['style-loader', 'css-loader', 'postcss-loader', 'less-loader'],
             // debug:true
-        }),
+        })
         // new webpack.DllReferencePlugin({
         //     context: __dirname,
         //     manifest: require('./antd/dist/bundle.manifest.json')
         // })
     ],
+
+
     resolve: {
         extensions: ['.js', '.jsx', '.less', '.css'], //后缀名自动补全
     }
