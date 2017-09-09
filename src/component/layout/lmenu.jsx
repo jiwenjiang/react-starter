@@ -1,7 +1,9 @@
 import React, {Component} from 'react';
+
 import Config from '../../config/index';
 import {Link} from 'react-router';
 import {Menu, Icon} from 'antd';
+
 /**
  * 公共菜单
  *
@@ -9,7 +11,6 @@ import {Menu, Icon} from 'antd';
  * @class Lmenu
  * @extends {Component}
  */
-
 export class Lmenu extends Component {
     constructor(props, context) {
         super(props, context); //后才能用this获取实例化对象
@@ -42,9 +43,8 @@ export class Lmenu extends Component {
     }
 
     render() {
-        const defaultSelectedKey = 'home';
         return (
-            <Menu openKeys={this.state.openKeys} onOpenChange={this.onOpenChange} theme="dark" mode={this.props.mode} defaultSelectedKeys={defaultSelectedKey}>
+            <Menu openKeys={this.state.openKeys} onOpenChange={this.onOpenChange} theme="dark" mode={this.props.mode} >
                 <Menu.Item key="home">
                     <Link to="/home">
                         <Icon type="laptop"/>

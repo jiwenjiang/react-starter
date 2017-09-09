@@ -16,11 +16,10 @@
 * }
  */
 
-import React, {Component} from 'react'; // react核心
-import {Router, Route, Redirect, IndexRoute, browserHistory, hashHistory} from 'react-router'; // 创建route所需
+import React from 'react'; // react核心
+import {Router, Route, Redirect, IndexRoute, browserHistory} from 'react-router'; // 创建route所需
 // import Config from '../config/index';
 import layout from '../component/layout/layout'; // 布局界面
-
 
 
 /**
@@ -29,14 +28,14 @@ import layout from '../component/layout/layout'; // 布局界面
  * @class Roots
  * @extends {Component}
  */
-class Roots extends Component {
-    render() {
-        // 这个组件是一个包裹组件，所有的路由跳转的页面都会以this.props.children的形式加载到本组件下
-        return (
-            <div>{this.props.children}</div>
-        );
-    }
-}
+// class Roots extends Component {
+//     render() {
+//         // 这个组件是一个包裹组件，所有的路由跳转的页面都会以this.props.children的形式加载到本组件下
+//         return (
+//             <div>{this.props.children}</div>
+//         );
+//     }
+// }
 
 // 快速入门
 const home = (location, cb) => {
@@ -44,17 +43,31 @@ const home = (location, cb) => {
         cb(null, require('../containers/home/homeIndex').default)
     }, 'home');
 }
+const image = (location, cb) => {
+    require.ensure([], require => {
+        cb(null, require('../containers/home/image/image').default)
+    }, 'image');
+}
+const collect = (location, cb) => {
+    require.ensure([], require => {
+        cb(null, require('../containers/home/collect/collect').default)
+    }, 'collect');
+}
 
 const RouteConfig = (
     <Router history={browserHistory}>
         <Route path="/home" component={layout}>
-            <IndexRoute getComponent={home}/> // 默认加载的组件，比如访问www.test.com,会自动跳转到www.test.com/home
-            <Route path="/home" getComponent={home}/>
+            <IndexRoute getComponent={home}/>
+            <Route path="/home" getComponent={home}>
+                <IndexRoute getComponent={image}/>
+                <Route path="/home/image" getComponent={image}/>
+                <Route path="/home/collect" getComponent={collect}/>
+            </Route>
         </Route>
         {/*<Route path="/home" component={Roots}> // 所有的访问，都跳转到Roots*/}
         {/*<IndexRoute component={layout} /> // 默认加载的组件，比如访问www.test.com,会自动跳转到www.test.com/home*/}
         {/*</Route>*/}
-        <Redirect from="*" to="/home"/>
+        <Redirect from="*" to="/home/image"/>
     </Router>
 );
 
