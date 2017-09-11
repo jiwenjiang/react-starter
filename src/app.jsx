@@ -8,7 +8,7 @@ import route from './router/route'; // 所有定义好的路由
 import 'babel-polyfill';
 
 // 公共样式
-import './style/common.less';
+import './assets/style/common.less';
 
 store.subscribe(() => { // 监听state变化
     // console.log(store.getState());
