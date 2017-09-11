@@ -45,7 +45,7 @@ const home = (location, cb) => {
 }
 const image = (location, cb) => {
     require.ensure([], require => {
-        cb(null, require('../containers/home/image/image').default)
+        cb(null, require('../containers/home/image').default)
     }, 'image');
 }
 const collect = (location, cb) => {

@@ -21,16 +21,16 @@ class Main extends Component {
 
     render() {
         return (
-           <div>
-               <div>
-                   <span>我的影像</span>
-                   <span>我的影像</span>
-                   {/*<Link to="/home/collect"></Link>*/}
-               </div>
-               <Row>
-                   <Col span={24}>233</Col>
-               </Row>
-           </div>
+            <div>
+                233
+                <Row>
+                    <Col span={12}>
+                        <div>
+                            <span >我的影像</span><span>我的影像2</span>
+                        </div>
+                    </Col>
+                </Row>
+            </div>
         );
     }
 }

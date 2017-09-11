@@ -27,7 +27,6 @@ class Main extends Component {
         return (
             <div className="home-container">
                 <Bcrumb />
-
                 {this.props.children}
             </div>
         );
