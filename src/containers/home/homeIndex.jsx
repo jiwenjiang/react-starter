@@ -1,6 +1,6 @@
 import React, {Component} from 'react'; // 引入了React和PropTypes
 
-import {Link} from 'react-router';
+// import {Link} from 'react-router';
 
 
 // 公共面包屑
@@ -8,7 +8,7 @@ import {Bcrumb} from "../../component/bcrumb/bcrumb";
 
 
 import './style/home.less'
-import {Row,Col} from 'antd';
+// import {Row,Col} from 'antd';
 
 
 
@@ -24,17 +24,10 @@ class Main extends Component {
 
     render() {
         // let linkHtml = '<link href="/antd/dist/app.css" rel="stylesheet" />';
-
         return (
             <div className="home-container">
                 <Bcrumb />
-                <div>
-                    <Link to="/home/image">我的影像</Link>
-                    <Link to="/home/collect">我的收藏</Link>
-                </div>
-                <Row>
-                    <Col span={24}></Col>
-                </Row>
+
                 {this.props.children}
             </div>
         );

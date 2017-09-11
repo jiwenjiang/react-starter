@@ -13,19 +13,20 @@ Tool.ajax = function (mySetting) {
         type: 'GET', //请求的方式
         data: {}, //发给服务器的数据
         dataType: 'json',
-        success: function (text) {
+        success: function () {
         }, //请求成功执行方法
         error: function () {
         } //请求失败执行方法
     };
 
-    var aData = []; //存储数据
-    var sData = ''; //拼接数据
+    const aData = []; //存储数据
+    let sData = ''; //拼接数据
+
     //属性覆盖
-    for (var attr in mySetting) {
+    for (let attr in mySetting) {
         setting[attr] = mySetting[attr];
     }
-    for (var attr in setting.data) {
+    for (let attr in setting.data) {
         aData.push(attr + '=' + filter(setting.data[attr]));
     }
     sData = aData.join('&');
@@ -86,7 +87,7 @@ Tool.ajax = function (mySetting) {
         str = str.replace(/\//g, '%2F');
         str = str.replace(/\?/g, '%3F');
         str = str.replace(/&/g, '%26');
-        str = str.replace(/\=/g, '%3D');
+        str = str.replace(/=/g, '%3D');
         str = str.replace(/#/g, '%23');
         return str;
     }

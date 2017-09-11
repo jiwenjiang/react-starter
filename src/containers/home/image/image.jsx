@@ -21,9 +21,16 @@ class Main extends Component {
 
     render() {
         return (
-            <Row>
-                <Col span={6}>2333</Col>
-            </Row>
+           <div>
+               <div>
+                   <span>我的影像</span>
+                   <span>我的影像</span>
+                   {/*<Link to="/home/collect"></Link>*/}
+               </div>
+               <Row>
+                   <Col span={24}>233</Col>
+               </Row>
+           </div>
         );
     }
 }
