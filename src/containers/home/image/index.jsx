@@ -20,13 +20,13 @@ class Main extends Component {
 
     state = {
         current: 'allList'
-    }
+    };
 
     handleClick = (e) => {
         this.setState({
             current: e.key
         });
-    }
+    };
 
     getData() {
         xhr.get(url.imgList, {platformId: 'archive_test'}, (data) => {
