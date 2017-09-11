@@ -5,7 +5,8 @@
 import ip from './ip'
 
 const urls = {
-    imgList: 'images/list'
+    imgList: 'images/list',
+    imgDetail:'series/list'
 }
 
 for (let attr in urls) {
