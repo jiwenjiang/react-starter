@@ -25,9 +25,11 @@ export class Bcrumb extends Component {
                         <Breadcrumb.Item>
                             <Link to="/home"><span className="ml-10 inlinblock">影像中心</span></Link>
                         </Breadcrumb.Item>
-                        <Breadcrumb.Item>
-                            <span>{ this.props.title }</span>
-                        </Breadcrumb.Item>
+                        {this.props.title
+                            ? <Breadcrumb.Item>
+                                <span>{ this.props.title }</span>
+                            </Breadcrumb.Item>
+                            : null}
                     </Breadcrumb>
                 </Col>
             </Row>

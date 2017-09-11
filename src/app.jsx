@@ -1,5 +1,5 @@
-import React, {Component, PropTypes} from 'react'; // react核心，用到jsx的地方，都需要这个
-import ReactDOM, {render} from 'react-dom'; // 渲染组件时需要
+import React from 'react'; // react核心，用到jsx的地方，都需要这个
+import {render} from 'react-dom'; // 渲染组件时需要
 import {Provider} from 'react-redux'; // react和redux连接的桥梁，就是这个Provider
 import store from './redux/store/store'; // 引入sotre
 import route from './router/route'; // 所有定义好的路由
