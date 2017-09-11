@@ -1,8 +1,9 @@
 import React, {Component} from 'react'; // 引入了React和PropTypes
 // import {Row, Col} from 'antd';
 import {Menu, Icon, Row, Col, Card} from 'antd';
-import url from '../../../config/ip/image';
-import xhr from '../../../services/xhr/index';
+// import url from '../../../config/ip/image';
+// import xhr from '../../../services/xhr/index';
+import '../../../assets/fonts/iconfont.css';
 import './image.less';
 
 // const SubMenu = Menu.SubMenu;
@@ -14,9 +15,9 @@ class Main extends Component {
         super(props);
     }
 
-    componentDidMount() {
-        this.getData();
-    }
+    // componentDidMount() {
+    //     this.getData();
+    // }
 
     state = {
         current: 'allList'
@@ -28,11 +29,11 @@ class Main extends Component {
         });
     };
 
-    getData() {
-        xhr.get(url.imgList, {platformId: 'archive_test'}, (data) => {
-            console.log(data)
-        })
-    }
+    // getData() {
+    //     xhr.get(url.imgList, {platformId: 'archive_test'}, (data) => {
+    //         this.data = data;
+    //     })
+    // }
 
     render() {
         return (
@@ -54,10 +55,10 @@ class Main extends Component {
                         <Col className="gutter-row" span={6}>
                             <Card className="list-card">
                                 <div className="card-display">
-                                    <Row>
-                                        <Col span={4}>
+                                    <Row gutter={16}>
+                                        <Col span={4} className="icon-wrapper">
                                             <div className="icon-display">
-                                                <Icon type="medicine-box"></Icon>
+                                                <div className="iconfont icon-ABDOMEN"></div>
                                             </div>
                                         </Col>
                                         <Col span={20}>
@@ -67,6 +68,7 @@ class Main extends Component {
                                                     <div className="tags">
                                                         <div className="tag tag-ct">CT</div>
                                                     </div>
+                                                    <div className="clearfix"></div>
                                                 </Row>
                                                 <Row>
                                                     <Col span={16}>
@@ -83,12 +85,12 @@ class Main extends Component {
                                                 <Row>
                                                     <Col span={4}>
                                                         <div className="cure-section">
-                                                            这是一段测试描述，一定要很长很长，长到撑过card宽度.
+                                                            胸腹部
                                                         </div>
                                                     </Col>
-                                                    <Col span={11} offset={8}>
+                                                    <Col span={11} offset={9}>
                                                         <div className="cure-date">
-                                                            (M/28Y)
+                                                            2017.08.03 15:56:32
                                                         </div>
                                                     </Col>
                                                 </Row>

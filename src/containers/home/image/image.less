@@ -1,16 +1,7 @@
-@media screen and (min-width:1200px){
-  body{
-    font-size: 20px;
-  }
+body{
+  min-width: 1670px;
 }
-@media screen and (min-width: 960px) and (max-width: 1199px) {
-  body{
-    font-size: 16px;
-  }
-}
-@media screen and (min-width: 768px) and (max-width: 959px) {
-   font-size: 12px;
-}
+
 .mybtn{
   border: none;
   width: 100%;
@@ -23,29 +14,83 @@
   color: #fff;
   background: #408ee6;
 }
-
+.clearfix{
+  clear: both;
+}
 .image-tab{
   background: #ececec;
   font-size: 0.8em;
 }
 
-.panel-content{
-  margin-top: 20px;
-  .list-card{
-    height: 139px;
-    .ant-card-body{
-      height: 100%;
-      padding: 10px;
-      .card-display{
-        height: 84px;
-      }
-      .card-toolbar{
-        height: 34px;
-        color: #408ee6;
-        font-size: 1.7em;
-        text-align: center;
-        .liked-area{
-          line-height: 34px;
+.imageCenter{
+  .panel-content{
+    margin-top: 20px;
+    .list-card{
+      height: 139px;
+      .ant-card-body{
+        height: 100%;
+        padding: 10px;
+        .card-display{
+          height: 81px;
+          .icon-wrapper{
+            border-right: 1px solid #d8d8d8;
+          }
+          .icon-display, .icon-display .iconfont{
+            color: #408ee6;
+            font-size: 1.7em;
+            line-height: 81px;
+          }
+          .display-content{
+            .ant-row{
+              height: 33.3%;
+              font-size: 1.2em;
+              line-height: 27px;
+            }
+            .card-title{
+              display: inline-block;
+              font-weight: bold;
+              font-size: 1.25em;
+            }
+            .tags{
+              display: inline-block;
+              width: 35px;
+              height: 20px;
+              float: right;
+              text-align: center;
+              color: #fff;
+            }
+            .tag-ct{
+              background: #73a6ee;
+            }
+            .tag-mr{
+              background: #b4de89;
+            }
+            .tag-pet{
+              background: #ee8c8c;
+            }
+            .tag-rs{
+              background: #6a73e5;
+            }
+            .description{
+              line-height: 26px;
+              white-space: nowrap;
+              overflow: hidden;
+              text-overflow: ellipsis;
+            }
+            .patient-info{
+              text-align: right;
+              line-height: 26px;
+            }
+          }
+        }
+        .card-toolbar{
+          height: 34px;
+          color: #408ee6;
+          font-size: 1.7em;
+          text-align: center;
+          .liked-area{
+            line-height: 34px;
+          }
         }
       }
     }
