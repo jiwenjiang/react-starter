@@ -14,15 +14,15 @@ class Main extends Component {
     }
 
     getData() {
-        xhr.get(url.imgList,{platformId:'archive_test'},(data)=>{
-
+        xhr.get(url.imgList, {platformId: 'archive_test'}, (data) => {
+            console.log(data)
         })
     }
 
     render() {
         return (
             <Row>
-                <Col span={6}></Col>
+                <Col span={6}>2333</Col>
             </Row>
         );
     }
