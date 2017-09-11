@@ -48,10 +48,10 @@ const image = (location, cb) => {
         cb(null, require('../containers/home/image').default)
     }, 'image');
 }
-const collect = (location, cb) => {
+const detail = (location, cb) => {
     require.ensure([], require => {
-        cb(null, require('../containers/home/collect/collect').default)
-    }, 'collect');
+        cb(null, require('../containers/home/detail').default)
+    }, 'detail');
 }
 
 const RouteConfig = (
@@ -61,7 +61,7 @@ const RouteConfig = (
             <Route path="/home" getComponent={home}>
                 <IndexRoute getComponent={image}/>
                 <Route path="/home/image" getComponent={image}/>
-                <Route path="/home/collect" getComponent={collect}/>
+                <Route path="/home/detail" getComponent={detail}/>
             </Route>
         </Route>
         {/*<Route path="/home" component={Roots}> // 所有的访问，都跳转到Roots*/}

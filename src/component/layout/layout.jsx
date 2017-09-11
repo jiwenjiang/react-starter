@@ -9,7 +9,7 @@ import {Lheader} from './lheader';
 
 import {Lmenu} from './lmenu';
 // 公共底部
-import {Lfooter} from './lfooter';
+// import {Lfooter} from './lfooter';
 
 // 布局样式
 import './style/layout.less';
@@ -67,12 +67,12 @@ class Main extends Component {
                     </div>
                     <Lmenu mode={ this.state.mode }/>
                 </Sider>
-                <Layout>
+                <Layout className="layout-right">
                     <Lheader collapsed={this.state.collapsed} toggle={ collapsed => this.toggle(collapsed) }/>
                     <Content className="layout-content">
                         {this.props.children}
                     </Content>
-                    <Lfooter />
+
                 </Layout>
             </Layout>
         );
