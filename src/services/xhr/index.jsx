@@ -1,4 +1,5 @@
 import Config from '../../config/index';
+import noty from '../../component/noty'
 const Tool = {};
 
 const target = Config.target;
@@ -63,11 +64,28 @@ Tool.ajax = function (mySetting) {
                 response = JSON.parse(response);
             }
             if (xhr.status == 200) { // 请求成功
-                setting.success(response, setting, xhr);
+                switch (response.errcode){
+                    case 0:
+                        noty('success','请求成功');
+                        setting.success(response.data, setting, xhr);
+                        break;
+                    case 1:
+                        noty('error','服务器错误');
+                        setting.success(response.data, setting, xhr);
+                        break;
+                    case 2:
+                        noty('warning','请求错误');
+                        setting.success(response.data, setting, xhr);
+                        break;
+                    default:
+                        noty('error','未知错误');
+                        setting.success(response.data, setting, xhr);
+                        break;
+                }
             } else { // 请求失败
                 if (!xhr.withCredentials) {
                     // 重新登录
-                    window.location.href = '/login';
+                    window.location.href = '/home';
                 } else {
                     setting.error(setting, xhr);
                 }

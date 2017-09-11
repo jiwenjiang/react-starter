@@ -10,15 +10,18 @@ class Main extends Component {
     }
 
     componentDidMount() {
-        // this.getData();
+        this.getData();
     }
 
     getData() {
         xhr.get(url.imgDetail, {studyId: '5'}, (data) => {
             console.log(data)
+            // this.setState({
+            //     details: data,
+            // });
         })
-        xhr.get(url.imgList, {studyIds: '5', platformId: 'archive_test'},(data)=>{
-            console.log(data)
+        xhr.get(url.imgList, {studyIds: '5', platformId: 'archive_test'}, () => {
+            // console.log(data)
         })
     }
 
@@ -29,6 +32,7 @@ class Main extends Component {
                     <Col span={5} className="img-detail">
                         <div className="part">
                             <i className="iconfont icon-HEAD"></i>
+                            <p>{}</p>
                         </div>
                     </Col>
                     <Col span={19}>
