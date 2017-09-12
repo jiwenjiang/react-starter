@@ -1,11 +1,15 @@
 @import "../fonts/iconfont.css";
-html{
+@import "./component.less";
+
+html {
 
 }
+
 body {
   height: 100%;
   overflow-y: hidden;
   background-color: #f4f7ed;
+  font-family: PingFangSC-Semibold;
 }
 
 // scrollbar
@@ -85,7 +89,7 @@ body {
   }
 }
 
-:global .actived-menu-item, ant-menu-item-selected,ant-menu-inline {
+:global .actived-menu-item, ant-menu-item-selected, ant-menu-inline {
   background-color: #327bcf;
 }
 
@@ -93,6 +97,13 @@ body {
 .ant-layout-sider, .ant-layout-sider-trigger {
   background-color: #408ee6;
 }
+
+/**定义 display start*/
+.block{
+  display: block;
+}
+/**定义 display end*/
+
 
 .ant-menu-item > a {
   display: inline;
@@ -108,17 +119,19 @@ body {
 
 /** 外边距 end **/
 //
-//@media screen and (min-width:1200px){
-//  body{
-//    font-size: 20px;
-//  }
-//}
-//@media screen and (min-width: 960px) and (max-width: 1199px) {
-//  body{
-//    font-size: 16px;
-//  }
-//}
-//@media screen and (min-width: 768px) and (max-width: 959px) {
-//  font-size: 12px;
-//}
+@media screen and (min-width: 1200px) {
+  body {
+    font-size: 20px;
+  }
+}
+
+@media screen and (min-width: 960px) and (max-width: 1199px) {
+  body {
+    font-size: 16px;
+  }
+}
+
+@media screen and (min-width: 768px) and (max-width: 959px) {
+  font-size: 12px;
+}
 
