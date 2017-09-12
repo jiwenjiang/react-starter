@@ -34,12 +34,13 @@ class Main extends Component {
 
     getData(pageNumber) {
         xhr.get(url.imgList, {platformId: 'archive_test', pageSize: 20, pageNo: pageNumber}, (data) => {
-            this.setState({
-                pageSize: this.state.pageSize,
-                pageNum: data.pageNum,
-                data: data.data.resultList || [],
-                totalPage: data.data.resultCount
-            })
+            console.log(data);
+            // this.setState({
+            //     pageSize: this.state.pageSize,
+            //     // pageNo: data.pageNum,
+            //     data: data.data.resultList || [],
+            //     totalPage: data.data.resultCount
+            // })
         })
     }
 
