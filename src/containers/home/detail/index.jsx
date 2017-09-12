@@ -1,6 +1,6 @@
 import React, {Component} from 'react'; // 引入了React和PropTypes
 import {Row, Col, Tabs, Table} from 'antd';
-import url from '../../../config/ip/image';
+import url from '../../../config/ip/detail';
 import xhr from '../../../services/xhr/index';
 import {sex} from '../../../services/filter';
 import './index.less';
