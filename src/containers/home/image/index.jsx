@@ -25,7 +25,7 @@ class Main extends Component {
         super(props);
         this.state = {
             size: 'large',
-            pageSize: 10,
+            pageSize: 1,
             data: []
         };
     }
@@ -34,16 +34,16 @@ class Main extends Component {
         this.getData(1);
     }
 
-    // handleParam(pageNum, modality='', patientInfo=''){
-    //
-    // }
+    handleParam(){
+        console.log(arguments);
+    }
 
 
     getData(pageNumber, modality='', patientInfo='') {
         console.log(arguments);
         xhr.get(url.imgList, {
             platformId: 'OIS',
-            pageSize: 10,
+            pageSize: 1,
             pageNum: pageNumber,
             modality: modality,
             patientIdOrName: patientInfo
@@ -66,7 +66,7 @@ class Main extends Component {
                         <div className="panel-content">
                             <ImageCard data={this.state.data} />
                             <div className="page-area">
-                                <Pagination showQuickJumper defaultCurrent={1} total={this.state.totalPage} onChange={this.getData} />
+                                <Pagination showQuickJumper defaultCurrent={1} total={this.state.totalPage} onChange={this.handleParam} />
                                 <div className="clearfix"></div>
                             </div>
                         </div>

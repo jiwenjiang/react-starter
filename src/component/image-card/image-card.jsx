@@ -23,6 +23,9 @@ class ImageCard extends Component{
     }
 
     render() {
+        const delLiked = (id)=> {
+            this.delLiked(id);
+        }
         return(
             <Row gutter={16}>
                 {
@@ -97,7 +100,7 @@ class ImageCard extends Component{
                                         <Col span={6}>
                                             <div className="liked-area">
                                                 {
-                                                    item.isFavorite ? <Icon type="star" onClick={this.delLiked(item.studyId)}></Icon> : <Icon type="star-o" onClick={this.addLiked(item.studyId)}></Icon>
+                                                    item.isFavorite ? <Icon type="star" onClick={delLiked(item.studyId)}></Icon> : <Icon type="star-o" onClick={this.addLiked(item.studyId)}></Icon>
                                                 }
                                             </div>
                                         </Col>

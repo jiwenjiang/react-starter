@@ -1,5 +1,5 @@
 const process = require('process');
-const Main = {
+const Main = {//http://192.168.0.141:50000/  // http://192.168.0.115:9001/
     target: process.env.NODE_ENV !== 'production' ? 'http://192.168.0.141:50000/' : 'http://192.168.0.141:50000/', //目标网站
     name: 'Ant Design Admin',
     prefix: 'antdAdmin',

@@ -2,7 +2,7 @@
  * Created by j_bleach on 2017/9/9.
  */
 
-import ip from './ip'
+import {imageIp} from './ip'
 
 const urls = {
     imgList: 'images/list',
@@ -10,7 +10,7 @@ const urls = {
 }
 
 for (let attr in urls) {
-    urls[attr] = ip + urls[attr]
+    urls[attr] = imageIp + urls[attr]
 }
 
 export default urls;
