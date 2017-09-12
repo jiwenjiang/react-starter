@@ -1,7 +1,8 @@
 /**
  * Created by j_bleach on 2017/9/9.
  */
-export const imageIp = 'assemble-viewer/api/v1/image/center/';
+import config from '../index'
+export const imageIp = config.imageTarget + 'assemble-viewer/api/v1/image/center/';
 
-export const collectIp = 'linkingOIS/api/v1/';
+export const collectIp = config.collectTarget + 'linkingOIS/api/v1/';
 

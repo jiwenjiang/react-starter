@@ -1,8 +1,7 @@
-import Config from '../../config/index';
 import noty from '../../component/noty'
 const Tool = {};
 
-const target = Config.target;
+
 /**
  * 发送ajax请求和服务器交互
  * @param {object} mySetting 配置ajax的配置
@@ -86,7 +85,7 @@ Tool.ajax = function (mySetting) {
             } else { // 请求失败
                 if (!xhr.withCredentials) {
                     // 重新登录
-                    window.location.href = '/home';
+                    // window.location.href = '/home';
                 } else {
                     setting.error(setting, xhr);
                 }
@@ -123,7 +122,7 @@ Tool.ajax = function (mySetting) {
  */
 Tool.put = function (pathname, data, success, error) {
     var setting = {
-        url: target + pathname, //默认ajax请求地址
+        url: pathname, //默认ajax请求地址
         type: 'PUT', //请求的方式
         data: data, //发给服务器的数据
         success: success || function () {
@@ -143,7 +142,7 @@ Tool.put = function (pathname, data, success, error) {
  */
 Tool.delete = function (pathname, data, success, error) {
     var setting = {
-        url: target + pathname, //默认ajax请求地址
+        url: pathname, //默认ajax请求地址
         type: 'DELETE', //请求的方式
         data: data, //发给服务器的数据
         success: success || function () {
@@ -163,7 +162,7 @@ Tool.delete = function (pathname, data, success, error) {
  */
 Tool.post = function (pathname, data, success, error) {
     var setting = {
-        url: target + pathname, //默认ajax请求地址
+        url: pathname, //默认ajax请求地址
         type: 'POST', //请求的方式
         data: data, //发给服务器的数据
         success: success || function () {
@@ -184,7 +183,7 @@ Tool.post = function (pathname, data, success, error) {
 
 Tool.get = function (pathname, data, success, error) {
     var setting = {
-        url: target + pathname, //默认ajax请求地址
+        url: pathname, //默认ajax请求地址
         type: 'GET', //请求的方式
         data: data, //发给服务器的数据
         success: success || function () {
