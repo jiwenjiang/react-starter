@@ -7,6 +7,9 @@ import './index.less';
 class Main extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+            details: {}
+        };
     }
 
     componentDidMount() {
@@ -20,8 +23,11 @@ class Main extends Component {
             //     details: data,
             // });
         })
-        xhr.get(url.imgList, {studyIds: '5', platformId: 'archive_test'}, () => {
-            // console.log(data)
+        xhr.get(url.imgList, {studyIds: '5', platformId: 'archive_test'}, (data) => {
+            this.setState({
+                details: data.resultList ? data.resultList[0] : {}
+            });
+            console.log(data)
         })
     }
 
@@ -32,7 +38,9 @@ class Main extends Component {
                     <Col span={5} className="img-detail">
                         <div className="part">
                             <i className="iconfont icon-HEAD"></i>
-                            <p>{}</p>
+                            <div>{this.state.details.studyDesc}</div>
+                            <p>{this.state.details.institutionName}</p>
+
                         </div>
                     </Col>
                     <Col span={19}>
