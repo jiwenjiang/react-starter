@@ -85,7 +85,7 @@ Tool.ajax = function (mySetting) {
             } else { // 请求失败
                 if (!xhr.withCredentials) {
                     // 重新登录
-                    window.location.href = '/home';
+                    // window.location.href = '/home';
                 } else {
                     setting.error(setting, xhr);
                 }
