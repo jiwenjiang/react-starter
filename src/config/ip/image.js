@@ -5,7 +5,9 @@
 import ip from './ip'
 
 const urls = {
-    imgList: 'images/list',
+    imgList: 'get/dicomdata/imagecenter/list',
+    addLiked: 'get/dicomdata/favorits/add',
+    delLiked: 'get/dicomdata/favorits/cancel',
     imgDetail:'series/list'
 }
 

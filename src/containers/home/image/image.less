@@ -1,6 +1,5 @@
 body{
-  min-width: 1670px;
-  font-size: 62.5%;
+  min-width: 1280px;
 }
 
 .mybtn{
@@ -14,86 +13,32 @@ body{
   //color: #408ee6;
   color: #fff;
   background: #408ee6;
+  border-radius: 100px;
 }
 .clearfix{
   clear: both;
 }
-.image-tab{
-  background: #ececec;
-  font-size: 0.8em;
-}
 
 .imageCenter{
-  .panel-content{
-    margin-top: 20px;
-    .list-card{
-      height: 139px;
-      .ant-card-body{
-        height: 100%;
-        padding: 10px;
-        .card-display{
-          height: 81px;
-          .icon-wrapper{
-            border-right: 1px solid #d8d8d8;
-          }
-          .icon-display, .icon-display .iconfont{
-            color: #408ee6;
-            font-size: 1.7em;
-            line-height: 81px;
-          }
-          .display-content{
-            .ant-row{
-              height: 33.3%;
-              font-size: 1.2em;
-              line-height: 27px;
-            }
-            .card-title{
-              display: inline-block;
-              font-weight: bold;
-              font-size: 1.25em;
-            }
-            .tags{
-              display: inline-block;
-              width: 35px;
-              height: 20px;
-              float: right;
-              text-align: center;
-              color: #fff;
-            }
-            .tag-ct{
-              background: #73a6ee;
-            }
-            .tag-mr{
-              background: #b4de89;
-            }
-            .tag-pet{
-              background: #ee8c8c;
-            }
-            .tag-rs{
-              background: #6a73e5;
-            }
-            .description{
-              line-height: 26px;
-              white-space: nowrap;
-              overflow: hidden;
-              text-overflow: ellipsis;
-            }
-            .patient-info{
-              text-align: right;
-              line-height: 26px;
-            }
-          }
-        }
-        .card-toolbar{
-          height: 34px;
-          color: #408ee6;
-          font-size: 1.7em;
-          text-align: center;
-          .liked-area{
-            line-height: 34px;
-          }
-        }
-      }
+  position: relative;
+  .tools{
+    position: absolute;
+    top: 4px;
+    right: 10px;
+    .tool{
+      margin-left: 10px;
+    }
+    .ant-calendar-picker{
+      margin-left: 10px;
+    }
+  }
+  .image-tab .ant-tabs-tab{
+    font-size: 1.15em;
+  }
+  .page-area{
+    padding: 10px;
+    .ant-pagination{
+      float: right;
     }
   }
 }

@@ -14,6 +14,7 @@ Tool.ajax = function (mySetting) {
         type: 'GET', //请求的方式
         data: {}, //发给服务器的数据
         dataType: 'json',
+        contentType: 'application/json',
         success: function () {
         }, //请求成功执行方法
         error: function () {
@@ -41,8 +42,8 @@ Tool.ajax = function (mySetting) {
             xhr.send();
         } else { //post方式请求
             xhr.open(setting.type, setting.url, setting.async);
-            xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-            xhr.send(sData);
+            xhr.setRequestHeader("Content-type", "application/json");
+            xhr.send(JSON.parse(sData));
         }
     } catch (e) {
         return httpEnd();
