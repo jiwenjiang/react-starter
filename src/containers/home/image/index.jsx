@@ -52,7 +52,7 @@ class Main extends Component {
                 pageSize: this.state.pageSize,
                 // pageNo: data.pageNum,
                 data: data.resultList || [],
-                totalPage: data.pageCount
+                totalPage: data.resultCount
             })
         })
     }
@@ -66,7 +66,7 @@ class Main extends Component {
                         <div className="panel-content">
                             <ImageCard data={this.state.data} />
                             <div className="page-area">
-                                <Pagination showQuickJumper defaultCurrent={1} total={this.state.totalPage} onChange={this.handleParam} />
+                                <Pagination showQuickJumper defaultCurrent={1} pageSize={this.state.pageSize} total={this.state.totalPage} onChange={this.getData} />
                                 <div className="clearfix"></div>
                             </div>
                         </div>
