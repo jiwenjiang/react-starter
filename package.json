@@ -7,7 +7,7 @@
     "dev": "node index.js",
     "dist": "yarn run dll && cross-env NODE_ENV=production webpack --display-error-details --config webpack.config.dist.js --progress --colors -p",
     "dll": "webpack --config webpack.dll.config.js --progress --colors -p",
-    "eslint": "eslint --ext .js src"
+    "eslint": "eslint --ext .js .jsx src"
   },
   "repository": {
     "type": "git",
