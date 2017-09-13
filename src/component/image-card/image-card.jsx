@@ -45,19 +45,19 @@ class ImageCard extends Component{
                                                     <div className="card-title">{item.patientId}</div>
                                                     <div className="tags">
                                                         {
-                                                            item.mods.split("/").map((item) => {
+                                                            item.mods.split('/').map((item) => {
                                                                 switch (item){
-                                                                    case "CT":
+                                                                    case 'CT':
                                                                         return <div className="tag tag-CT">CT</div>;
-                                                                    case "RD":
+                                                                    case 'RD':
                                                                         return <div className="tag tag-RD">RD</div>;
-                                                                    case "RP":
+                                                                    case 'RP':
                                                                         return <div className="tag tag-RP">RP</div>;
-                                                                    case "RS":
+                                                                    case 'RS':
                                                                         return <div className="tag tag-RS">RS</div>;
-                                                                    case "PET":
+                                                                    case 'PET':
                                                                         return <div className="tag tag-PET">PET</div>;
-                                                                    case "MR":
+                                                                    case 'MR':
                                                                         return <div className="tag tag-MR">MR</div>;
                                                                     default:
                                                                         break;
