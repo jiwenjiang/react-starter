@@ -35,7 +35,7 @@ Tool.ajax = function (mySetting) {
 
     var xhr = new XMLHttpRequest();
     try {
-        if (setting.type == 'GET' || setting.type == 'DELETE') { //get、delete方式请求
+        if (setting.type == 'GET') { //get、delete方式请求
             sData = setting.url + '?' + sData;
             xhr.open(setting.type, sData + '&' + new Date().getTime(), setting.async);
             xhr.send();
@@ -65,21 +65,23 @@ Tool.ajax = function (mySetting) {
                 response = JSON.parse(response);
             }
             if (xhr.status == 200) { // 请求成功
-                switch (response.errcode){
+                switch (response.errcode) {
                     case 0:
-                        noty('success','请求成功');
+                        if (mySetting.type !== 'GET') {
+                            noty('success', '请求成功');
+                        }
                         setting.success(response.data, setting, xhr);
                         break;
                     case 1:
-                        noty('error','服务器错误');
+                        noty('error', '服务器错误');
                         setting.success(response.data, setting, xhr);
                         break;
                     case 2:
-                        noty('warning','请求错误');
+                        noty('warning', '请求错误');
                         setting.success(response.data, setting, xhr);
                         break;
                     default:
-                        noty('error','未知错误');
+                        noty('error', '未知错误');
                         setting.success(response.data, setting, xhr);
                         break;
                 }

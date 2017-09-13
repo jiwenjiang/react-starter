@@ -3,6 +3,7 @@
  */
 import './data.less'
 import React from 'react';
+import {modality,modalityTxt} from '../../../services/filter';
 export const SeriesHeads = [
     {
         title: '序列ID',
@@ -11,7 +12,7 @@ export const SeriesHeads = [
     {
         title: '模态',
         dataIndex: 'modality',
-        render: text => <span className="modalityTag">{text}</span>,
+        render: text => <span className="modalityTag" style={{backgroundColor:modality(text)}}>{modalityTxt(text)}</span>,
     },
     {
         title: '检查时间',

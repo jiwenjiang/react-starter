@@ -11,6 +11,7 @@ function callback() {
 
 }
 const TabPane = Tabs.TabPane;
+
 /* 以类的方式创建一个组件 */
 class Main extends Component {
     constructor(props) {
@@ -22,7 +23,7 @@ class Main extends Component {
             seriesParams: {
                 studyId: '1',
                 platformId: 'OIS',
-                pageSize: 1
+                pageSize: 10
             },
         };
 
@@ -58,9 +59,9 @@ class Main extends Component {
         })
     }
 
+
     addCollect(a) {
-        console.log(2333)
-        xhr[a?'delete':'post'](imgUrl[a ? 'delLiked' : 'addLiked'], {studyId: this.state.details.studyId}, () => {
+        xhr[a ? 'delete' : 'post'](imgUrl[a ? 'delLiked' : 'addLiked'], {studyId: this.state.details.studyId}, () => {
             this.getDetail();
         })
     }
@@ -75,6 +76,7 @@ class Main extends Component {
         this.setState({selectedRowKeys});
     }
 
+
     render() {
         const {selectedRowKeys} = this.state;
         const rowSelection = {
@@ -82,12 +84,13 @@ class Main extends Component {
             onChange: this.onSelectChange
         }
         let isFavorite = this.state.details.isFavorite;
+        let studyDesc = this.state.details.studyDesc;
         return (
             <div className="mg-top20">
                 <Row>
                     <Col span={5} className="img-detail">
                         <div className="part">
-                            <i className="iconfont icon-HEAD"></i>
+                            <i className={`iconfont ${'icon-' + (studyDesc ? studyDesc : 'weizhi')} blue`}></i>
                             <div>{this.state.details.studyDesc}</div>
                             <p className="mg-top20">{this.state.details.patientId}</p>
                             <p>{this.state.details.patientName}</p>
@@ -103,7 +106,7 @@ class Main extends Component {
                     <Col span={19}>
                         <div className="img-list">
                             <Tabs defaultActiveKey="1" onChange={callback}>
-                                <TabPane tab="Tab 1" key="1">
+                                <TabPane tab="序列信息" key="1">
                                     <button className="lm-circleBtn">下载影像</button>
                                     <button className="lm-circleBtn ml-20">发送影像</button>
                                     <div className="seriesTB">
@@ -112,10 +115,11 @@ class Main extends Component {
                                                loading={this.state.loading}
                                                onChange={this.handleTableChange}
                                                dataSource={this.state.seriesBodys}/>
+
                                     </div>
                                 </TabPane>
-                                <TabPane tab="Tab 2" key="2">
-                                    4442
+                                <TabPane tab="操作信息" key="2">
+
                                 </TabPane>
                             </Tabs>
                         </div>
