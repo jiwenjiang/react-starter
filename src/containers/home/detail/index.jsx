@@ -20,7 +20,7 @@ class Main extends Component {
             loading: false,
             seriesParams: {
                 studyId: "1",
-                platformId: 'OIS',
+                platformId: "OIS",
                 pageSize: 1
             },
         };

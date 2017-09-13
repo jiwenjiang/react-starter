@@ -6,8 +6,11 @@
   "scripts": {
     "dev": "node index.js",
     "dist": "yarn run dll && cross-env NODE_ENV=production webpack --display-error-details --config webpack.config.dist.js --progress --colors -p",
-    "dll": "webpack --config webpack.dll.config.js --progress --colors -p"
+    "dll": "webpack --config webpack.dll.config.js --progress --colors -p",
+    "eslint": "eslint $(git diff-index --cached HEAD --name-only --diff-filter ACMR | egrep '.jsx$')"
   },
+  "pre-commit": ["eslint"],
+  "precommit.silent": true,
   "repository": {
     "type": "git",
     "url": "git+https://github.com/jiwenjiang/react-starter.git"
