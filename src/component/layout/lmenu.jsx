@@ -44,49 +44,52 @@ export class Lmenu extends Component {
 
     render() {
         return (
-            <Menu openKeys={this.state.openKeys} onOpenChange={this.onOpenChange} theme="dark" mode={this.props.mode} >
-                <Menu.Item key="home">
-                    <Link to="/home">
-                        <Icon type="laptop"/>
-                        {!this.props.collapsed && <span className="nav-text">影像中心</span>}
-                    </Link>
-                </Menu.Item>
-                {/*<SubMenu key="chart" title={<span><Icon type="dot-chart" /><span className="nav-text">百度图表</span></span>}>*/}
-                {/*<Menu.Item key="line"><Link to="/chart/line">折线图</Link></Menu.Item>*/}
-                {/*</SubMenu>*/}
-                {/*<SubMenu key="general" title={<span><Icon type="team" /><span className="nav-text">基础组件</span></span>}>*/}
-                {/*<Menu.Item key="button"><Link to="/general/button">按钮</Link></Menu.Item>*/}
-                {/*<Menu.Item key="icon"><Link to="/general/icon">图标</Link></Menu.Item>*/}
-                {/*</SubMenu>*/}
-                {/*<Menu.Item key="user">*/}
-                {/*<Link to="/user">*/}
-                {/*<Icon type="user" />*/}
-                {/*{!this.props.collapsed && <span className="nav-text">用户管理</span>}*/}
-                {/*</Link>*/}
-                {/*</Menu.Item>*/}
-                {/*<Menu.Item key="setting">*/}
-                {/*<Link to="/setting">*/}
-                {/*<Icon type="setting" />*/}
-                {/*{!this.props.collapsed && <span className="nav-text">系统设置</span>}*/}
-                {/*</Link>*/}
-                {/*</Menu.Item>*/}
-                {/*<Menu.Item key="adver">*/}
-                {/*<Link to="/adver">*/}
-                {/*<Icon type="notification" />*/}
-                {/*{!this.props.collapsed && <span className="nav-text">广告管理</span>}*/}
-                {/*</Link>*/}
-                {/*</Menu.Item>*/}
-                {/*<SubMenu*/}
-                {/*key="sub1" title={<span><Icon type="team" /><span className="nav-text">UI组件</span></span>}*/}
-                {/*>*/}
-                {/*<Menu.Item key="oneui"><Link to="/ui/oneui">组件一</Link></Menu.Item>*/}
-                {/*<Menu.Item key="twoui"><Link to="/ui/twoui">组件二</Link></Menu.Item>*/}
-                {/*</SubMenu>*/}
-                {/*<SubMenu key="sub2" title={<span><Icon type="setting" /><span className="nav-text">只展开当前父级菜单</span></span>}>*/}
-                {/*<Menu.Item key="9">Option 9</Menu.Item>*/}
-                {/*<Menu.Item key="10">Option 10</Menu.Item>*/}
-                {/*</SubMenu>*/}
-            </Menu>
+            <div>
+                <Menu openKeys={this.state.openKeys} onOpenChange={this.onOpenChange} theme="dark" mode={this.props.mode} defaultSelectedKeys={['home']}>
+                    <Menu.Item key="home">
+                        <Link to="/home">
+                            <Icon type="laptop"/>
+                            {!this.props.collapsed && <span className="nav-text">影像中心</span>}
+                        </Link>
+                    </Menu.Item>
+
+                    {/*<SubMenu key="chart" title={<span><Icon type="dot-chart" /><span className="nav-text">百度图表</span></span>}>*/}
+                    {/*<Menu.Item key="line"><Link to="/chart/line">折线图</Link></Menu.Item>*/}
+                    {/*</SubMenu>*/}
+                    {/*<SubMenu key="general" title={<span><Icon type="team" /><span className="nav-text">基础组件</span></span>}>*/}
+                    {/*<Menu.Item key="button"><Link to="/general/button">按钮</Link></Menu.Item>*/}
+                    {/*<Menu.Item key="icon"><Link to="/general/icon">图标</Link></Menu.Item>*/}
+                    {/*</SubMenu>*/}
+                    {/*<Menu.Item key="user">*/}
+                    {/*<Link to="/user">*/}
+                    {/*<Icon type="user" />*/}
+                    {/*{!this.props.collapsed && <span className="nav-text">用户管理</span>}*/}
+                    {/*</Link>*/}
+                    {/*</Menu.Item>*/}
+                    {/*<Menu.Item key="setting">*/}
+                    {/*<Link to="/setting">*/}
+                    {/*<Icon type="setting" />*/}
+                    {/*{!this.props.collapsed && <span className="nav-text">系统设置</span>}*/}
+                    {/*</Link>*/}
+                    {/*</Menu.Item>*/}
+                    {/*<Menu.Item key="adver">*/}
+                    {/*<Link to="/adver">*/}
+                    {/*<Icon type="notification" />*/}
+                    {/*{!this.props.collapsed && <span className="nav-text">广告管理</span>}*/}
+                    {/*</Link>*/}
+                    {/*</Menu.Item>*/}
+                    {/*<SubMenu*/}
+                    {/*key="sub1" title={<span><Icon type="team" /><span className="nav-text">UI组件</span></span>}*/}
+                    {/*>*/}
+                    {/*<Menu.Item key="oneui"><Link to="/ui/oneui">组件一</Link></Menu.Item>*/}
+                    {/*<Menu.Item key="twoui"><Link to="/ui/twoui">组件二</Link></Menu.Item>*/}
+                    {/*</SubMenu>*/}
+                    {/*<SubMenu key="sub2" title={<span><Icon type="setting" /><span className="nav-text">只展开当前父级菜单</span></span>}>*/}
+                    {/*<Menu.Item key="9">Option 9</Menu.Item>*/}
+                    {/*<Menu.Item key="10">Option 10</Menu.Item>*/}
+                    {/*</SubMenu>*/}
+                </Menu>
+            </div>
         )
     }
 }
