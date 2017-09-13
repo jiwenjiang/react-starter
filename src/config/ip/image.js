@@ -8,6 +8,7 @@ const urls = {
     imgList: 'get/dicomdata/imagecenter/list',
     addLiked: 'get/dicomdata/favorits/add',
     delLiked: 'get/dicomdata/favorits/cancel',
+    likedIds: 'get/dicomdata/favorits/list'
 }
 
 for (let attr in urls) {
