@@ -11,18 +11,19 @@ class ImageCard extends Component{
         super();
     }
 
-    delLiked(id){
-        console.log(id)
-        console.log(url.delLiked)
-        xhr.post(url.delLiked, {studyId: id}, (data) => {
-            console.log(data)
-        })
-    }
+    opLiked(item){
+        if(item.isFavorite){
+            xhr.delete(url.delLiked, {studyId: item.studyId}, () =>{
 
-    addLiked(id){
-        xhr.post(url.addLiked, {studyId: id}, (data) => {
-            console.log(data)
-        })
+
+            })
+        }
+        else{
+            xhr.post(url.addLiked, {studyId: item.studyId}, () => {
+
+
+            })
+        }
     }
 
     render() {
@@ -100,7 +101,7 @@ class ImageCard extends Component{
                                         <Col span={6}>
                                             <div className="liked-area">
                                                 {
-                                                    item.isFavorite ? <icon className="iconfont icon--shoucang-" onClick={this.delLiked.bind(this,item.studyId)}></icon> : <icon className="icon-shoucang-" onClick={this.addLiked.bind(this, item.studyId)}></icon>
+                                                    item.isFavorite ? <icon className="iconfont icon--shoucang-" onClick={this.opLiked.bind(this, item)}></icon> : <icon className="iconfont icon-shoucang-" onClick={this.opLiked.bind(this, item)}></icon>
                                                 }
                                             </div>
                                         </Col>

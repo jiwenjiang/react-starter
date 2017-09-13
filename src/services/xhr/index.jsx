@@ -35,7 +35,7 @@ Tool.ajax = function (mySetting) {
 
     var xhr = new XMLHttpRequest();
     try {
-        if (setting.type == 'GET' || setting.type == 'DELETE') { //get、delete方式请求
+        if (setting.type == 'GET') { //get、delete方式请求
             sData = setting.url + '?' + sData;
             xhr.open(setting.type, sData + '&' + new Date().getTime(), setting.async);
             xhr.send();

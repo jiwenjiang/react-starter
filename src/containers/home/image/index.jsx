@@ -66,7 +66,7 @@ class Main extends Component {
                 <Tabs defaultActiveKey="tab1" className="image-tab">
                     <TabPane tab="本院影像" key="tab1">
                         <div className="panel-content">
-                            <ImageCard data={this.state.data} />
+                            <ImageCard refresh={this.handlePagination.bind(this, this.state.params.pageNum)} data={this.state.data} />
                             <div className="page-area">
                                 <Pagination showQuickJumper  current={this.state.params.current} pageSize={this.state.params.pageSize} total={this.state.params.totalPage} onChange={this.handlePagination} />
                                 <div className="clearfix"></div>
