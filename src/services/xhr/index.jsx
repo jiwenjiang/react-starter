@@ -40,9 +40,10 @@ Tool.ajax = function (mySetting) {
             xhr.open(setting.type, sData + '&' + new Date().getTime(), setting.async);
             xhr.send();
         } else { //post方式请求
+            // console.log(mySetting.data)
             xhr.open(setting.type, setting.url, setting.async);
             xhr.setRequestHeader('Content-type', 'application/json');
-            xhr.send(JSON.parse(sData));
+            xhr.send(JSON.stringify(mySetting.data));
         }
     } catch (e) {
         return httpEnd();
