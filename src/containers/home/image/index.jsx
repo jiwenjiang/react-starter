@@ -25,35 +25,36 @@ class Main extends Component {
         super(props);
         this.state = {
             size: 'large',
-            pageSize: 1,
+            params: {
+                pageSize: 1,
+                platformId: 'OIS',
+                pageNum: 1
+            },
             data: []
         };
+        this.handlePagination = this.handlePagination.bind(this);
     }
 
     componentDidMount() {
-        this.getData(1);
+        this.getData(this.state.params);
     }
 
-    handleParam(){
-        console.log(arguments);
+    handlePagination(pageNumber){
+        console.log(pageNumber);
+        const page = {...this.state.params, pageNum: pageNumber};
+        this.getData(page);
     }
 
 
-    getData(pageNumber, modality='', patientInfo='') {
-        console.log(arguments);
-        xhr.get(url.imgList, {
-            platformId: 'OIS',
-            pageSize: 1,
-            pageNum: pageNumber,
-            modality: modality,
-            patientIdOrName: patientInfo
-        }, (data) => {
+    getData = (params = {}) => {
+        xhr.get(url.imgList, params, (data) => {
             this.setState({
-                pageSize: this.state.pageSize,
-                // pageNo: data.pageNum,
                 data: data.resultList || [],
-                totalPage: data.resultCount
-            })
+                params: {
+                    ...this.state.params,
+                    totalPage: data.resultCount
+                }
+            });
         })
     }
 
@@ -61,12 +62,12 @@ class Main extends Component {
     render() {
         return (
             <div className="imageCenter">
-                <Tabs defaultActiveKey="1" className="image-tab">
+                <Tabs defaultActiveKey="tab1" className="image-tab">
                     <TabPane tab="本院影像" key="tab1">
                         <div className="panel-content">
                             <ImageCard data={this.state.data} />
                             <div className="page-area">
-                                <Pagination showQuickJumper defaultCurrent={1} pageSize={this.state.pageSize} total={this.state.totalPage} onChange={this.getData} />
+                                <Pagination showQuickJumper pageSize={this.state.params.pageSize} total={this.state.params.totalPage} onChange={this.handlePagination} />
                                 <div className="clearfix"></div>
                             </div>
                         </div>

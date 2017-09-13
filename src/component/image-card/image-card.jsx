@@ -1,7 +1,8 @@
 import React, {Component} from 'react'; // 引入了React和PropTypes
-import {Icon, Row, Col, Card} from 'antd';
+import {Row, Col, Card} from 'antd';
 import url from '../../config/ip/image';
 import xhr from '../../services/xhr/index';
+import {sex} from '../../services/filter/index';
 import '../../assets/fonts/iconfont.css';
 import './image-card.less';
 
@@ -11,6 +12,8 @@ class ImageCard extends Component{
     }
 
     delLiked(id){
+        console.log(id)
+        console.log(url.delLiked)
         xhr.post(url.delLiked, {studyId: id}, (data) => {
             console.log(data)
         })
@@ -72,7 +75,7 @@ class ImageCard extends Component{
                                                     </Col>
                                                     <Col span={8}>
                                                         <div className="patient-info">
-                                                            ({item.sex}/{item.age}岁)
+                                                            ({sex(item.sex)}/{item.age}岁)
                                                         </div>
                                                     </Col>
                                                 </Row>
@@ -97,7 +100,7 @@ class ImageCard extends Component{
                                         <Col span={6}>
                                             <div className="liked-area">
                                                 {
-                                                    item.isFavorite ? <Icon type="star" onClick={this.delLiked(item.studyId)}></Icon> : <Icon type="star-o" onClick={this.addLiked(item.studyId)}></Icon>
+                                                    item.isFavorite ? <icon className="iconfont icon--shoucang-" onClick={this.delLiked.bind(this,item.studyId)}></icon> : <icon className="icon-shoucang-" onClick={this.addLiked.bind(this, item.studyId)}></icon>
                                                 }
                                             </div>
                                         </Col>
