@@ -14,14 +14,12 @@ class ImageCard extends Component{
     opLiked(item){
         if(item.isFavorite){
             xhr.delete(url.delLiked, {studyId: item.studyId}, () =>{
-
-
+                this.props.refresh(this.props.pageNum);
             })
         }
         else{
             xhr.post(url.addLiked, {studyId: item.studyId}, () => {
-
-
+                this.props.refresh(this.props.pageNum);
             })
         }
     }
@@ -50,13 +48,13 @@ class ImageCard extends Component{
                                                                 switch (item){
                                                                     case 'CT':
                                                                         return <div className="tag tag-CT">CT</div>;
-                                                                    case 'RD':
+                                                                    case 'RTDOSE':
                                                                         return <div className="tag tag-RD">RD</div>;
-                                                                    case 'RP':
+                                                                    case 'RTPLAN':
                                                                         return <div className="tag tag-RP">RP</div>;
-                                                                    case 'RS':
+                                                                    case 'RTSTRUCT':
                                                                         return <div className="tag tag-RS">RS</div>;
-                                                                    case 'PET':
+                                                                    case 'RTIMAGE':
                                                                         return <div className="tag tag-PET">PET</div>;
                                                                     case 'MR':
                                                                         return <div className="tag tag-MR">MR</div>;

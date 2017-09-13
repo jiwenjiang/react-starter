@@ -13,20 +13,24 @@ const children = [
     <Option key='all'>全部</Option>,
     <Option key='CT'>CT</Option>,
     <Option key='MR'>MR</Option>,
-    <Option key='PET'>PET</Option>,
-    <Option key='RD'>RD</Option>,
-    <Option key='RP'>RP</Option>,
-    <Option key='RS'>RS</Option>
+    <Option key='RTIMAGE'>PET</Option>,
+    <Option key='RTDOSE'>RD</Option>,
+    <Option key='RTPLAN'>RP</Option>,
+    <Option key='RTSTRUCT'>RS</Option>
 ];
 
 /* 以类的方式创建一个组件 */
 class Main extends Component {
     constructor(props) {
         super(props);
+        this.condition = {
+            modality: '',
+            patientIdOrName: ''
+        }
         this.state = {
             size: 'large',
             params: {
-                pageSize: 1,
+                pageSize: 2,
                 platformId: 'OIS',
                 pageNum: 1,
                 current: 1
@@ -34,6 +38,7 @@ class Main extends Component {
             data: []
         };
         this.handlePagination = this.handlePagination.bind(this);
+        this.handleParams = this.handleParams.bind(this);
     }
 
     componentDidMount() {
@@ -46,6 +51,17 @@ class Main extends Component {
         this.getData(page);
     }
 
+    handleParams(){
+        console.log(this.condition)
+        if(this.state.params.modality == 'all'){
+            this.state.params.modality = '';
+        }
+        const condition = {
+            ...this.state.params,
+            ...this.condition
+        }
+        this.getData(condition);
+    }
 
     getData = (params = {}) => {
         xhr.get(url.imgList, params, (data) => {
@@ -66,7 +82,7 @@ class Main extends Component {
                 <Tabs defaultActiveKey="tab1" className="image-tab">
                     <TabPane tab="本院影像" key="tab1">
                         <div className="panel-content">
-                            <ImageCard refresh={this.handlePagination.bind(this, this.state.params.pageNum)} data={this.state.data} />
+                            <ImageCard refresh={this.handlePagination.bind(this)} pageNum={this.state.params.pageNum} data={this.state.data} />
                             <div className="page-area">
                                 <Pagination showQuickJumper  current={this.state.params.current} pageSize={this.state.params.pageSize} total={this.state.params.totalPage} onChange={this.handlePagination} />
                                 <div className="clearfix"></div>
@@ -76,11 +92,11 @@ class Main extends Component {
                     <TabPane tab="收藏影像" key="tab2"></TabPane>
                 </Tabs>
                 <div className="tools">
-                    <Select className="tool" size={this.state.size} defaultValue="all"  style={{width: 200}}>
+                    <Select className="tool" value={this.condition.modality} onSelect={this.handleParams} size={this.state.size} defaultValue="all"  style={{width: 200}}>
                         {children}
                     </Select>
-                    <DatePicker className="tool" size={this.state.size} style={{width: 200}}/>
-                    <Search className="tool" size={this.state.size} placeholder="输入姓名或ID搜索…" style={{width: 200}}/>
+                    <DatePicker className="tool" onChange={this.handleParams} size={this.state.size} style={{width: 200}}/>
+                    <Search className="tool" size={this.state.size} value={this.condition.patientIdOrName} onSearch={this.handleParams} placeholder="输入姓名或ID搜索…" style={{width: 200}}/>
                 </div>
             </div>
         );
