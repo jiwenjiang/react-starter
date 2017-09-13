@@ -16,17 +16,10 @@ module.exports = {
         "react"
     ],
     "rules": {
-        // "indent": [
-        //     "error",
-        //     4
-        // ],
         "no-console": 0,
         "react/jsx-uses-react": "error",
-        "react/jsx-uses-vars": "error"
-        // "linebreak-style": [
-        //     "warn",
-        //     "unix"
-        // ],
+        "react/jsx-uses-vars": "error",
+        "quotes": ["error", "single"]
         // "quotes": [
         //     "error",
         //     "single"

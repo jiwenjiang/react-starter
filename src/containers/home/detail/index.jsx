@@ -24,7 +24,7 @@ class Main extends Component {
                 pageSize: 1
             },
         };
-        // console.log()
+
     }
 
     componentDidMount() {
@@ -58,7 +58,7 @@ class Main extends Component {
     }
 
     handleTableChange = (pagination) => {
-        const page={...this.state.seriesParams,pageNo:pagination.current}
+        const page = {...this.state.seriesParams, pageNo: pagination.current}
         this.getList(page)
     }
 
@@ -105,7 +105,7 @@ class Main extends Component {
                                     </div>
                                 </TabPane>
                                 <TabPane tab="Tab 2" key="2">
-                                    444
+                                    4442
                                 </TabPane>
                             </Tabs>
                         </div>
