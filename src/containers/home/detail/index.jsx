@@ -34,7 +34,7 @@ class Main extends Component {
     }
 
     getDetail() {
-        xhr.get(url.imgList, {studyIds: '1', platformId: 'OIS'}, (data) => {
+        xhr.get(imgUrl.imgList, {studyIds: '1', platformId: 'OIS'}, (data) => {
             this.setState({
                 details: data.resultList ? data.resultList[0] : {}
             });
@@ -58,10 +58,10 @@ class Main extends Component {
         })
     }
 
-    addCollect() {
+    addCollect(a) {
         console.log(2333)
-        xhr.post(imgUrl.addLiked, {studyId: this.state.details.studyId}, (data) => {
-            console.log(data);
+        xhr[a?'delete':'post'](imgUrl[a ? 'delLiked' : 'addLiked'], {studyId: this.state.details.studyId}, () => {
+            this.getDetail();
         })
     }
 
@@ -81,6 +81,7 @@ class Main extends Component {
             selectedRowKeys,
             onChange: this.onSelectChange
         }
+        let isFavorite = this.state.details.isFavorite;
         return (
             <div className="mg-top20">
                 <Row>
@@ -92,10 +93,10 @@ class Main extends Component {
                             <p>{this.state.details.patientName}</p>
                             <p>{sex(this.state.details.sex) + '/' + (this.state.details.age ? this.state.details.age + '岁' : '')}</p>
                             <p>{this.state.details.studyDate}</p>
-                            <div className="collect">
-                                <i className="iconfont icon-shoucang- collectIcon"
-                                   onClick={this.addCollect.bind(this)}></i>
-                                <span className="block ">添加收藏</span>
+                            <div className="collect" style={isFavorite ? {color: '#408ee6'} : {color: '#a3aaae'}}>
+                                <i className={`iconfont ${isFavorite ? 'icon--shoucang-' : 'icon-shoucang-'} `}
+                                   onClick={this.addCollect.bind(this, isFavorite)}></i>
+                                <span className="block">{isFavorite ? '已收藏' : '添加收藏'}</span>
                             </div>
                         </div>
                     </Col>
