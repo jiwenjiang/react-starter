@@ -41,7 +41,7 @@ Tool.ajax = function (mySetting) {
             xhr.send();
         } else { //post方式请求
             xhr.open(setting.type, setting.url, setting.async);
-            xhr.setRequestHeader("Content-type", "application/json");
+            xhr.setRequestHeader('Content-type', 'application/json');
             xhr.send(JSON.parse(sData));
         }
     } catch (e) {

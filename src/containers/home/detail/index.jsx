@@ -1,6 +1,7 @@
 import React, {Component} from 'react'; // 引入了React和PropTypes
 import {Row, Col, Tabs, Table} from 'antd';
 import url from '../../../config/ip/detail';
+import imgUrl from '../../../config/ip/image';
 import xhr from '../../../services/xhr/index';
 import {sex} from '../../../services/filter';
 import './index.less';
@@ -57,6 +58,13 @@ class Main extends Component {
         })
     }
 
+    addCollect() {
+        console.log(2333)
+        xhr.post(imgUrl.addLiked, {studyId: this.state.details.studyId}, (data) => {
+            console.log(data);
+        })
+    }
+
     handleTableChange = (pagination) => {
         const page = {...this.state.seriesParams, pageNo: pagination.current}
         this.getList(page)
@@ -85,8 +93,9 @@ class Main extends Component {
                             <p>{sex(this.state.details.sex) + '/' + (this.state.details.age ? this.state.details.age + '岁' : '')}</p>
                             <p>{this.state.details.studyDate}</p>
                             <div className="collect">
-                                <i className="iconfont icon-shoucang-"></i>
-                                <span className="block">添加收藏</span>
+                                <i className="iconfont icon-shoucang- collectIcon"
+                                   onClick={this.addCollect.bind(this)}></i>
+                                <span className="block ">添加收藏</span>
                             </div>
                         </div>
                     </Col>
@@ -95,7 +104,7 @@ class Main extends Component {
                             <Tabs defaultActiveKey="1" onChange={callback}>
                                 <TabPane tab="Tab 1" key="1">
                                     <button className="lm-circleBtn">下载影像</button>
-                                    <button className="lm-circleBtn">发送影像</button>
+                                    <button className="lm-circleBtn ml-20">发送影像</button>
                                     <div className="seriesTB">
                                         <Table rowSelection={rowSelection} columns={SeriesHeads}
                                                pagination={this.state.seriesParams}
