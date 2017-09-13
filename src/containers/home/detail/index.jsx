@@ -19,8 +19,8 @@ class Main extends Component {
             selectedRowKeys: [],
             loading: false,
             seriesParams: {
-                studyId: "1",
-                platformId: "OIS",
+                studyId: '1',
+                platformId: 'OIS',
                 pageSize: 1
             },
         };
