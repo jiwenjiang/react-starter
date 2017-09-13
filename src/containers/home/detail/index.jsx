@@ -59,7 +59,6 @@ class Main extends Component {
     }
 
     addCollect() {
-        console.log(2333)
         xhr.post(imgUrl.addLiked, {studyId: this.state.details.studyId}, (data) => {
             console.log(data);
         })

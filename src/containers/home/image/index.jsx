@@ -28,7 +28,8 @@ class Main extends Component {
             params: {
                 pageSize: 1,
                 platformId: 'OIS',
-                pageNum: 1
+                pageNum: 1,
+                current: 1
             },
             data: []
         };
@@ -41,7 +42,7 @@ class Main extends Component {
 
     handlePagination(pageNumber){
         console.log(pageNumber);
-        const page = {...this.state.params, pageNum: pageNumber};
+        const page = {...this.state.params, current: pageNumber, pageNum: pageNumber};
         this.getData(page);
     }
 
@@ -51,7 +52,7 @@ class Main extends Component {
             this.setState({
                 data: data.resultList || [],
                 params: {
-                    ...this.state.params,
+                    ...params,
                     totalPage: data.resultCount
                 }
             });
@@ -67,7 +68,7 @@ class Main extends Component {
                         <div className="panel-content">
                             <ImageCard data={this.state.data} />
                             <div className="page-area">
-                                <Pagination showQuickJumper pageSize={this.state.params.pageSize} total={this.state.params.totalPage} onChange={this.handlePagination} />
+                                <Pagination showQuickJumper  current={this.state.params.current} pageSize={this.state.params.pageSize} total={this.state.params.totalPage} onChange={this.handlePagination} />
                                 <div className="clearfix"></div>
                             </div>
                         </div>
