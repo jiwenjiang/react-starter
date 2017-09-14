@@ -44,9 +44,8 @@ export class Lmenu extends Component {
 
 
     render() {
-        const route=['/home/image']
         return (
-            <Menu openKeys={this.state.openKeys} onOpenChange={this.onOpenChange} theme="dark" mode={this.props.mode} defaultSelectedKeys={route}>
+            <Menu openKeys={this.state.openKeys} onOpenChange={this.onOpenChange} theme="dark" mode={this.props.mode} defaultSelectedKeys={['home']}>
                 <Menu.Item key="home">
                     <Link to="/home">
                         <Icon type="laptop"/>

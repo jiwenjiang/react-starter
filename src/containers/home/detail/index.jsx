@@ -6,6 +6,7 @@ import xhr from '../../../services/xhr/index';
 import {sex} from '../../../services/filter';
 import './index.less';
 import {SeriesHeads} from '../data';
+import config from '../../../config'
 
 function callback() {
 
@@ -21,8 +22,8 @@ class Main extends Component {
             selectedRowKeys: [],
             loading: false,
             seriesParams: {
-                studyId: '1',
-                platformId: 'OIS',
+                studyId: this.props.params.id,
+                platformId: config.platform,
                 pageSize: 10
             },
         };
@@ -31,11 +32,11 @@ class Main extends Component {
 
     componentDidMount() {
         this.getList(this.state.seriesParams);
-        this.getDetail(this.state.seriesParams);
+        this.getDetail();
     }
 
     getDetail() {
-        xhr.get(imgUrl.imgList, {studyIds: '1', platformId: 'OIS'}, (data) => {
+        xhr.get(imgUrl.imgList, {studyIds: this.props.params.id, platformId: config.platform}, (data) => {
             this.setState({
                 details: data.resultList ? data.resultList[0] : {}
             });
@@ -72,7 +73,6 @@ class Main extends Component {
     }
 
     onSelectChange = (selectedRowKeys) => {
-        console.log('selectedRowKeys changed: ', selectedRowKeys);
         this.setState({selectedRowKeys});
     }
 

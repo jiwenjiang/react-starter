@@ -5,27 +5,33 @@ import xhr from '../../services/xhr/index';
 import {sex} from '../../services/filter/index';
 import '../../assets/fonts/iconfont.css';
 import './image-card.less';
+import {browserHistory} from 'react-router';
 
-class ImageCard extends Component{
+
+class ImageCard extends Component {
     constructor() {
         super();
     }
 
-    opLiked(item){
-        if(item.isFavorite){
-            xhr.delete(url.delLiked, {studyId: item.studyId}, () =>{
+    opLiked(item) {
+        if (item.isFavorite) {
+            xhr.delete(url.delLiked, {studyId: item.studyId}, () => {
                 this.props.refresh(this.props.pageNum);
             })
         }
-        else{
+        else {
             xhr.post(url.addLiked, {studyId: item.studyId}, () => {
                 this.props.refresh(this.props.pageNum);
             })
         }
     }
 
+    gotoDetail(id) {
+        browserHistory.push(`/home/detail/${id}`);
+    }
+
     render() {
-        return(
+        return (
             <Row gutter={16}>
                 {
                     this.props.data.map((item, index) => {
@@ -35,7 +41,7 @@ class ImageCard extends Component{
                                     <Row gutter={16}>
                                         <Col span={4} className="icon-wrapper">
                                             <div className="icon-display">
-                                                <div className="iconfont icon-ABDOMEN"></div>
+                                                <div className={`iconfont icon-${item.studyDesc}`}></div>
                                             </div>
                                         </Col>
                                         <Col span={20}>
@@ -45,7 +51,7 @@ class ImageCard extends Component{
                                                     <div className="tags">
                                                         {
                                                             item.mods.split('/').map((item) => {
-                                                                switch (item){
+                                                                switch (item) {
                                                                     case 'CT':
                                                                         return <div className="tag tag-CT">CT</div>;
                                                                     case 'RTDOSE':
@@ -99,12 +105,17 @@ class ImageCard extends Component{
                                         <Col span={6}>
                                             <div className="liked-area">
                                                 {
-                                                    item.isFavorite ? <icon className="iconfont icon--shoucang-" onClick={this.opLiked.bind(this, item)}></icon> : <icon className="iconfont icon-shoucang-" onClick={this.opLiked.bind(this, item)}></icon>
+                                                    item.isFavorite ? <icon className="iconfont icon--shoucang-"
+                                                                            onClick={this.opLiked.bind(this, item)}></icon> :
+                                                        <icon className="iconfont icon-shoucang-"
+                                                              onClick={this.opLiked.bind(this, item)}></icon>
                                                 }
                                             </div>
                                         </Col>
                                         <Col span={6} offset={6}>
-                                            <button className="mybtn">详情</button>
+                                            <button className="mybtn"
+                                                    onClick={this.gotoDetail.bind(this, item.studyId)}>详情
+                                            </button>
                                         </Col>
                                         <Col span={6}>
                                             <button className="mybtn">阅片</button>

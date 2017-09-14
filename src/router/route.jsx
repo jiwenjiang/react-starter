@@ -61,7 +61,7 @@ const RouteConfig = (
             <Route path="/home" getComponent={home}>
                 <IndexRoute getComponent={image}/>
                 <Route path="/home/image" getComponent={image}/>
-                <Route path="/home/detail" getComponent={detail}/>
+                <Route path="/home/detail/:id" getComponent={detail}/>
             </Route>
         </Route>
         {/*<Route path="/home" component={Roots}> // 所有的访问，都跳转到Roots*/}

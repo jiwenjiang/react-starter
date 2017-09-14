@@ -3,6 +3,7 @@ const Main = {//http://192.168.0.141:50000/  // http://192.168.0.115:9001/
     collectTarget: process.env.NODE_ENV !== 'production' ? 'http://192.168.0.141:50000/' : 'http://192.168.0.141:50000/', //目标网站
     imageTarget: process.env.NODE_ENV !== 'production' ? 'http://192.168.0.115:9001/' : 'http://192.168.0.115:9001/', //目标网站
     name: 'Ant Design Admin',
+    platform:'LM-OIS',
     prefix: 'antdAdmin',
     logoSrc: 'https://t.alipayobjects.com/images/rmsweb/T1B9hfXcdvXXXXXXXX.svg',
     logoText: 'Linking Med',
