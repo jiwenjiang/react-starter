@@ -41,6 +41,7 @@ class ImageCard extends Component {
                                     <Row gutter={16}>
                                         <Col span={4} className="icon-wrapper">
                                             <div className="icon-display">
+                                                {index}
                                                 <div className={`iconfont icon-${item.studyDesc}`}></div>
                                             </div>
                                         </Col>
@@ -50,20 +51,20 @@ class ImageCard extends Component {
                                                     <div className="card-title">{item.patientId}</div>
                                                     <div className="tags">
                                                         {
-                                                            item.mods.split('/').map((item) => {
+                                                            item.mods.split('/').map((item,index) => {
                                                                 switch (item) {
                                                                     case 'CT':
-                                                                        return <div className="tag tag-CT">CT</div>;
+                                                                        return <div className="tag tag-CT" key={index}>CT</div>;
                                                                     case 'RTDOSE':
-                                                                        return <div className="tag tag-RD">RD</div>;
+                                                                        return <div className="tag tag-RD" key={index}>RD</div>;
                                                                     case 'RTPLAN':
-                                                                        return <div className="tag tag-RP">RP</div>;
+                                                                        return <div className="tag tag-RP" key={index}>RP</div>;
                                                                     case 'RTSTRUCT':
-                                                                        return <div className="tag tag-RS">RS</div>;
+                                                                        return <div className="tag tag-RS" key={index}>RS</div>;
                                                                     case 'RTIMAGE':
-                                                                        return <div className="tag tag-PET">PET</div>;
+                                                                        return <div className="tag tag-PET" key={index}>PET</div>;
                                                                     case 'MR':
-                                                                        return <div className="tag tag-MR">MR</div>;
+                                                                        return <div className="tag tag-MR" key={index}>MR</div>;
                                                                     default:
                                                                         break;
                                                                 }

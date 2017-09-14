@@ -32,7 +32,7 @@ class Main extends Component {
             size: 'large',
             params: {
                 pageSize: 20,
-                platformId: config.platform,
+                platformId: 'OIS',
                 pageNum: 1,
                 current: 1,
                 modality: '',
@@ -58,7 +58,7 @@ class Main extends Component {
                     size: 'large',
                     params: {
                         pageSize: 20,
-                        platformId: config.platform,
+                        platformId: 'OIS',
                         pageNum: 1,
                         current: 1,
                         modality: '',
