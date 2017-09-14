@@ -41,7 +41,6 @@ class ImageCard extends Component {
                                     <Row gutter={16}>
                                         <Col span={4} className="icon-wrapper">
                                             <div className="icon-display">
-                                                {index}
                                                 <div className={`iconfont icon-${item.studyDesc}`}></div>
                                             </div>
                                         </Col>
