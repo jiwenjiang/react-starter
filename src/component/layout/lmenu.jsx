@@ -45,6 +45,7 @@ export class Lmenu extends Component {
 
     render() {
         return (
+
             <Menu openKeys={this.state.openKeys} onOpenChange={this.onOpenChange} theme="dark" mode={this.props.mode} defaultSelectedKeys={['home']}>
                 <Menu.Item key="home">
                     <Link to="/home">
@@ -53,6 +54,7 @@ export class Lmenu extends Component {
                     </Link>
                 </Menu.Item>
             </Menu>
+
         )
     }
 }
