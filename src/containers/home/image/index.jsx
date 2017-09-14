@@ -32,7 +32,7 @@ class Main extends Component {
             size: 'large',
             params: {
                 pageSize: 20,
-                platformId: 'OIS',
+                platformId: config.platform,
                 pageNum: 1,
                 current: 1,
                 modality: '',
@@ -58,7 +58,7 @@ class Main extends Component {
                     size: 'large',
                     params: {
                         pageSize: 20,
-                        platformId: 'OIS',
+                        platformId: config.platform,
                         pageNum: 1,
                         current: 1,
                         modality: '',
@@ -94,7 +94,6 @@ class Main extends Component {
     }
 
     handlePagination = (pageNumber) => {
-        console.log(pageNumber);
         const page = {...this.state.params, current: pageNumber, pageNum: pageNumber};
         this.getData(page);
     }
