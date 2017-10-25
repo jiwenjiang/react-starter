@@ -42,3 +42,6 @@ Lmtab.propTypes = {
     curTab: React.PropTypes.number,
     tabs: React.PropTypes.array.isRequired
 }
+Lmtab.defaultProps = {
+    curTab : 0
+}
