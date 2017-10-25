@@ -34,7 +34,7 @@ class ImageCard extends Component {
         return (
             <Row gutter={16}>
                 {
-                    this.props.data.map((item, index) => {
+                    this.props.data&&this.props.data.map((item, index) => {
                         return <Col className="gutter-row" xl={6} lg={8} md={8} sm={12} xs={12} key={index}>
                             <Card className="list-card">
                                 <div className="card-display">

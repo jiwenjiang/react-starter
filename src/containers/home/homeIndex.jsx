@@ -4,7 +4,7 @@ import React, {Component} from 'react'; // 引入了React和PropTypes
 
 
 // 公共面包屑
-import {Bcrumb} from "../../component/bcrumb/bcrumb";
+import {Bcrumb} from '../../component/bcrumb/bcrumb';
 
 
 import './style/home.less'

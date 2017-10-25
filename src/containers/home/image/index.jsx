@@ -1,14 +1,17 @@
 import React, {Component} from 'react'; // 引入了React和PropTypes
-import {Tabs, Pagination, Select, DatePicker, Input} from 'antd';
+import {Pagination, Select, DatePicker, Input, Spin, Alert} from 'antd';
 import Moment from 'moment';
 import ImageCard from '../../../component/image-card/image-card';
-import url from '../../../config/ip/image';
 import xhr from '../../../services/xhr/index';
-import '../../../assets/fonts/iconfont.css';
 import './image.less';
-import config from '../../../config'
+import config from '../../../config/index';
+import {bindActionCreators} from 'redux';
+import {connect} from 'react-redux';
+import {Lmtab} from '../../../component/lmtab'
 
-const TabPane = Tabs.TabPane;
+// import NProgress from 'nprogress';
+
+
 const Option = Select.Option;
 const Search = Input.Search;
 const children = [
@@ -25,9 +28,7 @@ const children = [
 class Main extends Component {
     constructor(props) {
         super(props);
-        this.condition = {
-
-        }
+        this.condition = {}
         this.state = {
             size: 'large',
             params: {
@@ -38,7 +39,8 @@ class Main extends Component {
                 modality: '',
                 patientIdOrName: ''
             },
-            data: []
+            data: [],
+            loading: true
         };
         this.onTabChange = this.onTabChange.bind(this);
         this.handlePagination = this.handlePagination.bind(this);
@@ -49,11 +51,13 @@ class Main extends Component {
 
     componentDidMount() {
         this.getData(this.state.params);
+        // const titles = [{link: '/home/image', text: '影像中心'}];
+        // this.props.setTitle(titles);
     }
 
-    onTabChange = (activeKey) => {
-        switch (activeKey){
-            case 'tab1':
+    onTabChange(i) {
+        switch (i) {
+            case 0:
                 this.setState({
                     size: 'large',
                     params: {
@@ -65,13 +69,14 @@ class Main extends Component {
                         patientIdOrName: '',
                         studyIds: []
                     },
-                    data: []
+                    data: [],
+                    curTab: i
                 }, () => {
                     this.getData(this.state.params);
                 });
 
                 break;
-            case 'tab2':
+            case 1:
                 this.setState({
                     size: 'large',
                     params: {
@@ -83,11 +88,14 @@ class Main extends Component {
                         patientIdOrName: '',
                         studyIds: []
                     },
-                    data: []
+                    data: [],
+                    curTab: i
                 }, () => {
-                    xhr.get(url.likedIds, {}, (data) => {
+                    xhr.get('', {}, (data) => {
                         let ids = data;
-                        this.getData({...this.state.params, studyIds: ids});
+                        if (ids.length != 0) {
+                            this.getData({...this.state.params, studyIds: ids.join(',')});
+                        }
                     })
                 });
         }
@@ -99,10 +107,10 @@ class Main extends Component {
     }
 
     handleSelect = (value) => {
-        if(value == 'all'){
+        if (value == 'all') {
             this.condition.modality = '';
         }
-        else{
+        else {
             this.condition.modality = value;
         }
         this.getData(this.state.params);
@@ -114,62 +122,104 @@ class Main extends Component {
     };
 
     handleDate = (value) => {
-        if(value === null){
+        if (value === null) {
             this.condition.studyTime = '';
         }
-        else{
+        else {
             this.condition.studyTime = Moment(value).format('YYYY-MM-DD');
         }
         this.getData(this.state.params);
     }
 
     getData = (params = {}) => {
+        this.setState({
+            loading: true
+        });
         params = {...params, ...this.condition};
-        xhr.get(url.imgList, params, (data) => {
+        xhr.get('', params, (data) => {
             this.setState({
-                data: data.resultList || [],
+                data: data&&data.resultList,
                 params: {
                     ...params,
-                    totalPage: data.resultCount
-                }
+                    totalPage: data&&data.resultCount
+                },
+                loading: false
             });
+            console.log(data)
         })
     }
 
 
     render() {
+        const loading = <Spin tip="Loading..." size="large">
+            <Alert
+                message=""
+                description="影像列表加载中，请耐心等待"
+                type="info"
+                size="large"
+            />
+        </Spin>
+        const tabone = <div className="panel-content">
+            {this.state.loading
+                ? loading
+                : <div>
+                    <ImageCard refresh={this.handlePagination.bind(this)}
+                               pageNum={this.state.params.pageNum}
+                               data={this.state.data}/>
+                    <div className="page-area">
+                        <Pagination showQuickJumper current={this.state.params.current}
+                                    pageSize={this.state.params.pageSize}
+                                    total={this.state.params.totalPage}
+                                    onChange={this.handlePagination}/>
+                        <div className="clearfix"></div>
+                    </div>
+                </div>}
+        </div>
+        const tabtwo = <div className="panel-content">
+            {this.state.loading
+                ? loading
+                : <div>
+                    <ImageCard refresh={this.handlePagination.bind(this)}
+                               pageNum={this.state.params.pageNum}
+                               data={this.state.data}/>
+                    <div className="page-area">
+                        <Pagination showQuickJumper current={this.state.params.current}
+                                    pageSize={this.state.params.pageSize}
+                                    total={this.state.params.totalPage}
+                                    onChange={this.handlePagination}/>
+                        <div className="clearfix"></div>
+                    </div>
+                </div>}
+        </div>
         return (
-            <div className="imageCenter">
-                <Tabs defaultActiveKey="tab1" className="image-tab" onChange={this.onTabChange}>
-                    <TabPane tab="本院影像" key="tab1">
-                        <div className="panel-content">
-                            <ImageCard refresh={this.handlePagination.bind(this)} pageNum={this.state.params.pageNum} data={this.state.data} />
-                            <div className="page-area">
-                                <Pagination showQuickJumper  current={this.state.params.current} pageSize={this.state.params.pageSize} total={this.state.params.totalPage} onChange={this.handlePagination} />
-                                <div className="clearfix"></div>
-                            </div>
-                        </div>
-                    </TabPane>
-                    <TabPane tab="收藏影像" key="tab2">
-                        <div className="panel-content">
-                            <ImageCard refresh={this.handlePagination.bind(this)} pageNum={this.state.params.pageNum} data={this.state.data}/>
-                            <div className="page-area">
-                                <Pagination showQuickJumper current={this.state.params.current} pageSize={this.state.params.pageSize} total={this.state.params.totalPage} onChange={this.handlePagination} />
-                                <div className="clearfix"></div>
-                            </div>
-                        </div>
-                    </TabPane>
-                </Tabs>
+            <div className="imageCenter" style={{'marginTop': 15}}>
+                <div className="tab">
+                    <Lmtab tabs={['本院影像', '收藏影像']} curTab={1} changeTab={(i) => this.onTabChange(i)}/>
+                </div>
+                {this.state.curTab == 0 ? tabone : tabtwo}
+
                 <div className="tools">
-                    <Select className="tool" onSelect={this.handleSelect} size={this.state.size} defaultValue="all"  style={{width: 200}}>
+                    <Select className="tool" onSelect={this.handleSelect} size={this.state.size} defaultValue="all"
+                            style={{width: 200}}>
                         {children}
                     </Select>
-                    <DatePicker className="tool" onChange={this.handleDate} size={this.state.size} style={{width: 200}}/>
-                    <Search className="tool" size={this.state.size} onBlur={this.handleSearch.bind(this)} placeholder="输入姓名或ID搜索…" style={{width: 200}}/>
+                    <DatePicker className="tool" onChange={this.handleDate} size={this.state.size}
+                                style={{width: 200}}/>
+                    <Search className="tool" size={this.state.size} onBlur={this.handleSearch.bind(this)}
+                            placeholder="输入姓名或ID搜索…" style={{width: 200}}/>
                 </div>
             </div>
         );
     }
 }
 
-export default Main;
+const mapStateToProps = (state) => {
+    return state
+}
+const mapDispatchToProps = (dispatch) => {
+    return bindActionCreators({
+    }, dispatch);
+}
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(Main);
