@@ -194,7 +194,7 @@ class Main extends Component {
         return (
             <div className="imageCenter" style={{'marginTop': 15}}>
                 <div className="tab">
-                    <Lmtab tabs={['本院影像', '收藏影像']} curTab={1} changeTab={(i) => this.onTabChange(i)}/>
+                    <Lmtab tabs={['TAB_ONE', 'TAB_TWO']} curTab={'1'} changeTab={(i) => this.onTabChange(i)}/>
                 </div>
                 {this.state.curTab == 0 ? tabone : tabtwo}
 

@@ -16,7 +16,7 @@ class Main extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            subtitle: '影像详情',
+            subtitle: 'bleach',
             status: 0
         };
 

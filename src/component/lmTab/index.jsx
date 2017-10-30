@@ -3,6 +3,14 @@ import './index.less'
 
 
 export class Lmtab extends Component {
+    static propTypes = {
+        curTab: React.PropTypes.number,
+        tabs: React.PropTypes.array.isRequired
+    }
+    static defaultProps = {
+        curTab: 1
+    }
+
     constructor(props) {
         super(props);
         this.state = {
@@ -38,10 +46,3 @@ export class Lmtab extends Component {
     }
 }
 
-Lmtab.propTypes = {
-    curTab: React.PropTypes.number,
-    tabs: React.PropTypes.array.isRequired
-}
-Lmtab.defaultProps = {
-    curTab : 0
-}

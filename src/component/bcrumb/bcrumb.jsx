@@ -23,7 +23,7 @@ export class Bcrumb extends Component {
                 <Col span={24}>
                     <Breadcrumb className="bread-crumb">
                         <Breadcrumb.Item>
-                            <Link to="/home"><span className="ml-10 inlinblock">影像中心</span></Link>
+                            <Link to="/home"><span className="ml-10 inlinblock">j_</span></Link>
                         </Breadcrumb.Item>
                         {this.props.title
                             ? <Breadcrumb.Item>
