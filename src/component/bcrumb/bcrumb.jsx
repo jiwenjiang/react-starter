@@ -33,7 +33,6 @@ export class Bcrumb extends Component {
                     </Breadcrumb>
                 </Col>
             </Row>
-
         )
     }
 }

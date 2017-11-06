@@ -20,7 +20,7 @@ module.exports = {
         ],
     },
     output: {
-        publicPath: '/dist/',
+        publicPath: './dist/',
         path:  BUILD_PATH,
         filename: '[name].[chunkhash].js',
         library: '[name]_library'
