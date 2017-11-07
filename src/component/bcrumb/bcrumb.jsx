@@ -22,17 +22,16 @@ export class Bcrumb extends Component {
             <Row className="mt-10">
                 <Col span={24}>
                     <Breadcrumb className="bread-crumb">
-                        <Breadcrumb.Item>
-                            <Link to="/home"><span className="ml-10 inlinblock">j_</span></Link>
-                        </Breadcrumb.Item>
-                        {this.props.title
-                            ? <Breadcrumb.Item>
-                                <span>{ this.props.title }</span>
+                        {this.props.titles && this.props.titles.map((v, i) => {
+                            return <Breadcrumb.Item key={i}>
+                                <Link to={v.link}><span
+                                    className={`${i == 0 ? 'ml-10' : ''} inlinblock`}>{v.text}</span></Link>
                             </Breadcrumb.Item>
-                            : null}
+                        })}
                     </Breadcrumb>
                 </Col>
             </Row>
+
         )
     }
 }

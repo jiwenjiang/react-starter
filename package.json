@@ -25,7 +25,7 @@
   },
   "homepage": "https://github.com/jiwenjiang/react-starter",
   "dependencies": {
-    "antd": "^2.7.2",
+    "antd": "2.7.2",
     "babel-runtime": "^6.23.0",
     "immutable": "^3.8.1",
     "react": "^15.3.2",

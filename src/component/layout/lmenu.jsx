@@ -1,8 +1,10 @@
+
 import React, {Component} from 'react';
 
 import Config from '../../config/index';
 import {Link} from 'react-router';
 import {Menu, Icon} from 'antd';
+
 
 /**
  * 公共菜单
@@ -45,16 +47,15 @@ export class Lmenu extends Component {
 
     render() {
         return (
+            <Menu openKeys={this.state.openKeys} onOpenChange={this.onOpenChange} theme="dark"
+                  mode={this.props.mode} defaultSelectedKeys={['/home/nurseStation/curPatient']}>
 
-            <Menu openKeys={this.state.openKeys} onOpenChange={this.onOpenChange} theme="dark" mode={this.props.mode} defaultSelectedKeys={['/home/image']}>
-                <Menu.Item key="/home/image">
                     <Link to="/home/image">
                         <Icon type="laptop"/>
                         {!this.props.collapsed && <span className="nav-text">影像中心</span>}
                     </Link>
-                </Menu.Item>
-            </Menu>
 
+            </Menu>
         )
     }
 }

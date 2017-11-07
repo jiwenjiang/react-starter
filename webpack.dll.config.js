@@ -20,24 +20,24 @@ module.exports = {
         ],
     },
     output: {
-        publicPath: './dist/',
+        publicPath: '/dist/',
         path:  BUILD_PATH,
         filename: '[name].[chunkhash].js',
         library: '[name]_library'
     },
     plugins: [
         new CleanWebpackPlugin(['antd'], {
-          root: ROOT_PATH,
-          verbose: true,
-          dry: false
+            root: ROOT_PATH,
+            verbose: true,
+            dry: false
         }),
         new webpack.DllPlugin({
             path: './antd/dist/bundle.manifest.json',
             name: '[name]_library',
         }),
-       new AssetsPlugin({
-        	filename: 'bundle-config.json', 
-        	path: './antd/dist',
+        new AssetsPlugin({
+            filename: 'bundle-config.json',
+            path: './antd/dist',
         }),
     ]
 };
