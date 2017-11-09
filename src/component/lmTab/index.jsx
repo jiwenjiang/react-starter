@@ -11,14 +11,19 @@ export class Lmtab extends Component {
         curTab: 1
     }
 
-    constructor(props) {
-        super(props);
+    static contextTypes = {
+        color: React.PropTypes.string
+    }
+
+    constructor(props, context) {
+        super(props, context);
         this.state = {
             curIndex: this.props.curTab || 0
         }
     }
 
     componentDidMount() {
+        console.log(this.context)
     }
 
     changeTab(i) {

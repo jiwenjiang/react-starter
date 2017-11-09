@@ -13,13 +13,19 @@ import './style/home.less'
 
 /* 以类的方式创建一个组件 */
 class Main extends Component {
+    static childContextTypes = {
+        color: React.PropTypes.string
+    }
     constructor(props) {
         super(props);
         this.state = {
             subtitle: 'bleach',
             status: 0
         };
+    }
 
+    getChildContext() {
+        return {color: 'purple'};
     }
 
     componentDidMount() {

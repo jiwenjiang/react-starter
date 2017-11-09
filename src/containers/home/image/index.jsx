@@ -145,7 +145,6 @@ class Main extends Component {
                 },
                 loading: false
             });
-            console.log(data)
         })
     }
 
