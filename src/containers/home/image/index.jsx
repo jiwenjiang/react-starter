@@ -2,15 +2,15 @@ import React, {Component} from 'react'; // 引入了React和PropTypes
 import {Pagination, Select, DatePicker, Input, Spin, Alert} from 'antd';
 import Moment from 'moment';
 import ImageCard from '../../../component/image-card/image-card';
-import xhr from '../../../services/xhr/index';
+import xhr from 'xhr';
 import './image.less';
 import config from '../../../config/index';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
-import {Lmtab} from '../../../component/lmtab'
+import {Lmtab} from 'comp/lmTab'
 
 // import NProgress from 'nprogress';
-
+console.log(xhr)
 
 const Option = Select.Option;
 const Search = Input.Search;

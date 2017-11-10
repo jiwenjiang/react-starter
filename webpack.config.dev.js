@@ -116,6 +116,11 @@ module.exports = {
     ],
     resolve: {
         extensions: ['.js', '.jsx', '.less', '.css'], //后缀名自动补全
+        alias: {
+            comp: path.resolve(__dirname, './src/component'),
+            ip: path.resolve(__dirname, './src/config/index.jsx'),
+            xhr: path.resolve(__dirname, './src/services/xhr/index.jsx'),
+        }
     },
     devtool: 'source-map'
 };
