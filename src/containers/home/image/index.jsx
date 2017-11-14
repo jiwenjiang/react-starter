@@ -1,13 +1,13 @@
 import React, {Component} from 'react'; // 引入了React和PropTypes
 import {Pagination, Select, DatePicker, Input, Spin, Alert} from 'antd';
 import Moment from 'moment';
-import ImageCard from '../../../component/image-card/image-card';
-import xhr from 'xhr';
+import ImageCard from '_component/image-card/image-card';
+import xhr from '_services/xhr/';
 import './image.less';
-import config from '../../../config/index';
+import config from '_config/index';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
-import {Lmtab} from 'comp/lmTab'
+import {Lmtab} from '_component/lmTab'
 
 // import NProgress from 'nprogress';
 console.log(xhr)
@@ -15,13 +15,7 @@ console.log(xhr)
 const Option = Select.Option;
 const Search = Input.Search;
 const children = [
-    <Option key='all'>全部</Option>,
-    <Option key='CT'>CT</Option>,
-    <Option key='MR'>MR</Option>,
-    <Option key='RTIMAGE'>PET</Option>,
-    <Option key='RTDOSE'>RD</Option>,
-    <Option key='RTPLAN'>RP</Option>,
-    <Option key='RTSTRUCT'>RS</Option>
+    <Option key='all'>全部</Option>
 ];
 
 /* 以类的方式创建一个组件 */
@@ -35,12 +29,13 @@ class Main extends Component {
                 pageSize: 20,
                 platformId: config.platform,
                 pageNum: 1,
-                current: 1,
+                current: 0,
                 modality: '',
                 patientIdOrName: ''
             },
             data: [],
-            loading: true
+            loading: true,
+            curTab: 0
         };
         this.onTabChange = this.onTabChange.bind(this);
         this.handlePagination = this.handlePagination.bind(this);
@@ -51,54 +46,12 @@ class Main extends Component {
 
     componentDidMount() {
         this.getData(this.state.params);
-        // const titles = [{link: '/home/image', text: '影像中心'}];
-        // this.props.setTitle(titles);
     }
 
     onTabChange(i) {
-        switch (i) {
-            case 0:
-                this.setState({
-                    size: 'large',
-                    params: {
-                        pageSize: 20,
-                        platformId: config.platform,
-                        pageNum: 1,
-                        current: 1,
-                        modality: '',
-                        patientIdOrName: '',
-                        studyIds: []
-                    },
-                    data: [],
-                    curTab: i
-                }, () => {
-                    this.getData(this.state.params);
-                });
-
-                break;
-            case 1:
-                this.setState({
-                    size: 'large',
-                    params: {
-                        pageSize: 20,
-                        platformId: config.platform,
-                        pageNum: 1,
-                        current: 1,
-                        modality: '',
-                        patientIdOrName: '',
-                        studyIds: []
-                    },
-                    data: [],
-                    curTab: i
-                }, () => {
-                    xhr.get('', {}, (data) => {
-                        let ids = data;
-                        if (ids.length != 0) {
-                            this.getData({...this.state.params, studyIds: ids.join(',')});
-                        }
-                    })
-                });
-        }
+        this.setState({
+            curTab: i
+        });
     }
 
     handlePagination = (pageNumber) => {
@@ -138,10 +91,10 @@ class Main extends Component {
         params = {...params, ...this.condition};
         xhr.get('', params, (data) => {
             this.setState({
-                data: data&&data.resultList,
+                data: data && data.resultList,
                 params: {
                     ...params,
-                    totalPage: data&&data.resultCount
+                    totalPage: data && data.resultCount
                 },
                 loading: false
             });
@@ -159,20 +112,24 @@ class Main extends Component {
             />
         </Spin>
         const tabone = <div className="panel-content">
-            {this.state.loading
-                ? loading
-                : <div>
-                    <ImageCard refresh={this.handlePagination.bind(this)}
-                               pageNum={this.state.params.pageNum}
-                               data={this.state.data}/>
-                    <div className="page-area">
-                        <Pagination showQuickJumper current={this.state.params.current}
-                                    pageSize={this.state.params.pageSize}
-                                    total={this.state.params.totalPage}
-                                    onChange={this.handlePagination}/>
-                        <div className="clearfix"></div>
-                    </div>
-                </div>}
+            <table>
+                <thead>
+                <tr>
+                    <th>1</th>
+                    <th>2</th>
+                    <th>3</th>
+                    <th>4</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>2</td>
+                    <td>3</td>
+                    <td>4</td>
+                </tr>
+                </tbody>
+            </table>
         </div>
         const tabtwo = <div className="panel-content">
             {this.state.loading
@@ -193,7 +150,7 @@ class Main extends Component {
         return (
             <div className="imageCenter" style={{'marginTop': 15}}>
                 <div className="tab">
-                    <Lmtab tabs={['TAB_ONE', 'TAB_TWO']} curTab={1} changeTab={(i) => this.onTabChange(i)}/>
+                    <Lmtab tabs={['TAB_ONE', 'TAB_TWO']} curTab={0} changeTab={(i) => this.onTabChange(i)}/>
                 </div>
                 {this.state.curTab == 0 ? tabone : tabtwo}
 
@@ -216,8 +173,7 @@ const mapStateToProps = (state) => {
     return state
 }
 const mapDispatchToProps = (dispatch) => {
-    return bindActionCreators({
-    }, dispatch);
+    return bindActionCreators({}, dispatch);
 }
 
 

@@ -170,6 +170,14 @@ module.exports = {
             APP_PATH,
             'node_modules'
         ],
-        extensions: ['.js', '.jsx', '.less', '.css'] //后缀名自动补全
+        extensions: ['.js', '.jsx', '.less', '.css'], //后缀名自动补全
+        alias: {
+            _component: path.resolve(APP_PATH, 'component'),
+            _containers: path.resolve(APP_PATH, 'containers'),
+            _config: path.resolve(APP_PATH, 'config'),
+            _assets: path.resolve(APP_PATH, 'assets'),
+            _redux: path.resolve(APP_PATH, 'redux'),
+            _services: path.resolve(APP_PATH, 'services')
+        }
     }
 };
