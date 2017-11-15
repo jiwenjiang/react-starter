@@ -48,9 +48,9 @@ export class Lmenu extends Component {
     render() {
         return (
             <Menu openKeys={this.state.openKeys} onOpenChange={this.onOpenChange} theme="dark"
-                  mode={this.props.mode} defaultSelectedKeys={['/home/nurseStation/curPatient']}>
+                  mode={this.props.mode} defaultSelectedKeys={['/home/image']}>
 
-                    <Link to="/home/image">
+                    <Link >
                         <Icon type="laptop"/>
                         {!this.props.collapsed && <span className="nav-text">影像中心</span>}
                     </Link>

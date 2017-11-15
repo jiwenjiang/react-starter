@@ -1,51 +1,23 @@
 import React, {Component} from 'react'; // 引入了React和PropTypes
-import {Pagination, Select, DatePicker, Input, Spin, Alert} from 'antd';
-import Moment from 'moment';
-import ImageCard from '_component/image-card/image-card';
-import xhr from '_services/xhr/';
 import './image.less';
-import config from '_config/index';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import {Lmtab} from '_component/lmTab'
 
-// import NProgress from 'nprogress';
-console.log(xhr)
-
-const Option = Select.Option;
-const Search = Input.Search;
-const children = [
-    <Option key='all'>全部</Option>
-];
-
-/* 以类的方式创建一个组件 */
 class Main extends Component {
     constructor(props) {
         super(props);
-        this.condition = {}
         this.state = {
             size: 'large',
-            params: {
-                pageSize: 20,
-                platformId: config.platform,
-                pageNum: 1,
-                current: 0,
-                modality: '',
-                patientIdOrName: ''
-            },
             data: [],
             loading: true,
             curTab: 0
         };
-        this.onTabChange = this.onTabChange.bind(this);
-        this.handlePagination = this.handlePagination.bind(this);
-        this.handleSelect = this.handleSelect.bind(this);
-        this.handleSearch = this.handleSearch.bind(this);
-        this.handleDate = this.handleDate.bind(this);
+        this.node = null;
     }
 
     componentDidMount() {
-        this.getData(this.state.params);
+        // this.getData(this.state.params);
     }
 
     onTabChange(i) {
@@ -54,63 +26,21 @@ class Main extends Component {
         });
     }
 
-    handlePagination = (pageNumber) => {
-        const page = {...this.state.params, current: pageNumber, pageNum: pageNumber};
-        this.getData(page);
+    refInput=(node)=> {
+        console.log(node)
+        console.log(this.refs.a)
+        this.node = node;
     }
 
-    handleSelect = (value) => {
-        if (value == 'all') {
-            this.condition.modality = '';
-        }
-        else {
-            this.condition.modality = value;
-        }
-        this.getData(this.state.params);
-    };
-
-    handleSearch = (e) => {
-        this.condition.patientIdOrName = e.target.value;
-        this.getData(this.state.params);
-    };
-
-    handleDate = (value) => {
-        if (value === null) {
-            this.condition.studyTime = '';
-        }
-        else {
-            this.condition.studyTime = Moment(value).format('YYYY-MM-DD');
-        }
-        this.getData(this.state.params);
-    }
-
-    getData = (params = {}) => {
-        this.setState({
-            loading: true
-        });
-        params = {...params, ...this.condition};
-        xhr.get('', params, (data) => {
-            this.setState({
-                data: data && data.resultList,
-                params: {
-                    ...params,
-                    totalPage: data && data.resultCount
-                },
-                loading: false
-            });
-        })
+    virtual(e) {
+        console.log(e)
+        console.log(this.node)
+        console.log(this.refs.a)
     }
 
 
     render() {
-        const loading = <Spin tip="Loading..." size="large">
-            <Alert
-                message=""
-                description="影像列表加载中，请耐心等待"
-                type="info"
-                size="large"
-            />
-        </Spin>
+
         const tabone = <div className="panel-content">
             <table>
                 <thead>
@@ -130,22 +60,13 @@ class Main extends Component {
                 </tr>
                 </tbody>
             </table>
+            <p>
+                ref测试dom<input type="text" ref={this.refInput}/>
+                ref测试virtual<input type="text" ref='a' onBlur={(e) => this.virtual(e)}/>
+            </p>
         </div>
         const tabtwo = <div className="panel-content">
-            {this.state.loading
-                ? loading
-                : <div>
-                    <ImageCard refresh={this.handlePagination.bind(this)}
-                               pageNum={this.state.params.pageNum}
-                               data={this.state.data}/>
-                    <div className="page-area">
-                        <Pagination showQuickJumper current={this.state.params.current}
-                                    pageSize={this.state.params.pageSize}
-                                    total={this.state.params.totalPage}
-                                    onChange={this.handlePagination}/>
-                        <div className="clearfix"></div>
-                    </div>
-                </div>}
+
         </div>
         return (
             <div className="imageCenter" style={{'marginTop': 15}}>
@@ -154,16 +75,6 @@ class Main extends Component {
                 </div>
                 {this.state.curTab == 0 ? tabone : tabtwo}
 
-                <div className="tools">
-                    <Select className="tool" onSelect={this.handleSelect} size={this.state.size} defaultValue="all"
-                            style={{width: 200}}>
-                        {children}
-                    </Select>
-                    <DatePicker className="tool" onChange={this.handleDate} size={this.state.size}
-                                style={{width: 200}}/>
-                    <Search className="tool" size={this.state.size} onBlur={this.handleSearch.bind(this)}
-                            placeholder="输入姓名或ID搜索…" style={{width: 200}}/>
-                </div>
             </div>
         );
     }
