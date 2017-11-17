@@ -17,7 +17,7 @@ class Main extends Component {
     }
 
     componentDidMount() {
-        // this.getData(this.state.params);
+        console.log('did')
     }
 
     onTabChange(i) {
@@ -26,7 +26,7 @@ class Main extends Component {
         });
     }
 
-    refInput=(node)=> {
+    refInput = (node) => {
         console.log(node)
         console.log(this.refs.a)
         this.node = node;
@@ -36,12 +36,33 @@ class Main extends Component {
         console.log(e)
         console.log(this.node)
         console.log(this.refs.a)
+        console.log(document.getElementById('aa'))
+    }
+
+    onMouseEnterHandler(i) {
+        // console.log(document.getElementById('yy'))
+        // let yy=document.getElementById('yy');
+        // yy.style.backgroundColor='red'
+        console.log(i.target)
+        i.target.style.backgroundColor = 'red';
+    }
+
+    onMouseLeaveHandler() {
+        // console.log(i)
     }
 
 
     render() {
 
         const tabone = <div className="panel-content">
+            <ul id="yy">
+                {[1, 2, 3, 4].map((v, i) => {
+                    return <li key={i} onMouseLeave={this.onMouseLeaveHandler.bind(this)}
+                               onMouseEnter={this.onMouseEnterHandler.bind(this)}>{v}</li>
+                })}
+            </ul>
+        </div>
+        const tabtwo = <div className="panel-content">
             <table>
                 <thead>
                 <tr>
@@ -61,12 +82,9 @@ class Main extends Component {
                 </tbody>
             </table>
             <p>
+                ref测试virtual<input type="text" ref='a' id="aa" onBlur={(e) => this.virtual(e)}/>
                 ref测试dom<input type="text" ref={this.refInput}/>
-                ref测试virtual<input type="text" ref='a' onBlur={(e) => this.virtual(e)}/>
             </p>
-        </div>
-        const tabtwo = <div className="panel-content">
-
         </div>
         return (
             <div className="imageCenter" style={{'marginTop': 15}}>
