@@ -2,8 +2,10 @@ import React, {Component} from 'react'; // 引入了React和PropTypes
 import './image.less';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
-import {Lmtab} from '_component/lmTab'
+import {Lmtab} from '_component/lmTab';
+import {styleHoc} from '_services/filter';
 
+@styleHoc
 class Main extends Component {
     constructor(props) {
         super(props);
@@ -86,13 +88,15 @@ class Main extends Component {
                 ref测试dom<input type="text" ref={this.refInput}/>
             </p>
         </div>
+
+
         return (
             <div className="imageCenter" style={{'marginTop': 15}}>
                 <div className="tab">
-                    <Lmtab tabs={['TAB_ONE', 'TAB_TWO']} curTab={0} changeTab={(i) => this.onTabChange(i)}/>
+                    <Lmtab tabs={['TAB_ONE', 'TAB_TWO']} curTab={0}
+                           changeTab={(i) => this.onTabChange(i)}/>
                 </div>
                 {this.state.curTab == 0 ? tabone : tabtwo}
-
             </div>
         );
     }

@@ -1,6 +1,7 @@
 /**
  * Created by j_bleach on 2017/9/12.
  */
+import React, {Component} from 'react';
 
 export const sex = (data) => {
     if (!data) {
@@ -43,5 +44,15 @@ export const modalityTxt = (data) => {
         'PET': 'PET'
     }[data]
     return modality
+}
+
+export const styleHoc = (Copt) => {
+    return class extends Component {
+        render() {
+            return <div style={{color:'green'}}>
+                <Copt></Copt>
+            </div>
+        }
+    }
 }
 
