@@ -1,139 +1,93 @@
-// import React, {Component} from 'react'; // 引入了React
-// import {bindActionCreators} from 'redux';
-// import {connect} from 'react-redux';
-// import {is, fromJS} from 'immutable';
-// import Config from '../../config/index';
-//
-// import {initialState, goLogin} from '../../redux/action/login/loginAction';
-//
-// import styles from './style/login.less';
-//
-// import {Spin, Form, Input, Button, message} from 'antd';
-// const FormItem = Form.Item;
-//
-// /* 以类的方式创建一个组件 */
-// class Login extends Component {
-//     constructor(props) {
-//         super(props);
-//         this.state = {
-//             passwordDirty: false,
-//             loginBtnText: '登录'
-//         };
-//     }
-//
-//     /**
-//      * 在初始化渲染执行之后立刻调用一次，仅客户端有效（服务器端不会调用）。
-//      * 在生命周期中的这个时间点，组件拥有一个 DOM 展现，
-//      * 你可以通过 this.getDOMNode() 来获取相应 DOM 节点。
-//      */
-//     componentDidMount() {
-//         const {actions} = this.props;
-//         // 初始化数据
-//         actions.initialState();
-//     }
-//
-//     handleSubmit = (e) => { // 登录
-//         e.preventDefault();
-//         const {actions, form} = this.props;
-//         form.validateFieldsAndScroll((err, values) => {
-//             if (!err) {
-//                 let username = values.username, // 用户名
-//                     password = values.password, // 密码
-//                     loginParams = { // 登录参数
-//                         username: username,
-//                         password: password
-//                     };
-//                 actions.goLogin(loginParams);
-//             }
-//         });
-//     }
-//     // 验证用户名
-//     checkUsername = (rule, value, callback) => {
-//         const form = this.props.form;
-//         if (!value) {
-//             callback();
-//         } else if (!Config.checkEng(value)) {
-//
-// 	    	callback(Config.message.usernameEng);
-// 	    } else {
-// 	    	callback();
-// 	    }
-// 	}
-// 	// 验证密码
-// 	checkPassword = (rule, value, callback) => {
-// 		const form = this.props.form;
-// 	    if (value && this.state.passwordDirty) {
-// 	    	form.validateFields(['confirm'], { force: true });
-// 	    }
-// 	    callback();
-// 	}
-// 	render() {
-//
-//         const { loading, loginInfo, form } = this.props;
-//
-//         const getFieldDecorator = form.getFieldDecorator;
-//         return (
-//             <div className="login-container">
-//                 <div className="login-form">
-//                     <Spin tip="载入中..." spinning={loading}>
-//                         <div className="login-logo">
-//                             <img src={Config.logoSrc}/>
-//                             <span>Ant Design</span>
-//                         </div>
-//                         <Form onSubmit={this.handleSubmit}>
-//                             <FormItem hasFeedback>
-//                                 {getFieldDecorator('username', {
-//                                     initialValue: 'sosout',
-//                                     rules: [{
-//                                         required: true,
-//                                         message: Config.message.usernameInput
-//                                     }, {validator: this.checkUsername}]
-//                                 })(
-//                                     <Input size="large" placeholder="用户名" maxLength="6"/>
-//                                 )}
-//                             </FormItem>
-//                             <FormItem hasFeedback>
-//                                 {getFieldDecorator('password', {
-//                                     rules: [{
-//                                         required: true,
-//                                         message: Config.message.passwordInput
-//                                     }, {validator: this.checkPassword}]
-//                                 })(
-//                                     <Input size="large" type="password" placeholder="密码" maxLength="6"/>
-//                                 )}
-//                             </FormItem>
-//                             <FormItem>
-//                                 <Button type="primary" htmlType="submit" size="large"
-//                                         loading={loginInfo.length > 0 ? true : false}>{loginInfo.length > 0 ? '登录中...' : '登录'}</Button>
-//                             </FormItem>
-//                             <div className="login-account">
-//                                 <span>账号2：sosout2222</span>
-//                                 <span>密码22：sosout</span>
-//                             </div>
-//                         </Form>
-//                     </Spin>
-//                 </div>
-//             </div>
-//         );
-//     }
-// }
-//
-// const LoginForm = Form.create()(Login);
-//
-// // 将 store 中的数据作为 props 绑定到 LoginForm 上
-// const mapStateToProps = (state, ownProps) => {
-//     let {Common, Login} = state;
-//     return {
-//         loading: Common.loading,
-//         loginInfo: Login.loginInfo
-//     }
-// }
-//
-// // 将 action 作为 props 绑定到 Product 上。
-// const mapDispatchToProps = (dispatch, ownProps) => ({
-//     actions: bindActionCreators({initialState, goLogin}, dispatch)
-// });
-//
-// const Main = connect(mapStateToProps, mapDispatchToProps)(LoginForm); // 连接redux
-//
-// export default Main;
+import React, {Component} from 'react'; // 引入了React和PropTypes
+import './login.less';
+import url from '../../config/ip/about';
+import xhr from '../../services/xhr/index';
+import {browserHistory} from 'react-router';
+
+
+/* 以类的方式创建一个组件 */
+class Main extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            status: 0,
+            orgs: []
+        };
+        this.userInvalid = '用户名必填';
+        this.pswInvalid = '密码必填';
+    }
+
+    componentDidMount() {
+    }
+
+    submit(e) {
+        if (e && e.keyCode !== 13) {
+            return false;
+        }
+        if (!this.refs.org.value) {
+            this.setState({
+                checkOrg: true
+            });
+        }
+        if (this.refs.username.value && this.refs.psw.value) {
+            this.login({
+                userName: this.refs.username.value,
+                userPassword: this.refs.psw.value
+            })
+        }
+    }
+
+    async login(param) {
+        await this.toLogin(param);
+    }
+
+    toLogin(param) {
+        return new Promise((resolve) => {
+            xhr.post(url.login, param, (data) => {
+                resolve(data);
+                xhr.init(data.accessToken)
+                sessionStorage.accessToken = data.accessToken;
+                browserHistory.push('/home/nurseStation/curPatient');
+            })
+        })
+    }
+
+
+    render() {
+        return (
+            <div className="login-container">
+                <div className="login-box">
+                    <div className="login-word">
+                        <ul>
+
+                        </ul>
+                    </div>
+                    <div className="page-region">
+                        <div className="login-title">
+                            <span>J_BLEACH</span>
+                        </div>
+                        <div className="login-form" onKeyUp={(e) => this.submit(e)}>
+                            <p>
+                                <input type="text" placeholder="请输入用户名" ref='username'/>
+                                <i className="iconfont icon-geren-"></i>
+                            </p>
+                            <p>
+                                <input type="password" placeholder="请输入密码" ref='psw'/>
+                                <i className="iconfont icon-mima"></i>
+                            </p>
+                        </div>
+                        <div className="submit">
+                            <button onClick={() => {
+                                this.submit()
+                            }} onKeyUp={(e) => this.submit(e)}>登&emsp;录
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        );
+    }
+}
+
+
+export default Main;

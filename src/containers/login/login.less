@@ -1,0 +1,155 @@
+.login-container {
+  background-image: url('../../assets/img/background.jpg');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  height: 100vh;
+  overflow: hidden;
+  .login-box {
+    margin: 0 auto;
+    text-align: center;
+    margin-top: 12%;
+    position: relative;
+    .page-region {
+      text-align: left;
+      vertical-align: middle;
+      width: 362px;
+      height: 362px;
+      box-shadow: 0px 0px 20px rgba(0, 0, 0, .25);
+      background-color: #fff;
+      margin: 0 auto;
+      display: inline-block;
+      padding: 0 50px;
+      .login-title {
+        margin-top: 50px;
+        text-align: left;
+        span:nth-child(1) {
+          font-family: PingFangSC-Semibold;
+          font-size: 28px;
+          color: #408ee6;
+          text-align: center;
+        }
+        span:nth-child(2) {
+          font-family: PingFangSC-Regular;
+          font-size: 14px;
+          color: #596268;
+          text-align: center;
+        }
+      }
+      .login-form {
+        margin-top: 80px;
+        p {
+          position: relative;
+          margin-bottom: 22px;
+          input {
+            width: 100%;
+            border: none;
+            outline: none;
+            border-bottom: 1px solid #d8d8d8;
+            padding: 0 0 5px 30px;
+            &:focus {
+              border-bottom: 1px solid #408ee6;
+              & + i {
+                color: #408ee6;
+              }
+            }
+          }
+          input::-webkit-input-placeholder {
+            color: #a3aaae;
+          }
+          i {
+            left: 0;
+            position: absolute;
+            font-size: 20px;
+            color: #596268;
+            bottom: 4px;
+          }
+        }
+        div {
+          margin-top: -21px;
+          text-align: right;
+          color: #fd6520;
+          font-size: 14px;
+        }
+        select {
+          width: 100%;
+          border: none;
+          outline: none;
+          border-bottom: 1px solid #d8d8d8;
+          padding: 0 14px 5px 30px;
+          &:focus {
+            border-bottom: 1px solid #408ee6;
+            & + i {
+              color: #408ee6;
+            }
+          }
+
+          /*很关键：将默认的select选择框样式清除*/
+          appearance: none;
+          -moz-appearance: none;
+          -webkit-appearance: none;
+
+          /*在选择框的最右侧中间显示小箭头图片*/
+          background: url('../../assets/img/selectIcon.png') no-repeat scroll right center transparent;
+
+        }
+        /*清除ie的默认选择框样式清除，隐藏下拉箭头*/
+        select::-ms-expand {
+          display: none;
+        }
+      }
+      .submit {
+        margin-top: 30px;
+        button {
+          width: 260px;
+          height: 35px;
+          border: none;
+          outline: none;
+          border-radius: 24px;
+          background-color: #408ee6;
+          font-family: PingFangSC-Regular;
+          font-size: 16px;
+          color: #ffffff;
+          text-align: center;
+          cursor: pointer;
+        }
+        p {
+          font-family: PingFangSC-Regular;
+          font-size: 14px;
+          color: #a3aaae;
+          text-align: center;
+          margin-top: 15px;
+        }
+      }
+    }
+    .login-word {
+      display: inline-block;
+      position: relative;
+      width: 396px;
+      height: 140px;
+      margin-right: 70px;
+      ul {
+        position: absolute;
+        margin-top: 75px;
+        width: 396px;
+        font-family: PingFangSC-Regular;
+        font-size: 14px;
+        color: #ffffff;
+        text-align: center;
+      }
+    }
+  }
+
+}
+
+@media screen and (min-width: 1024px) {
+}
+
+@media screen and (max-width: 930px) {
+  .login-word {
+    ul {
+      margin-top: 0px !important;
+    }
+    margin-right: 0px !important;
+  }
+}

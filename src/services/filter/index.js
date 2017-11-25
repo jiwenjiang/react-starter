@@ -1,7 +1,6 @@
 /**
  * Created by j_bleach on 2017/9/12.
  */
-import React, {Component} from 'react';
 
 export const sex = (data) => {
     if (!data) {
@@ -25,9 +24,10 @@ export const modality = (data) => {
         'RTPLAN': '#9398e3',
         'CT': '#73a6ee',
         'MR': '#b4de89',
-        'PET': '#ee8c8c'
+        'PET': '#ee8c8c',
+        'RTRECORD': '#9a6be8'
     }[data]
-    return modality ? modality : '#408ee6'
+    return modality ? modality : '#d8d8d8'
 }
 
 export const modalityTxt = (data) => {
@@ -41,18 +41,20 @@ export const modalityTxt = (data) => {
         'RTPLAN': 'RP',
         'CT': 'CT',
         'MR': 'MR',
-        'PET': 'PET'
+        'PET': 'PET',
+        'PT': 'PET',
+        'RTRECORD': 'RR'
     }[data]
-    return modality
+    return modality ? modality : data
 }
 
-export const styleHoc = (Copt) => {
-    return class extends Component {
-        render() {
-            return <div style={{color:'green'}}>
-                <Copt></Copt>
-            </div>
-        }
+export const bodyPart = (data) => {
+    if (!data) {
+        return 'weizhi'
     }
+    const arr = ['ABDOMEN', 'PELVIS', 'HEAD']
+    return (arr.indexOf(data) === -1 ? 'weizhi' : arr[arr.indexOf(data)])
 }
+
+
 

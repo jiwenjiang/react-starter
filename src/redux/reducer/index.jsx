@@ -1,23 +1,20 @@
-// import {fromJS} from 'immutable';
-// import {LOADING} from '../constants/dispatchTypes';
-
-// import Login from './login/loginReducer'; // 登录界面
-
-// 初始化state数据
-const initialState = {
-    loading: false
-};
-
-/**
- * 公共reducer
- * @return
- */
-
-const Common = (state = initialState, action) => {
+const subTitle = (state = '', action) => {
     switch (action.type) {
+        case 'SUB_TITLE':
+            return action.item;
         default:
             return state;
     }
 }
 
-export {Common};
+const patientInfo = (state = {}, action) => {
+    switch (action.type) {
+        case 'PATIENT_INFO':
+            return action.item;
+        default:
+            return state;
+    }
+}
+
+
+export {subTitle, patientInfo};

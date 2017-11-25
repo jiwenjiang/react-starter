@@ -19,6 +19,7 @@ module.exports = {
     entry: {
         app: [
             'webpack-hot-middleware/client',
+            'babel-polyfill',
             APP_FILE
         ]
     },
@@ -43,12 +44,12 @@ module.exports = {
             test: /\.less$/, // 去掉exclude: /^node_modules$/和include: [APP_PATH]是为了babel-plugin-import按需加载antd资源
             use: ['happypack/loader?id=less']
         }, {
-            test: /\.(eot|woff|svg|ttf|woff2|gif|appcache)(\?|$)/,
+            test: /\.(eot|woff|svg|ttf|woff2|appcache)(\?|$)/,
             exclude: /node_modules/,
             use: ['file-loader?name=[name].[ext]'],
             include: [APP_PATH]
         }, {
-            test: /\.(png|jpg|gif)$/,
+            test: /\.(png|jpe?g|gif|svg)$/,
             exclude: /node_modules/,
             use: ['url-loader?limit=8192&name=images/[hash:8].[name].[ext]'],
             //注意后面那个limit的参数，当你图片大小小于这个限制的时候，会自动启用base64编码图片
@@ -63,9 +64,7 @@ module.exports = {
     },
     plugins: [
         new webpack.DefinePlugin({
-            'process.env': {
-                NODE_ENV: JSON.stringify('development') //定义编译环境。 process.argv：当前进程的命令行参数数组。process.env：指向当前shell的环境变量，比如process.env.HOME。
-            }
+            'PRODUCTION': JSON.stringify(false)
         }),
         new HtmlWebpackPlugin({  //根据模板插入css/js等生成最终HTML
             filename: '../index.html', //生成的html存放路径，相对于 path
@@ -109,10 +108,10 @@ module.exports = {
             loaders: ['style-loader', 'css-loader', 'postcss-loader', 'less-loader'],
             // debug:true
         })
-        // new webpack.DllReferencePlugin({
-        //     context: __dirname,
-        //     manifest: require('./antd/dist/bundle.manifest.json')
-        // })
+// new webpack.DllReferencePlugin({
+//     context: __dirname,
+//     manifest: require('./antd/dist/bundle.manifest.json')
+// })
     ],
     resolve: {
         extensions: ['.js', '.jsx', '.less', '.css'], //后缀名自动补全
@@ -124,6 +123,7 @@ module.exports = {
             _redux: path.resolve(APP_PATH, 'redux'),
             _services: path.resolve(APP_PATH, 'services')
         }
-    },
+    }
+    ,
     devtool: 'source-map'
 };

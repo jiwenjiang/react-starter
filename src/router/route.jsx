@@ -1,58 +1,10 @@
-/**
- * 疑惑一：
- * React createClass 和 extends React.Component 有什么区别?
- * 之前写法：
- * let app = React.createClass({
-*  	getInitialState: function(){
-*    	// some thing
-*  	}
-*  })
- * ES6写法(通过es6类的继承实现时state的初始化要在constructor中声明)：
- * class exampleComponent extends React.Component {
-*    constructor(props) {
-*        super(props);
-*        this.state = {example: 'example'}
-*    }
-* }
- */
-
 import React from 'react'; // react核心
 import {Router, Route, Redirect, IndexRoute, browserHistory} from 'react-router'; // 创建route所需
-// import Config from '../config/index';
-import layout from '../component/layout/layout'; // 布局界面
-
-
-/**
- * (路由根目录组件，显示当前符合条件的组件)
- *
- * @class Roots
- * @extends {Component}
- */
-// class Roots extends Component {
-//     render() {
-//         // 这个组件是一个包裹组件，所有的路由跳转的页面都会以this.props.children的形式加载到本组件下
-//         return (
-//             <div>{this.props.children}</div>
-//         );
-//     }
-// }
-
-// 快速入门
-const home = (location, cb) => {
-    require.ensure([], require => {
-        cb(null, require('../containers/home/homeIndex').default)
-    }, 'home');
-}
-const image = (location, cb) => {
-    require.ensure([], require => {
-        cb(null, require('../containers/home/image').default)
-    }, 'image');
-}
-const detail = (location, cb) => {
-    require.ensure([], require => {
-        cb(null, require('../containers/home/detail').default)
-    }, 'detail');
-}
+import layout from '../component/common/layout/layout'; // 布局界面
+import {home, image, detail, download} from './image-center/';
+import {curPatient, editPatient, checkPatient} from './nurse-station/';
+import {mouldStation, checkMould, queue} from './mould-station';
+import {login} from './about/';
 
 const RouteConfig = (
     <Router history={browserHistory}>
@@ -62,8 +14,16 @@ const RouteConfig = (
                 <IndexRoute getComponent={image}/>
                 <Route path="/home/image" getComponent={image}/>
                 <Route path="/home/detail/:id" getComponent={detail}/>
+                <Route path="/home/nurseStation/curPatient(/:curTab)" getComponent={curPatient}/>
+                <Route path="/home/nurseStation/editPatient/:id" getComponent={editPatient}/>
+                <Route path="/home/nurseStation/checkPatient/:id" getComponent={checkPatient}/>
+                <Route path="/home/mouldStation/mouldList" getComponent={mouldStation}/>
+                <Route path="/home/mouldStation/mouldInfo/:id" getComponent={checkMould}/>
+                <Route path="/home/mouldStation/queue" getComponent={queue}/>
             </Route>
         </Route>
+        <Route path="/download/:id" getComponent={download}/>
+        <Route path="/login" getComponent={login}/>
         {/*<Route path="/home" component={Roots}> // 所有的访问，都跳转到Roots*/}
         {/*<IndexRoute component={layout} /> // 默认加载的组件，比如访问www.test.com,会自动跳转到www.test.com/home*/}
         {/*</Route>*/}

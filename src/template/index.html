@@ -3,13 +3,16 @@
 
 <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>Image-Center</title>
-    <base href="/" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <title>RAIC·OIS</title>
+    <base href="/">
 </head>
 
 <body>
-    <script type="text/javascript" src="<%=htmlWebpackPlugin.options.bundleName %>"></script>
+<script>
+    document.write("<s" + "cript type='text/javascript' src='./dist/LM_IP.js?" + Math.random().toString(36).substr(2) + "'></scr" + "ipt>");
+</script>
+<script type="text/javascript" src="<%=htmlWebpackPlugin.options.bundleName %>"></script>
 </body>
 
 </html>

@@ -8,6 +8,7 @@ var os = require('os');
 var HappyPack = require('happypack');
 var happyThreadPool = HappyPack.ThreadPool({size: os.cpus().length});
 var bundleConfig = require('./antd/dist/bundle-config.json');
+var CopyWebpackPlugin = require('copy-webpack-plugin');
 
 var ROOT_PATH = path.resolve(__dirname); // 项目根路径
 var APP_PATH = path.resolve(ROOT_PATH, 'src'); // 项目src目录
@@ -33,14 +34,7 @@ module.exports = {
         // ]
     },
     output: {
-        publicPath: '/dist/', // 在生成的html中，文件的引入路径会相对于此地址，生成的css中，以及各类图片的URL都会相对于此地址
-        // 因为打包后的所有文件，是要交给后台程序员，然后跟后台程序一起，组装成一个完整的项目，上线后，肯定有一个网址来访问，比如: www.test.com;
-        // 那么前端代码中所有的URL地址，都是相对于这个网址而言的，所以这里配置publicPath为‘/’,比如首页的路径就是www.test.com/home,图片test.jpg的访问路径就是www.test.com/images/test.jpg
-        // 最关键的是路由跳转，我们之后要配置react路由，比如这里配置的publicPath是‘/’,那路由中route访问主页，就应该配置为：
-        // <Route path="/home" component={homeContainer} />
-        // 又比如publicPath配置的是'/xxx', route就应该是：
-        // <Route path="/xxx/home" component={homeContainer} />
-        // 一般就配置为'/',因为一个项目上线后就会有一个顶级域名指向它，但我们自己测试的时候，比如你最终打包了，然后把代码放到tomcat中运行，tomcat访问肯定就是:http://localhost:8888/myreact,这不是顶级域名，你就应该配置publicPath为‘/myreact’,路由中也相应配置为/myreact/home
+        publicPath: './dist/',
         path: BUILD_PATH, // 将文件打包到此目录下
         filename: '[name].[chunkhash].js', // 最终生成的文件名字，项目中为app.jsx,最终也会叫app.js
         chunkFilename: '[name].[chunkhash].min.js' // 这是配置一些非入口文件生成的最终文件名字，比如你用了代码分割，按需加载，把你的项目中某些文件单独打包了，就会用到这个。我们这里只有一个app.js,所以这个暂时用不上
@@ -100,6 +94,10 @@ module.exports = {
             inject: 'body', // 是否将js放在body的末尾
             hash: false, // 是否为本页面所有资源文件添加一个独特的hash值
         }),
+        new CopyWebpackPlugin([
+            // {output}/file.txt
+            {from: './src/config/LM_IP.js', to: 'LM_IP.js'},
+        ]),
         // 配置了这个插件，再配合上面loader中的配置，将所有样式文件打包为一个单独的css文件
         new ExtractTextPlugin('[name].[chunkhash].css'),
         // 提取那些公共的模块、代码打包为一个单独的js文件

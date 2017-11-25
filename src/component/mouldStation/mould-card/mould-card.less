@@ -1,0 +1,129 @@
+.mould-card{
+  margin-bottom: 10px;
+  position: relative;
+  .ant-card-body{
+    padding: 10px 0;
+  }
+  .display-left{
+    text-align: center;
+    .photo-area{
+      width: 70px;
+      height: 70px;
+      margin: 0 auto;
+      margin-top: 10px;
+      margin-bottom: 12px;
+      background: #d8d8d8;
+      border-radius: 100px;
+      i{
+        font-size: 28px;
+        color: #fff;
+        line-height: 67px;
+      }
+      >img{
+        width: 70px;
+        height: 70px;
+        border-radius: 100px;
+      }
+    }
+  }
+  .display-right{
+    padding-right: 10px;
+    .text{
+      //font-weight: bold;
+      line-height: 24px;
+      font-size: 14px;
+      color: #596268;
+      cursor: default;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      .title{
+        font-weight: bold;
+      }
+    }
+    .name{
+      cursor: default;
+      display: inline-block;
+      //margin-right: 20px;
+      font-weight: bold;
+      font-size: 16px;
+      width: 20%;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      float: left;
+    }
+    .sexAge{
+      cursor: default;
+      display: inline-block;
+      font-size: 14px;
+    }
+    .checkInto{
+      width: 32%;
+      text-align: right;
+      display: inline-block;
+      line-height: 22px;
+      float: right;
+      .text{
+        display: inline-block;
+        line-height: 14px;
+        font-size: 14px;
+        color: #408ee6;
+        border-bottom: 1px solid #408ee6;
+        vertical-align: text-top;
+        cursor: pointer;
+      }
+      span{
+        color: #408ee6;
+        font-size: 13px;
+      }
+    }
+  }
+  .op-area{
+    position: absolute;
+    bottom: -44px;
+    opacity: 0;
+    transition:bottom 0.5s, opacity 0.7s;
+    -moz-transition:bottom 0.5s;
+    -webkit-transition:bottom 0.5s;
+    -o-transition:bottom 0.5s;
+    .op-btn{
+      height: 34px;
+      line-height: 34px;
+      text-align: center;
+      cursor: pointer;
+      color: #fff;
+      font-size: 14px;
+      background: #408ee6;
+      &>a{
+        color: #fff;
+        display: block;
+        &>i{
+          vertical-align: text-bottom;
+        }
+      }
+    }
+    .op-btn:hover{
+      background: #92c0f3;
+    }
+  }
+}
+.mould-card:hover{
+  border: 1px solid #408ee6;
+  .op-area{
+    position: absolute;
+    bottom: -11px;
+    opacity: 1;
+  }
+}
+.ant-dropdown-menu{
+  .ant-dropdown-menu-item{
+    text-align: center;
+    font-size: 14px;
+    color: #fff;
+    background: #408ee6;
+    &:hover{
+      background: #92c0f3;
+    }
+  }
+}

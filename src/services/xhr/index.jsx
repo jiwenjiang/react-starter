@@ -1,200 +1,89 @@
-import noty from '../../component/noty'
-const Tool = {};
+import noty from '../../component/common/noty';
+import axios from 'axios';
+import {browserHistory} from 'react-router';
+import Rx from 'rxjs/Rx';
 
 
-/**
- * 发送ajax请求和服务器交互
- * @param {object} mySetting 配置ajax的配置
- */
-Tool.ajax = function (mySetting) {
-    var setting = {
-        url: window.location.pathname, //默认ajax请求地址
-        async: true, //true。默认设置下，所有请求均为异步请求。如果需要发送同步请求，请将此选项设置为 false
-        type: 'GET', //请求的方式
-        data: {}, //发给服务器的数据
-        dataType: 'json',
-        contentType: 'application/json',
-        success: function () {
-        }, //请求成功执行方法
-        error: function () {
-        } //请求失败执行方法
-    };
+axios.defaults.headers.common['accessToken'] = sessionStorage.accessToken;
+axios.defaults.headers.common['Content-Type'] = 'application/json;charset=utf-8';
 
-    const aData = []; //存储数据
-    let sData = ''; //拼接数据
 
-    //属性覆盖
-    for (let attr in mySetting) {
-        setting[attr] = mySetting[attr];
-    }
-    for (let attr in setting.data) {
-        aData.push(attr + '=' + filter(setting.data[attr]));
-    }
-    sData = aData.join('&');
-    setting.type = setting.type.toUpperCase();
+const http = {};
+let count = 0;
+const observable = Rx.Observable.create((observer) => {
+    observer.next(count++)
+})
 
-    var xhr = new XMLHttpRequest();
-    try {
-        if (setting.type == 'GET') { //get、delete方式请求
-            sData = setting.url + '?' + sData;
-            xhr.open(setting.type, sData + '&' + new Date().getTime(), setting.async);
-            xhr.send();
-        } else { //post方式请求
-            // console.log(mySetting.data)
-            xhr.open(setting.type, setting.url, setting.async);
-            xhr.setRequestHeader('Content-type', 'application/json');
-            xhr.send(JSON.stringify(mySetting.data));
+
+http.format = (res, succ = () => {}, err = () => {}) => {
+    if (res.data.errcode === 0) {
+        if (res.config.method != 'get') {
+            if (res.data.errmsg) {
+                noty('success', res.data.errmsg);
+            }
         }
-    } catch (e) {
-        return httpEnd();
-    }
-
-    if (setting.async) {
-        xhr.addEventListener('readystatechange', httpEnd, false);
+        succ(res.data.data);
     } else {
-        httpEnd();
-    }
-
-    function httpEnd() {
-        if (xhr.readyState == 4) {
-            var head = xhr.getAllResponseHeaders();
-            var response = xhr.responseText;
-            //将服务器返回的数据，转换成json
-
-            if (/application\/json/.test(head) || setting.dataType === 'json' && /^(\{|\[)([\s\S])*?(\]|\})$/.test(response)) {
-                response = JSON.parse(response);
-            }
-            if (xhr.status == 200) { // 请求成功
-                switch (response.errcode) {
-                    case 0:
-                        if (mySetting.type !== 'GET') {
-                            noty('success', '请求成功');
-                        }
-                        setting.success(response.data, setting, xhr);
-                        break;
-                    case 1:
-                        noty('error', '服务器错误');
-                        setting.success(response.data, setting, xhr);
-                        break;
-                    case 2:
-                        noty('warning', '请求错误');
-                        setting.success(response.data, setting, xhr);
-                        break;
-                    default:
-                        noty('error', '未知错误');
-                        setting.success(response.data, setting, xhr);
-                        break;
+        if (res.data.errcode === 10001) {
+            observable.subscribe(v => {
+                if (v === 0) {
+                    noty('error', '该账户已在其他地方登录');
+                    browserHistory.push('/login');
                 }
-            } else { // 请求失败
-                if (!xhr.withCredentials) {
-                    // 重新登录
-                    // window.location.href = '/home';
-                } else {
-                    setting.error(setting, xhr);
-                }
-            }
+            })
+            return false;
         }
+        noty('error', res.data.errmsg);
+        err(res.data.data);
     }
+}
 
-    xhr.end = function () {
-        xhr.removeEventListener('readystatechange', httpEnd, false);
-    }
+http.init = (token) => {
+    axios.defaults.headers.common['accessToken'] = token;
+    count = 0;
+}
 
-    function filter(str) { //特殊字符转义
-        str += ''; //隐式转换
-        str = str.replace(/%/g, '%25');
-        str = str.replace(/\+/g, '%2B');
-        str = str.replace(/ /g, '%20');
-        str = str.replace(/\//g, '%2F');
-        str = str.replace(/\?/g, '%3F');
-        str = str.replace(/&/g, '%26');
-        str = str.replace(/=/g, '%3D');
-        str = str.replace(/#/g, '%23');
-        return str;
-    }
+http.get = (url, data, succ, err) => {
+    axios.get(url, {params: data})
+        .then((res) => {
+            http.format(res, succ)
+        })
+        .catch((error) => {
+            err ? err(error) : false
+        })
+}
 
-    return xhr;
-};
+http.post = (url, data, succ, set, err) => {
+    axios.post(url, data, set)
+        .then((res) => {
+            http.format(res, succ, err)
+        })
+        .catch((error) => {
+            err ? err(error) : false
+        })
+}
 
-/**
- * 封装ajax put请求
- * @param {string} pathname 服务器请求地址
- * @param {object} data     发送给服务器的数据
- * @param {function} success  请求成功执行方法
- * @param {function} error    请求失败执行方法
- */
-Tool.put = function (pathname, data, success, error) {
-    var setting = {
-        url: pathname, //默认ajax请求地址
-        type: 'PUT', //请求的方式
-        data: data, //发给服务器的数据
-        success: success || function () {
-        }, //请求成功执行方法
-        error: error || function () {
-        } //请求失败执行方法
-    };
-    return Tool.ajax(setting);
-};
+http.put = (url, data, succ, err) => {
+    axios.put(url, data)
+        .then((res) => {
+            http.format(res, succ)
+        })
+        .catch((error) => {
+            err ? err(error) : false
+        })
+}
 
-/**
- * 封装ajax delete请求
- * @param {string} pathname 服务器请求地址
- * @param {object} data     发送给服务器的数据
- * @param {function} success  请求成功执行方法
- * @param {function} error    请求失败执行方法
- */
-Tool.delete = function (pathname, data, success, error) {
-    var setting = {
-        url: pathname, //默认ajax请求地址
-        type: 'DELETE', //请求的方式
-        data: data, //发给服务器的数据
-        success: success || function () {
-        }, //请求成功执行方法
-        error: error || function () {
-        } //请求失败执行方法
-    };
-    return Tool.ajax(setting);
-};
+http.delete = (url, data, succ, err) => {
+    axios.delete(url, {
+        data: data
+    })
+        .then((res) => {
+            http.format(res, succ)
+        })
+        .catch((error) => {
+            err ? err(error) : false
+        })
+}
 
-/**
- * 封装ajax post请求
- * @param {string} pathname 服务器请求地址
- * @param {object} data     发送给服务器的数据
- * @param {function} success  请求成功执行方法
- * @param {function} error    请求失败执行方法
- */
-Tool.post = function (pathname, data, success, error) {
-    var setting = {
-        url: pathname, //默认ajax请求地址
-        type: 'POST', //请求的方式
-        data: data, //发给服务器的数据
-        success: success || function () {
-        }, //请求成功执行方法
-        error: error || function () {
-        } //请求失败执行方法
-    };
-    return Tool.ajax(setting);
-};
 
-/**
- * 封装ajax get请求
- * @param {string} pathname 服务器请求地址
- * @param {object} data     发送给服务器的数据
- * @param {function} success  请求成功执行方法
- * @param {function} error    请求失败执行方法
- */
-
-Tool.get = function (pathname, data, success, error) {
-    var setting = {
-        url: pathname, //默认ajax请求地址
-        type: 'GET', //请求的方式
-        data: data, //发给服务器的数据
-        success: success || function () {
-        }, //请求成功执行方法
-        error: error || function () {
-        } //请求失败执行方法
-    };
-    return Tool.ajax(setting);
-};
-
-export default Tool;
+export default http;

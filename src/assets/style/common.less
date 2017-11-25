@@ -1,9 +1,10 @@
 @import "../fonts/iconfont.css";
+@import "../antd-fonts/iconfont.css";
 @import "./component.less";
 @import "./position.less";
 
 html {
-
+  height: 100%;
 }
 
 body {
@@ -11,22 +12,26 @@ body {
   overflow-y: hidden;
   background-color: #f4f7ed;
   font-family: PingFangSC-Semibold;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 // scrollbar
 ::-webkit-scrollbar-thumb {
-  background-color: #e6e6e6;
+  background-color: rgb(50, 123, 207);
 }
 
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 7px;
+  height: 7px;
 }
 
 :global .ant-breadcrumb {
   & > span {
     &:last-child {
-      color: #999;
+      color: rgb(50, 123, 207);
       font-weight: normal;
     }
   }
@@ -93,11 +98,25 @@ body {
 :global .actived-menu-item, ant-menu-item-selected, ant-menu-inline {
   background-color: rgb(50, 123, 207);
 }
-.ant-menu-dark.ant-menu-inline .ant-menu-item-selected{
-  background-color:#327bcf;
+
+.ant-menu-dark .ant-menu-inline .ant-menu-item-selected {
+  background-color: #327bcf;
 }
-.ant-menu.ant-menu-dark .ant-menu-item-selected{
-  background-color:#327bcf;
+
+.ant-menu .ant-menu-item-selected {
+  background-color: #327bcf !important;
+}
+
+:global .ant-menu-dark {
+  background-color: #408ee6 !important;
+}
+
+:global .ant-menu-sub {
+  background-color: #408ee6 !important;
+}
+
+:global .layout .ant-layout-sider-collapsed .anticon {
+  margin-left: 0;
 }
 
 /** 重定义 start **/
@@ -105,8 +124,9 @@ body {
   background-color: rgb(64, 142, 230);
 }
 
-
-
+.ant-layout-sider-trigger {
+  display: none;
+}
 
 .ant-menu-item > a {
   display: inline;
@@ -114,18 +134,21 @@ body {
 
 /** 重定义 end **/
 
+//重定义 placeholder
 
 
-@media screen and (min-width:1200px){
-  body{
+@media screen and (min-width: 1200px) {
+  body {
     font-size: 16px;
   }
 }
+
 @media screen and (min-width: 960px) and (max-width: 1199px) {
-  body{
+  body {
     font-size: 14px;
   }
 }
+
 @media screen and (min-width: 768px) and (max-width: 959px) {
   font-size: 12px;
 }

@@ -13,10 +13,10 @@ module.exports = {
             "jsx": true
         }
     },
-
     "globals": {
         "PRODUCTION": true,
-        "debugger": true
+        "debugger": true,
+        "LM_IP": true
     },
     "plugins": [
         "react"

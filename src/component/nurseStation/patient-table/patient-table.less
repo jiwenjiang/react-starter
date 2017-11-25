@@ -1,0 +1,52 @@
+.patientTable{
+  .ant-table-thead>tr>th{
+    background: #f5f7fa;
+    color: #596268;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: default;
+  }
+  .ant-table-tbody>tr>td{
+    font-size: 14px;
+    color: #596268;
+    cursor: default;
+  }
+  .ant-table-tbody>tr:nth-child(odd){
+    td{
+      background: #fff;
+    }
+  }
+  .ant-table-tbody>tr:nth-child(even){
+    td{
+      background: #f5f7fa;
+    }
+  }
+  .point{
+    display: inline-block;
+    margin-right: 10px;
+    width: 8px;
+    height: 8px;
+    border-radius: 100px;
+  }
+  .process{
+    color: #408ee6;
+    .point{
+      color: #408ee6;
+      background: #408ee6;
+    }
+  }
+  .abnormal{
+    color: #fd6520;
+    .point{
+      color: #fd6520;
+      background: #fd6520;
+    }
+  }
+  .end{
+    color: #d3d3d3;
+    .point{
+      color: #d3d3d3;
+      background: #d3d3d3;
+    }
+  }
+}

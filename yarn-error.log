@@ -1,5 +1,5 @@
 Arguments: 
-  C:\Program Files\nodejs\node.exe C:\Users\j_bleach\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js dev
+  C:\Program Files\nodejs\node.exe C:\Users\j_bleach\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js add zip-webpack-plugin --save-dev
 
 PATH: 
   C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files\Git\cmd;C:\Program Files\nodejs\;C:\Users\j_bleach\AppData\Local\Microsoft\WindowsApps;C:\Users\ji.wenjiang\AppData\Roaming\npm;C:\Users\j_bleach\AppData\Roaming\npm
@@ -22,7 +22,7 @@ npm manifest:
     "scripts": {
       "dev": "node index.js",
       "dist": "yarn run dll && cross-env NODE_ENV=production webpack --display-error-details --config webpack.config.dist.js --progress --colors -p",
-      "dll": "webpack --config webpack.dll.config.js --progress --colors -p",
+      "dll": "webpack --config webpack.dll.config.js --progress --colors -p"
     },
     "repository": {
       "type": "git",
@@ -6323,9 +6323,7 @@ Lockfile:
       window-size "0.1.0"
 
 Trace: 
-  SyntaxError: C:\linking\react-starter\package.json: Unexpected token } in JSON at position 376
-      at JSON.parse (<anonymous>)
-      at C:\Users\j_bleach\AppData\Roaming\npm\node_modules\yarn\lib\util\fs.js:554:57
-      at Generator.next (<anonymous>)
-      at step (C:\Users\j_bleach\AppData\Roaming\npm\node_modules\yarn\node_modules\babel-runtime\helpers\asyncToGenerator.js:17:30)
-      at C:\Users\j_bleach\AppData\Roaming\npm\node_modules\yarn\node_modules\babel-runtime\helpers\asyncToGenerator.js:28:13
+  Error: connect ETIMEDOUT 104.16.62.173:443
+      at Object.exports._errnoException (util.js:1034:11)
+      at exports._exceptionWithHostPort (util.js:1057:20)
+      at TCPConnectWrap.afterConnect [as oncomplete] (net.js:1096:14)
