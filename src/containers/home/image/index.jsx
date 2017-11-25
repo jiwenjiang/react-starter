@@ -197,20 +197,7 @@ class Main extends Component {
             />
         </Spin>
         const tabone = <div className="panel-content">
-            {this.state.loading
-                ? loading
-                : <div>
-                    <ImageCard refresh={this.handlePagination.bind(this)}
-                               pageNum={this.state.params.pageNum}
-                               data={this.state.data}/>
-                    <div className="page-area">
-                        <Pagination showQuickJumper current={this.state.params.current}
-                                    pageSize={this.state.params.pageSize}
-                                    total={this.state.params.totalPage}
-                                    onChange={this.handlePagination}/>
-                        <div className="clearfix"></div>
-                    </div>
-                </div>}
+
         </div>
         const tabtwo = <div className="panel-content">
             {this.state.loading

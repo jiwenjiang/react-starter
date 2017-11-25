@@ -27,7 +27,7 @@ const RouteConfig = (
         {/*<Route path="/home" component={Roots}> // 所有的访问，都跳转到Roots*/}
         {/*<IndexRoute component={layout} /> // 默认加载的组件，比如访问www.test.com,会自动跳转到www.test.com/home*/}
         {/*</Route>*/}
-        <Redirect from="*" to="/home/image"/>
+        <Redirect from="*" to="/login"/>
     </Router>
 );
 

@@ -24,11 +24,7 @@ class Main extends Component {
         if (e && e.keyCode !== 13) {
             return false;
         }
-        if (!this.refs.org.value) {
-            this.setState({
-                checkOrg: true
-            });
-        }
+
         if (this.refs.username.value && this.refs.psw.value) {
             this.login({
                 userName: this.refs.username.value,
@@ -42,6 +38,7 @@ class Main extends Component {
     }
 
     toLogin(param) {
+        browserHistory.push('/home/image');
         return new Promise((resolve) => {
             xhr.post(url.login, param, (data) => {
                 resolve(data);
