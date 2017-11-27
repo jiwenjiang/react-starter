@@ -123,7 +123,6 @@ module.exports = {
             _redux: path.resolve(APP_PATH, 'redux'),
             _services: path.resolve(APP_PATH, 'services')
         }
-    }
-    ,
+    },
     devtool: 'source-map'
 };

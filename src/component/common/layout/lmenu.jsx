@@ -45,11 +45,16 @@ export class Lmenu extends Component {
         return map[key] || [];
     }
 
+    test = (item) => {
+        console.log(item)
+    }
+
 
     render() {
         return (
 
-            <Menu openKeys={this.state.openKeys} onOpenChange={this.onOpenChange} theme="dark" mode={this.props.mode} defaultSelectedKeys={['/home/nurseStation/curPatient']}>
+            <Menu openKeys={this.state.openKeys} onClick={this.test} onOpenChange={this.onOpenChange} theme="dark" mode={this.props.mode}
+                  defaultSelectedKeys={['/home/nurseStation/curPatient']}>
 
                 <Menu.Item key="/home/image">
                     <Link to="/home/image">
@@ -57,19 +62,21 @@ export class Lmenu extends Component {
                         {!this.props.collapsed && <span className="nav-text">影像中心</span>}
                     </Link>
                 </Menu.Item>
-                <Menu.Item key="/home/nurseStation/curPatient">
+                <Menu.Item key="/home/nurseStation/curPatient" >
                     <Link to="/home/nurseStation/curPatient">
                         <Icon type="medicine-box"/>
                         {!this.props.collapsed && <span className="nav-text">护士工作站</span>}
                     </Link>
                 </Menu.Item>
-                <SubMenu key="/home/mouldStation" title={<span><Icon type="scan"/><span className="nav-text">模具工作站</span></span>}>
-                    <Menu.Item key="/home/mouldStation/mouldStation"><Link to="/home/mouldStation/mouldList"/>做模列表</Menu.Item>
+                <SubMenu key="/home/mouldStation"
+                         title={<span><Icon type="scan"/><span className="nav-text">模具工作站</span></span>}>
+                    <Menu.Item key="/home/mouldStation/mouldStation"><Link
+                        to="/home/mouldStation/mouldList"/>做模列表</Menu.Item>
                     <Menu.Item key="/home/mouldStation/queuing"><Link to="/home/mouldStation/queue"/>排队叫号</Menu.Item>
                 </SubMenu>
                 {/*<SubMenu key="/home/nurseStation" title={<span><Icon type="medicine-box" /><span className="nav-text">护士工作站</span></span>}>*/}
-                    {/*<Menu.Item key="/home/nurseStation/curPatient"><Link to="/home/nurseStation/curPatient"/> 当前患者</Menu.Item>*/}
-                    {/*<Menu.Item key="/home/nurseStation/prePatient">历史患者</Menu.Item>*/}
+                {/*<Menu.Item key="/home/nurseStation/curPatient"><Link to="/home/nurseStation/curPatient"/> 当前患者</Menu.Item>*/}
+                {/*<Menu.Item key="/home/nurseStation/prePatient">历史患者</Menu.Item>*/}
                 {/*</SubMenu>*/}
             </Menu>
 
