@@ -1,12 +1,12 @@
 import React, {Component} from 'react'; // 引入了React和PropTypes
 import {Row, Col, Card} from 'antd';
-import url from '../../../config/ip/imageCenter/image';
-import xhr from '../../../services/xhr/index';
-import {sex, modality, modalityTxt, bodyPart} from '../../../services/filter/index';
-import '../../../assets/fonts/iconfont.css';
+import url from '_config/ip/imageCenter/image';
+import xhr from '_services/xhr/index';
+import {sex, modality, modalityTxt, bodyPart} from '_services/filter/index';
+import '_assets/fonts/iconfont.css';
 import './image-card.less';
 import {browserHistory} from 'react-router';
-import config from '../../../config/index';
+import config from '_config/index';
 
 
 class ImageCard extends Component {
