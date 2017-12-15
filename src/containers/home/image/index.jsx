@@ -38,8 +38,8 @@ class Main extends Component {
             data: [],
             loading: true,
             curTab: 0,
-            get num(){
-                console.log(this.curTab)
+            get num() {
+                // console.log(this.curTab)
             }
         };
         this.onTabChange = this.onTabChange.bind(this);
@@ -50,28 +50,68 @@ class Main extends Component {
 
     componentDidMount() {
         this.getData(this.state.params);
+        document.getElementsByClassName('price')
         const titles = [
             {link: '/home/image', text: 'bleach'}
         ];
         this.props.setTitle(titles);
+        this.testPromise()
     }
 
     onTabChange(i) {
         this.setState({
             curTab: i
         });
+
     }
+
+    async testPromise() {
+        // let a = () => {
+        //     return new Promise((resolve)=>{
+        //         setTimeout(() => {
+        //             resolve('complete A');
+        //         }, 4000)
+        //     })
+        // }
+        // let b = () => {
+        //     return new Promise((resolve)=>{
+        //         setTimeout(() => {
+        //             resolve('complete B');
+        //         }, 2000)
+        //     })
+        // }
+        // let c = await Promise.all([a(), b()])
+        // console.log(c)
+        var sleep = function (time) {
+            return new Promise(function (resolve) {
+                setTimeout(function () {
+                    // 模拟出错了，返回 ‘error’
+                    resolve('succ');
+                }, time);
+            })
+        };
+        let 一到十 = [1,2,3,4,5,6,7,8,9,10];
+
+// 正确示范
+        for(var v of 一到十) {
+            console.log(`当前是第${v}次等待..`);
+            await sleep(1000); // 正确, for循环的上下文还在async函数中
+        }
+    }
+
 
     handleSelect = (value) => {
         this.setState({params: {...this.state.params, modality: value}}, () => {
-            if((this.state.curTab == 1 && this.state.params.studyIds.length != 0) || this.state.curTab == 0){
+            if ((this.state.curTab == 1 && this.state.params.studyIds.length != 0) || this.state.curTab == 0) {
                 this.setState({
                     params: {
                         ...this.state.params,
                         pageNum: 1,
                         current: 1
                     }
-                },() => {this.getData(this.state.params);})
+                }, () => {
+                    this.getData(this.state.params);
+                })
             }
         });
     };
@@ -81,14 +121,16 @@ class Main extends Component {
     };
 
     handleSearch = () => {
-        if((this.state.curTab == 1 && this.state.params.studyIds.length != 0) || this.state.curTab == 0){
+        if ((this.state.curTab == 1 && this.state.params.studyIds.length != 0) || this.state.curTab == 0) {
             this.setState({
                 params: {
                     ...this.state.params,
                     pageNum: 1,
                     current: 1
                 }
-            },() => {this.getData(this.state.params);})
+            }, () => {
+                this.getData(this.state.params);
+            })
         }
     };
 
@@ -96,14 +138,16 @@ class Main extends Component {
         let startTime = value[0];
         let endTime = value[1];
         this.setState({params: {...this.state.params, startTime: startTime, endTime: endTime}}, () => {
-            if((this.state.curTab == 1 && this.state.params.studyIds.length != 0) || this.state.curTab == 0){
+            if ((this.state.curTab == 1 && this.state.params.studyIds.length != 0) || this.state.curTab == 0) {
                 this.setState({
                     params: {
                         ...this.state.params,
                         pageNum: 1,
                         current: 1
                     }
-                },() => {this.getData(this.state.params);})
+                }, () => {
+                    this.getData(this.state.params);
+                })
             }
         })
     };
@@ -123,7 +167,9 @@ class Main extends Component {
                 loading: false
             });
             console.log(data)
-        }, () => {this.setState({loading: false})})
+        }, () => {
+            this.setState({loading: false})
+        })
     };
 
 
@@ -160,9 +206,11 @@ class Main extends Component {
                         {children}
                     </Select>
                     <RangePicker className="tool" onChange={this.handleDate} size={this.state.size}
-                                 value={[this.state.params.startTime, this.state.params.endTime]} disabledDate={this.disabledDate}
+                                 value={[this.state.params.startTime, this.state.params.endTime]}
+                                 disabledDate={this.disabledDate}
                                  style={{width: 200}}/>
-                    <Search className="tool" size={this.state.size} onChange={this.handleInput} onSearch={this.handleSearch.bind(this)}
+                    <Search className="tool" size={this.state.size} onChange={this.handleInput}
+                            onSearch={this.handleSearch.bind(this)}
                             value={this.state.params.patientIdOrName}
                             placeholder="输入姓名或ID搜索…" style={{width: 200}}/>
                 </div>
