@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "dev": "node index.js",
-    "dist": "yarn run dll && cross-env NODE_ENV=production webpack --display-error-details --config webpack.config.dist.js --progress --colors -p",
-    "dll": "webpack --config webpack.dll.config.js --progress --colors -p"
+    "dist": "yarn run dll && cross-env NODE_ENV=production webpack --display-error-details --config webpack/webpack.config.dist.js --progress --colors -p",
+    "dll": "webpack --config webpack/webpack.dll.config.js --progress --colors -p"
   },
   "repository": {
     "type": "git",
@@ -56,6 +56,7 @@
     "babel-preset-react-hmre": "^1.1.1",
     "babel-preset-stage-0": "^6.16.0",
     "clean-webpack-plugin": "^0.1.16",
+    "copy-webpack-plugin": "^4.3.1",
     "cross-env": "^3.1.3",
     "css-loader": "^0.23.1",
     "eslint": "^4.6.1",

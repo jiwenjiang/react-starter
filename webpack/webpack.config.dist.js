@@ -7,14 +7,14 @@ var ParallelUglifyPlugin = require('webpack-parallel-uglify-plugin');
 var os = require('os');
 var HappyPack = require('happypack');
 var happyThreadPool = HappyPack.ThreadPool({size: os.cpus().length});
-var bundleConfig = require('./antd/dist/bundle-config.json');
+var bundleConfig = require('../antd/dist/bundle-config.json');
 var CopyWebpackPlugin = require('copy-webpack-plugin');
 
 var ROOT_PATH = path.resolve(__dirname); // 项目根路径
-var APP_PATH = path.resolve(ROOT_PATH, 'src'); // 项目src目录
+var APP_PATH = path.resolve(ROOT_PATH, '../src'); // 项目src目录
 var APP_FILE = path.resolve(APP_PATH, 'app'); // 项目的入口文件（即src/app.jsx）
 // var IP_FILE = path.resolve(APP_PATH, 'config/index.js'); // 项目IP配置
-var BUILD_PATH = path.resolve(ROOT_PATH, 'antd/dist'); // 发布文件所存放的目录
+var BUILD_PATH = path.resolve(ROOT_PATH, '../antd/dist'); // 发布文件所存放的目录
 // var ZIP_PATH = path.resolve(ROOT_PATH, 'antd');
 
 module.exports = {
@@ -122,7 +122,7 @@ module.exports = {
         }),
         new webpack.DllReferencePlugin({
             context: __dirname,
-            manifest: require('./antd/dist/bundle.manifest.json')
+            manifest: require('../antd/dist/bundle.manifest.json')
         }),
         new ParallelUglifyPlugin({
             workerCount: os.cpus().length,

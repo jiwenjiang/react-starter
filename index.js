@@ -1,7 +1,7 @@
 var webpack = require('webpack');
 var express = require('express');
 var opn = require('opn');
-var config = require('./webpack.config.dev');
+var config = require('./webpack/webpack.config.dev');
 
 var app = express();
 var compiler = webpack(config);
@@ -24,12 +24,6 @@ app.use(require('webpack-dev-middleware')(compiler, {
 }));
 
 app.use(require('webpack-hot-middleware')(compiler));
-
-// 代理服务器
-// app.use('/common', proxyMiddleware({
-//     target: 'http://admin.sosout.com',
-//     changeOrigin: true
-// }));
 
 //将其他路由，全部返回index.html
 app.get('*', function(req, res) {

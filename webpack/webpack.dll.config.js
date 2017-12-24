@@ -3,7 +3,7 @@ var AssetsPlugin = require('assets-webpack-plugin');
 var CleanWebpackPlugin = require('clean-webpack-plugin'); // 清理文件夹
 var path = require('path');
 
-var ROOT_PATH = path.resolve(__dirname); // 项目根路径
+var ROOT_PATH = path.resolve(__dirname,'../'); // 项目根路径
 var BUILD_PATH = path.resolve(ROOT_PATH, 'antd/dist'); // 发布文件所存放的目录
 
 
