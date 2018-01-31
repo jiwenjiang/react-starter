@@ -1,23 +1,27 @@
 import React, {Component} from 'react'; // 引入了React和PropTypes
 import './login.less';
-import url from '../../config/ip/about';
-import xhr from '../../services/xhr/index';
+import url from '_config/ip/about';
+import xhr from '_services/xhr/index';
 import {browserHistory} from 'react-router';
-
+import {PureRender} from '_services/decorator'
 
 /* 以类的方式创建一个组件 */
+@PureRender()
 class Main extends Component {
+
     constructor(props) {
         super(props);
         this.state = {
             status: 0,
             orgs: []
         };
-        this.userInvalid = '用户名必填';
-        this.pswInvalid = '密码必填';
     }
 
     componentDidMount() {
+        // console.log(Main.prototype.ss)
+        console.log(Main.prototype)
+        console.log(Main)
+        console.log(this)
     }
 
     submit(e) {
@@ -48,7 +52,6 @@ class Main extends Component {
             })
         })
     }
-
 
     render() {
         return (
@@ -85,6 +88,5 @@ class Main extends Component {
         );
     }
 }
-
 
 export default Main;
