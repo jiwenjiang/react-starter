@@ -3,10 +3,9 @@
  */
 
 import PureRenderMixin from 'react-addons-pure-render-mixin';
-function PureRender() {
-    return function (target) {
-        target.prototype.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(target);
-    }
+
+const PureRender = () => (target) => {
+    Object.assign(target.prototype, PureRenderMixin)
 }
 
 export {PureRender}
