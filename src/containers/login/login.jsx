@@ -18,9 +18,7 @@ class Main extends Component {
     }
 
     componentDidMount() {
-        // console.log(Main.prototype.ss)
         console.log(Main.prototype)
-        console.log(Main)
         console.log(this)
     }
 
