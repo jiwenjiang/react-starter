@@ -20,19 +20,46 @@ class Main extends Component {
     componentDidMount() {
         console.log(Main.prototype)
         console.log(this)
+        this.data = {
+            page: {
+                count: '',
+                total: 1
+            }
+        }
     }
 
-    submit(e) {
-        if (e && e.keyCode !== 13) {
-            return false;
-        }
+    submit() {
+        // if (e && e.keyCode !== 13) {
+        //     return false;
+        // }
+        //
+        // if (this.refs.username.value && this.refs.psw.value) {
+        //     this.login({
+        //         userName: this.refs.username.value,
+        //         userPassword: this.refs.psw.value
+        //     })
+        // }
+        // var data = {
+        //     page: {
+        //         count: '',
+        //         total: 1
+        //     }
+        // }
+        // function fn(param, data) {
+        //     if (data) {
+        //         return param.split('?.').every(function (v) {
+        //             return data[v] ? (data = data[v] , true) : false
+        //         })
+        //     }
+        //     else {
+        //         return false
+        //     }
+        // }
+        //
+        // var a = fn('page?.count', data)
+        // console.log(a)
 
-        if (this.refs.username.value && this.refs.psw.value) {
-            this.login({
-                userName: this.refs.username.value,
-                userPassword: this.refs.psw.value
-            })
-        }
+        console.log(Object)
     }
 
     async login(param) {
