@@ -54,7 +54,7 @@ react + redux + webpack2.x
 
 3.启动项目 : yarn dev        
 
-4.打包项目 : npm dist
+4.打包项目 : yarn dist
 
 
 
