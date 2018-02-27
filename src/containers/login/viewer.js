@@ -1,11 +1,13 @@
 /**
  * Created by j_bleach on 2018/2/26.
  */
+import jQuery from 'jquery';
 
 var image_view_last_id = 0;
 (function ($) {
     jQuery.fn.imageView = function (settings) {
         // Find Elements
+        console.log(55555)
         var $container = this;
         if ($container.length == 0) return false;
         var container = $container[0];
@@ -16,7 +18,7 @@ var image_view_last_id = 0;
             image_view_last_id++;
             $img.attr('id', 'image_view_' + image_view_last_id);
         }
-        var id = $img.attr('id');
+        // var id = $img.attr('id');
 
         // Settings
         settings = jQuery.extend({

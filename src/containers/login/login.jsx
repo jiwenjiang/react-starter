@@ -6,7 +6,9 @@ import xhr from '_services/xhr/index';
 import {browserHistory} from 'react-router';
 import {PureRender} from '_services/decorator'
 import './viewer.less';
+import './viewer';
 import $ from 'jquery';
+
 
 /* 以类的方式创建一个组件 */
 @PureRender()
@@ -39,6 +41,9 @@ class Main extends Component {
     submit() {
         this.setState({
             showImg: true
+        }, () => {
+
+            $('#imageView_container').imageView({width: '60%', height: '100%'});
         })
         // if (e && e.keyCode !== 13) {
         //     return false;
@@ -88,7 +93,7 @@ class Main extends Component {
     }
 
     imgToSize(size) {
-        $('#rotImg').removeClass('max-width')
+        $('#rotImg').css('max-width', 'none')
         var img = $('#rotImg');
         var oWidth = img.width(); //取得图片的实际宽度
         var oHeight = img.height(); //取得图片的实际高度
