@@ -16,7 +16,8 @@ module.exports = {
             'react-router',
             'redux',
             'redux-thunk',
-            'immutable'
+            'immutable',
+            'jquery'
         ],
     },
     output: {
@@ -30,6 +31,11 @@ module.exports = {
           root: ROOT_PATH,
           verbose: true,
           dry: false
+        }),
+        new webpack.ProvidePlugin({
+            $: 'jquery',
+            jQuery: 'jquery',
+            'window.jQuery': 'jquery'
         }),
         new webpack.DllPlugin({
             path: './antd/dist/bundle.manifest.json',

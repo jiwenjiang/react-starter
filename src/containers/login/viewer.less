@@ -1,0 +1,63 @@
+.rot1 {
+  -moz-transform: rotate(90deg);
+  -webkit-transform: rotate(90deg);
+  transform: rotate(90deg);
+  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=1);
+  -ms-filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=1);
+}
+
+.rot2 {
+  -moz-transform: rotate(180deg);
+  -webkit-transform: rotate(180deg);
+  transform: rotate(180deg);
+  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=2);
+  -ms-filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=2);
+}
+
+.rot3 {
+  -moz-transform: rotate(270deg);
+  -webkit-transform: rotate(270deg);
+  transform: rotate(270deg);
+  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+  -ms-filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+}
+
+.imageView_mask {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 2000;
+}
+
+#imageView_container {
+  border: 2px solid #000000;
+  overflow: hidden;
+  position: fixed;
+  left: 10%;
+  top: 15%;
+  width: 60%;
+  height: 70%;
+  z-index: 2001;
+}
+
+#imageView_editor{
+  border: 2px solid #408ee6;
+  overflow: hidden;
+  position: fixed;
+  left: 70%;
+  width: 20%;
+  top: 15%;
+  height: 70%;
+  z-index: 2001;
+}
+
+#rotImg {
+  cursor: move;
+  visibility: visible;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+}

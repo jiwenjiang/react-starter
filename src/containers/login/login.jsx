@@ -1,9 +1,11 @@
 import React, {Component} from 'react'; // 引入了React和PropTypes
 import './login.less';
 import url from '_config/ip/about';
+import IMG from '_assets/img/background.jpg';
 import xhr from '_services/xhr/index';
 import {browserHistory} from 'react-router';
 import {PureRender} from '_services/decorator'
+import './viewer.less';
 
 /* 以类的方式创建一个组件 */
 @PureRender()
@@ -13,7 +15,8 @@ class Main extends Component {
         super(props);
         this.state = {
             status: 0,
-            orgs: []
+            orgs: [],
+            showImg: false
         };
     }
 
@@ -29,6 +32,9 @@ class Main extends Component {
     }
 
     submit() {
+        this.setState({
+            showImg: true
+        })
         // if (e && e.keyCode !== 13) {
         //     return false;
         // }
@@ -58,8 +64,6 @@ class Main extends Component {
         //
         // var a = fn('page?.count', data)
         // console.log(a)
-
-        console.log(Object)
     }
 
     async login(param) {
@@ -78,7 +82,12 @@ class Main extends Component {
         })
     }
 
+    imgToSize() {
+
+    }
+
     render() {
+        const {showImg} = this.state;
         return (
             <div className="login-container">
                 <div className="login-box">
@@ -87,6 +96,15 @@ class Main extends Component {
 
                         </ul>
                     </div>
+                    {
+                        showImg ?
+                            <div className="imageView_mask">
+                                <div id="imageView_container">
+                                    <img src={IMG} id="rotImg"/>
+                                </div>
+                                <div id="imageView_editor"></div>
+                            </div> : ''
+                    }
                     <div className="page-region">
                         <div className="login-title">
                             <span>J_BLEACH</span>
@@ -106,6 +124,16 @@ class Main extends Component {
                                 this.submit()
                             }} onKeyUp={(e) => this.submit(e)}>登&emsp;录
                             </button>
+                        </div>
+                        <div style={{paddingTop: '5px'}}>
+                            <input type="button" value="放大" onClick={() => {
+                                this.imgToSize(100)
+                            }}/>
+                            <input type="button" value="缩小" onClick={() => {
+                                this.imgToSize(-100)
+                            }}/>
+                            <input type="button" value="向右旋转" id="rotRight"/>
+                            <input type="button" value="向左旋转" id="rotLeft"/>
                         </div>
                     </div>
                 </div>

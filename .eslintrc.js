@@ -16,7 +16,8 @@ module.exports = {
     "globals": {
         "PRODUCTION": true,
         "debugger": true,
-        "LM_IP": true
+        "LM_IP": true,
+        "jQuery": true
     },
     "plugins": [
         "react"
