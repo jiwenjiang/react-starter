@@ -6,6 +6,7 @@ import xhr from '_services/xhr/index';
 import {browserHistory} from 'react-router';
 import {PureRender} from '_services/decorator'
 import './viewer.less';
+import $ from 'jquery';
 
 /* 以类的方式创建一个组件 */
 @PureRender()
@@ -21,13 +22,17 @@ class Main extends Component {
     }
 
     componentDidMount() {
-        console.log(Main.prototype)
-        console.log(this)
         this.data = {
             page: {
                 count: '',
                 total: 1
             }
+        }
+        this.rotParams = {
+            right: document.getElementById('rotRight'),
+            left: document.getElementById('rotLeft'),
+            img: document.getElementById('rotImg'),
+            rot: 0
         }
     }
 
@@ -82,12 +87,45 @@ class Main extends Component {
         })
     }
 
-    imgToSize() {
+    imgToSize(size) {
+        $('#rotImg').removeClass('max-width')
+        var img = $('#rotImg');
+        var oWidth = img.width(); //取得图片的实际宽度
+        var oHeight = img.height(); //取得图片的实际高度
 
+        img.width(oWidth + size);
+        img.height(oHeight + size / oWidth * oHeight);
+        console.log(size)
+        console.log($('#rotImg'))
+    }
+
+    turnRight() {
+        this.rotParams.rot += 1;
+        this.setState({
+            rotClass: 'rot' + this.rotParams.rot
+        }, () => {
+            console.log(this.state.rotClass)
+            if (this.rotParams.rot === 3) {
+                this.rotParams.rot = -1;
+            }
+        })
+    }
+
+    turnLeft() {
+        this.rotParams.rot -= 1;
+        if (this.rotParams.rot === -1) {
+            this.rotParams.rot = 3;
+        }
+
+        this.setState({
+            rotClass: 'rot' + this.rotParams.rot
+        }, () => {
+            console.log(this.state.rotClass)
+        })
     }
 
     render() {
-        const {showImg} = this.state;
+        const {showImg, rotClass} = this.state;
         return (
             <div className="login-container">
                 <div className="login-box">
@@ -100,7 +138,7 @@ class Main extends Component {
                         showImg ?
                             <div className="imageView_mask">
                                 <div id="imageView_container">
-                                    <img src={IMG} id="rotImg"/>
+                                    <img src={IMG} id="rotImg" className={rotClass}/>
                                 </div>
                                 <div id="imageView_editor"></div>
                             </div> : ''
@@ -125,15 +163,19 @@ class Main extends Component {
                             }} onKeyUp={(e) => this.submit(e)}>登&emsp;录
                             </button>
                         </div>
-                        <div style={{paddingTop: '5px'}}>
+                        <div style={{paddingTop: '5px', zIndex: 3000, position: 'relative'}}>
                             <input type="button" value="放大" onClick={() => {
                                 this.imgToSize(100)
                             }}/>
                             <input type="button" value="缩小" onClick={() => {
                                 this.imgToSize(-100)
                             }}/>
-                            <input type="button" value="向右旋转" id="rotRight"/>
-                            <input type="button" value="向左旋转" id="rotLeft"/>
+                            <input type="button" value="向右旋转" id="rotRight" onClick={() => {
+                                this.turnRight()
+                            }}/>
+                            <input type="button" value="向左旋转" id="rotLeft" onClick={() => {
+                                this.turnLeft()
+                            }}/>
                         </div>
                     </div>
                 </div>

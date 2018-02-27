@@ -43,7 +43,7 @@
   z-index: 2001;
 }
 
-#imageView_editor{
+#imageView_editor {
   border: 2px solid #408ee6;
   overflow: hidden;
   position: fixed;
@@ -52,12 +52,16 @@
   top: 15%;
   height: 70%;
   z-index: 2001;
+  display:flex;
+  justify-content:center;
+  align-items:center;
 }
 
 #rotImg {
   cursor: move;
   visibility: visible;
-  position: relative;
-  top: 50%;
-  transform: translateY(-50%);
+  width: auto;
+  //height: auto;
+  max-width: 100%;
+  //max-height: 100%;
 }
