@@ -85,11 +85,11 @@ var image_view_last_id = 0;
                     }
 
                     var newX = parseInt($img.css('left')) + dx;
-                    if (newX > 0) newX = 0;
+                    // if (newX > 0) newX = 0;
                     if (newX < settings['width'] - $img.width())
                         newX = settings['width'] - $img.width() + 1;
                     var newY = parseInt($img.css('top')) + dy;
-                    if (newY > 0) newY = 0;
+                    // if (newY > 0) newY = 0;
                     if (newY < settings['height'] - $img.height())
                         newY = settings['height'] - $img.height() + 1;
 
@@ -117,12 +117,12 @@ var image_view_last_id = 0;
                 else {
                     if ($img.data('state') == 0) {
 
-                        if ($.browser.mozilla) {
-                            $container.css('cursor', '-moz-zoom-in');
-                        }
-                        else {
+                        // if ($.browser.mozilla) {
+                        //     $container.css('cursor', '-moz-zoom-in');
+                        // }
+                        // else {
                             $container.css('cursor', 'pointer');
-                        }
+                        // }
                     }
                     else {
                         $container.css('cursor', 'move');

@@ -24,6 +24,7 @@ class Main extends Component {
     }
 
     componentDidMount() {
+        this.marginLeft = 0;
         this.data = {
             page: {
                 count: '',
@@ -43,7 +44,7 @@ class Main extends Component {
             showImg: true
         }, () => {
 
-            $('#imageView_container').imageView({width: '60%', height: '100%'});
+            $('#imageView_container').imageView({width: '60%', height: '70%'});
         })
         // if (e && e.keyCode !== 13) {
         //     return false;
@@ -93,15 +94,26 @@ class Main extends Component {
     }
 
     imgToSize(size) {
-        $('#rotImg').css('max-width', 'none')
         var img = $('#rotImg');
         var oWidth = img.width(); //取得图片的实际宽度
         var oHeight = img.height(); //取得图片的实际高度
+        if ((oWidth < 100 || oHeight < 100) && size < 0) {
+            return false
+        }
+        if (size > 0) {
+            this.marginLeft += 50
+        } else {
+            this.marginLeft -= 50
+        }
+        $('#rotImg').css('max-width', oWidth + size)
+        $('#rotImg').css('max-height', oHeight + size / oWidth * oHeight)
+
 
         img.width(oWidth + size);
         img.height(oHeight + size / oWidth * oHeight);
-        console.log(size)
-        console.log($('#rotImg'))
+        $('#rotImg').css('margin-left', -this.marginLeft)
+
+        console.log(this.marginLeft)
     }
 
     turnRight() {
@@ -143,7 +155,7 @@ class Main extends Component {
                         showImg ?
                             <div className="imageView_mask">
                                 <div id="imageView_container">
-                                    <img src={IMG} id="rotImg" className={rotClass}/>
+                                    <img src={IMG} id="rotImg" className={rotClass} />
                                 </div>
                                 <div id="imageView_editor"></div>
                             </div> : ''
