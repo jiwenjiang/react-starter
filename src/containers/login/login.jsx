@@ -21,7 +21,7 @@ class Main extends Component {
             status: 0,
             orgs: [],
             showImg: -1,
-            imgList: [{imgUrl: IMG}, {imgUrl: IMG2},{imgUrl: IMG},{imgUrl: IMG},{imgUrl: IMG},{imgUrl: IMG2},{imgUrl: IMG},{imgUrl: IMG},{imgUrl: IMG2}]
+            imgList: [{imgUrl: IMG}, {imgUrl: IMG2}, {imgUrl: IMG}, {imgUrl: IMG}, {imgUrl: IMG}, {imgUrl: IMG2}, {imgUrl: IMG}, {imgUrl: IMG}, {imgUrl: IMG2}]
         };
     }
 
@@ -45,11 +45,12 @@ class Main extends Component {
 
         this.rotParams.rot = 0;
         this.setState({
-            showImg: 0,
             curImg: this.state.imgList[0].imgUrl
         }, () => {
             $('#imageView_container').imageView({width: '60%', height: '70%'});
+            this.calcList(8);
         })
+
         // if (e && e.keyCode !== 13) {
         //     return false;
         // }
@@ -81,6 +82,20 @@ class Main extends Component {
         // console.log(a)
     }
 
+    calcList(i) {
+        this.setState({
+            showImg: 2
+        })
+        let width = i * 110;
+        if (width < $('.imageView_list').width()) {
+            console.log('')
+        } else {
+            let deviation = Math.floor($('.imageView_list').width() / 110 / 2);
+            console.log(deviation)
+            $('.imageView_box')
+        }
+    }
+
     initImg() {
         var img = $('#rotImg');
         img.width('auto');
@@ -104,7 +119,7 @@ class Main extends Component {
         })
     }
 
-    nextItem(i){
+    nextItem(i) {
         console.log(i)
     }
 
@@ -173,24 +188,23 @@ class Main extends Component {
             <div className="login-container">
                 <div className="login-box">
                     <div className="login-word">
-                        <ul>
-
-                        </ul>
                     </div>
                     {
                         showImg != -1 ?
                             <div className="imageView_mask">
                                 <div className="imageView_list">
-                                    {
-                                        imgList && imgList.map((v, i) => {
-                                            return <img src={v.imgUrl} key={i}
-                                                        onClick={() => this.changeItem(v, i)}
-                                                        className={showImg == i ? 'imageView_active' : ''}/>
-                                        })
-                                    }
+                                    <div className="imageView_box">
+                                        {
+                                            imgList && imgList.map((v, i) => {
+                                                return <img src={v.imgUrl} key={i}
+                                                            onClick={() => this.changeItem(v, i)}
+                                                            className={showImg == i ? 'imageView_active' : ''}/>
+                                            })
+                                        }
+                                    </div>
                                 </div>
                                 <div className="imageView_pre">
-                                    <span onClick={()=>this.nextItem(-1)}>3</span>
+                                    <span onClick={() => this.nextItem(-1)}>3</span>
                                 </div>
                                 <div id="imageView_container">
                                     <img src={curImg} id="rotImg" className={rotClass}/>
@@ -198,7 +212,7 @@ class Main extends Component {
 
                                 <div id="imageView_editor"></div>
                                 <div className="imageView_next">
-                                    <span onClick={()=>this.nextItem(1)}>3</span>
+                                    <span onClick={() => this.nextItem(1)}>3</span>
                                 </div>
                             </div> : ''
                     }
@@ -223,7 +237,7 @@ class Main extends Component {
                             </button>
                         </div>
                         <div style={{paddingTop: '5px', zIndex: 3000, position: 'relative'}}>
-                            <input type="button" value="放大" onClick={() => {
+                            <input type="button" value={showImg} onClick={() => {
                                 this.imgToSize(100)
                             }}/>
                             <input type="button" value="缩小" onClick={() => {
