@@ -32,6 +32,72 @@
   z-index: 2000;
 }
 
+.imageView_list {
+  border: 2px solid green;
+  overflow: hidden;
+  position: fixed;
+  left: 10%;
+  top: 3%;
+  width: 60%;
+  height: 12% !important;
+  z-index: 2001;
+  img {
+    width: 100px;
+    height: 100%;
+    margin: 0 5px;
+    float: left;
+  }
+  .imageView_active {
+    border: 1px solid red;
+  }
+}
+
+.imageView_pre {
+  border: 2px solid yellow;
+  overflow: hidden;
+  position: fixed;
+  left: 0;
+  top: 15%;
+  width: 10%;
+  height: 70%;
+  z-index: 2001;
+  span {
+    cursor: pointer;
+    visibility: visible;
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto;
+    width: 100px;
+    height: 100px;
+  }
+}
+
+.imageView_next {
+  border: 2px solid deeppink;
+  overflow: hidden;
+  position: fixed;
+  left: 90%;
+  top: 15%;
+  width: 10%;
+  height: 70%;
+  z-index: 2001;
+  span {
+    cursor: pointer;
+    visibility: visible;
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto;
+    width: 100px;
+    height: 100px;
+  }
+}
+
 #imageView_container {
   border: 2px solid #000000;
   overflow: hidden;
@@ -39,7 +105,7 @@
   left: 10%;
   top: 15%;
   width: 60%;
-  height: 70%;
+  height: 65%;
   z-index: 2001;
 }
 
@@ -52,9 +118,9 @@
   top: 15%;
   height: 70%;
   z-index: 2001;
-  display:flex;
-  justify-content:center;
-  align-items:center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 #rotImg {
@@ -63,8 +129,8 @@
   //width: auto;
   //height: auto;
   max-width: 100%;
-  position:absolute;
-  left:0;
+  position: absolute;
+  left: 0;
   top: 0;
   bottom: 0;
   right: 0;

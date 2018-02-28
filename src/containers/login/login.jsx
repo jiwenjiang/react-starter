@@ -2,6 +2,7 @@ import React, {Component} from 'react'; // 引入了React和PropTypes
 import './login.less';
 import url from '_config/ip/about';
 import IMG from '_assets/img/background.jpg';
+import IMG2 from '_assets/img/head.jpg';
 import xhr from '_services/xhr/index';
 import {browserHistory} from 'react-router';
 import {PureRender} from '_services/decorator'
@@ -19,7 +20,8 @@ class Main extends Component {
         this.state = {
             status: 0,
             orgs: [],
-            showImg: false
+            showImg: -1,
+            imgList: [{imgUrl: IMG}, {imgUrl: IMG2},{imgUrl: IMG},{imgUrl: IMG},{imgUrl: IMG},{imgUrl: IMG2},{imgUrl: IMG},{imgUrl: IMG},{imgUrl: IMG2}]
         };
     }
 
@@ -40,10 +42,12 @@ class Main extends Component {
     }
 
     submit() {
-        this.setState({
-            showImg: true
-        }, () => {
 
+        this.rotParams.rot = 0;
+        this.setState({
+            showImg: 0,
+            curImg: this.state.imgList[0].imgUrl
+        }, () => {
             $('#imageView_container').imageView({width: '60%', height: '70%'});
         })
         // if (e && e.keyCode !== 13) {
@@ -77,20 +81,31 @@ class Main extends Component {
         // console.log(a)
     }
 
-    async login(param) {
-        await this.toLogin(param);
+    initImg() {
+        var img = $('#rotImg');
+        img.width('auto');
+        img.height('auto');
+        $('#rotImg').css('max-width', '100%')
+        $('#rotImg').css('max-height', '100%')
+        $('#rotImg').css('margin-left', '')
+        this.setState({
+            rotClass: ''
+        })
     }
 
-    toLogin(param) {
-        browserHistory.push('/home/image');
-        return new Promise((resolve) => {
-            xhr.post(url.login, param, (data) => {
-                resolve(data);
-                xhr.init(data.accessToken)
-                sessionStorage.accessToken = data.accessToken;
-                browserHistory.push('/home/nurseStation/curPatient');
-            })
+    changeItem(v, i) {
+        this.initImg();
+
+        console.log(v)
+        console.log(i)
+        this.setState({
+            showImg: i,
+            curImg: v.imgUrl
         })
+    }
+
+    nextItem(i){
+        console.log(i)
     }
 
     imgToSize(size) {
@@ -107,13 +122,9 @@ class Main extends Component {
         }
         $('#rotImg').css('max-width', oWidth + size)
         $('#rotImg').css('max-height', oHeight + size / oWidth * oHeight)
-
-
         img.width(oWidth + size);
         img.height(oHeight + size / oWidth * oHeight);
         $('#rotImg').css('margin-left', -this.marginLeft)
-
-        console.log(this.marginLeft)
     }
 
     turnRight() {
@@ -122,7 +133,7 @@ class Main extends Component {
             rotClass: 'rot' + this.rotParams.rot
         }, () => {
             console.log(this.state.rotClass)
-            if (this.rotParams.rot === 3) {
+            if (this.rotParams.rot >= 3) {
                 this.rotParams.rot = -1;
             }
         })
@@ -130,19 +141,34 @@ class Main extends Component {
 
     turnLeft() {
         this.rotParams.rot -= 1;
-        if (this.rotParams.rot === -1) {
+        if (this.rotParams.rot <= -1) {
             this.rotParams.rot = 3;
         }
 
         this.setState({
             rotClass: 'rot' + this.rotParams.rot
         }, () => {
-            console.log(this.state.rotClass)
+        })
+    }
+
+    async login(param) {
+        await this.toLogin(param);
+    }
+
+    toLogin(param) {
+        browserHistory.push('/home/image');
+        return new Promise((resolve) => {
+            xhr.post(url.login, param, (data) => {
+                resolve(data);
+                xhr.init(data.accessToken)
+                sessionStorage.accessToken = data.accessToken;
+                browserHistory.push('/home/nurseStation/curPatient');
+            })
         })
     }
 
     render() {
-        const {showImg, rotClass} = this.state;
+        const {showImg, rotClass, imgList, curImg} = this.state;
         return (
             <div className="login-container">
                 <div className="login-box">
@@ -152,12 +178,28 @@ class Main extends Component {
                         </ul>
                     </div>
                     {
-                        showImg ?
+                        showImg != -1 ?
                             <div className="imageView_mask">
-                                <div id="imageView_container">
-                                    <img src={IMG} id="rotImg" className={rotClass} />
+                                <div className="imageView_list">
+                                    {
+                                        imgList && imgList.map((v, i) => {
+                                            return <img src={v.imgUrl} key={i}
+                                                        onClick={() => this.changeItem(v, i)}
+                                                        className={showImg == i ? 'imageView_active' : ''}/>
+                                        })
+                                    }
                                 </div>
+                                <div className="imageView_pre">
+                                    <span onClick={()=>this.nextItem(-1)}>3</span>
+                                </div>
+                                <div id="imageView_container">
+                                    <img src={curImg} id="rotImg" className={rotClass}/>
+                                </div>
+
                                 <div id="imageView_editor"></div>
+                                <div className="imageView_next">
+                                    <span onClick={()=>this.nextItem(1)}>3</span>
+                                </div>
                             </div> : ''
                     }
                     <div className="page-region">

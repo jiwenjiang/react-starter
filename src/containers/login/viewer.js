@@ -7,7 +7,6 @@ var image_view_last_id = 0;
 (function ($) {
     jQuery.fn.imageView = function (settings) {
         // Find Elements
-        console.log(55555)
         var $container = this;
         if ($container.length == 0) return false;
         var container = $container[0];
