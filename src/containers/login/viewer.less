@@ -31,25 +31,50 @@
   background: rgba(0, 0, 0, 0.5);
   z-index: 2000;
 }
+.imageView_turnLeft{
+  border: 2px solid peru;
+  overflow: hidden;
+  position: fixed;
+  left: 10%;
+  top: 85%;
+  width: 3%;
+  height: 13% !important;
+  z-index: 2001;
+  background-color: white;
+}
+.imageView_turnRight{
+  border: 2px solid peru;
+  overflow: hidden;
+  position: fixed;
+  left: 87%;
+  top: 85%;
+  width: 3%;
+  height: 13% !important;
+  z-index: 2001;
+  background-color: white;
+}
 
 .imageView_list {
   border: 2px solid green;
   overflow: hidden;
   position: fixed;
-  left: 10%;
+  left: 13%;
   top: 85%;
-  width: 80%;
+  width: 74%;
   height: 13% !important;
   z-index: 2001;
-  .imageView_box{
+  background-color: white;
+  .imageView_box {
     width: 3000px;
     height: 100%;
+    padding: 20px 0;
+    margin-left: -10px;
   }
   img {
-    width: 100px;
+    width: 150px;
     height: 100%;
-    margin: 0 5px;
     float: left;
+    margin: 0 10px;
   }
   .imageView_active {
     border: 1px solid red;

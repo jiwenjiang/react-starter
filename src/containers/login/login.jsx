@@ -21,7 +21,8 @@ class Main extends Component {
             status: 0,
             orgs: [],
             showImg: -1,
-            imgList: [{imgUrl: IMG}, {imgUrl: IMG2}, {imgUrl: IMG}, {imgUrl: IMG}, {imgUrl: IMG}, {imgUrl: IMG2}, {imgUrl: IMG}, {imgUrl: IMG}, {imgUrl: IMG2}]
+            imgList: [{imgUrl: IMG}, {imgUrl: IMG2}, {imgUrl: IMG}, {imgUrl: IMG},
+                {imgUrl: IMG}, {imgUrl: IMG2}, {imgUrl: IMG}, {imgUrl: IMG}, {imgUrl: IMG2}, {imgUrl: IMG2}, {imgUrl: IMG2}, {imgUrl: IMG2}]
         };
     }
 
@@ -45,10 +46,11 @@ class Main extends Component {
 
         this.rotParams.rot = 0;
         this.setState({
+            showImg: 1,
             curImg: this.state.imgList[0].imgUrl
         }, () => {
-            $('#imageView_container').imageView({width: '60%', height: '70%'});
-            this.calcList(8);
+            $('#imageView_container').imageView({width: '45%', height: '83%'});
+            this.calcList(6 + 1);
         })
 
         // if (e && e.keyCode !== 13) {
@@ -83,16 +85,25 @@ class Main extends Component {
     }
 
     calcList(i) {
-        this.setState({
-            showImg: 2
-        })
-        let width = i * 110;
+
+        let width = i * 170;
         if (width < $('.imageView_list').width()) {
             console.log('')
         } else {
-            let deviation = Math.floor($('.imageView_list').width() / 110 / 2);
-            console.log(deviation)
-            $('.imageView_box')
+
+            // 基本思路： 首先判断点击位后的数组个数，如果小于半个缩略图列表的长度，则基于所处位置剩余数量去进行相关长度的平移。
+            // 如果点击位之后的数量大于半个缩略图列表的长度，则平移至居中位置
+            let deviation = Math.floor($('.imageView_list').width() / 170 / 2);
+            let moveLength = (i - deviation) * 170;
+            let chooseNum = this.state.imgList && this.state.imgList.length - i;
+            if (chooseNum > deviation) {
+                $('.imageView_box').animate({marginLeft: -(moveLength + 10) + 'px'}, 'normal', 'swing');
+            } else {
+                let coverLenth = (i - 2 * deviation - chooseNum) * 170;
+                $('.imageView_box').animate({marginLeft: -(coverLenth + 10)});
+            }
+
+
         }
     }
 
@@ -192,6 +203,7 @@ class Main extends Component {
                     {
                         showImg != -1 ?
                             <div className="imageView_mask">
+                                <div className="imageView_turnLeft"></div>
                                 <div className="imageView_list">
                                     <div className="imageView_box">
                                         {
@@ -203,6 +215,7 @@ class Main extends Component {
                                         }
                                     </div>
                                 </div>
+                                <div className="imageView_turnRight"></div>
                                 <div className="imageView_pre">
                                     <span onClick={() => this.nextItem(-1)}>3</span>
                                 </div>
