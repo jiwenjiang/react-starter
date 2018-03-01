@@ -20,7 +20,7 @@ class Main extends Component {
         this.state = {
             status: 0,
             orgs: [],
-            showImg: -1,
+            showImg: -1, // 当前影像列表数组索引
             imgList: [{imgUrl: IMG}, {imgUrl: IMG2}, {imgUrl: IMG}, {imgUrl: IMG},
                 {imgUrl: IMG}, {imgUrl: IMG2}, {imgUrl: IMG}, {imgUrl: IMG}, {imgUrl: IMG2}, {imgUrl: IMG2}, {imgUrl: IMG2}, {imgUrl: IMG2}]
         };
@@ -46,60 +46,34 @@ class Main extends Component {
 
         this.rotParams.rot = 0;
         this.setState({
-            showImg: 1,
+            showImg: 0,
             curImg: this.state.imgList[0].imgUrl
         }, () => {
             $('#imageView_container').imageView({width: '45%', height: '83%'});
-            this.calcList(6 + 1);
+            this.listWidth = $('.imageView_list').width();
+            this.deviation = Math.round(this.listWidth / 170 / 2);
+            this.totalLeft = 0;
+            console.log(this.deviation)
+            // this.calcList(6 + 1);
         })
-
-        // if (e && e.keyCode !== 13) {
-        //     return false;
-        // }
-        //
-        // if (this.refs.username.value && this.refs.psw.value) {
-        //     this.login({
-        //         userName: this.refs.username.value,
-        //         userPassword: this.refs.psw.value
-        //     })
-        // }
-        // var data = {
-        //     page: {
-        //         count: '',
-        //         total: 1
-        //     }
-        // }
-        // function fn(param, data) {
-        //     if (data) {
-        //         return param.split('?.').every(function (v) {
-        //             return data[v] ? (data = data[v] , true) : false
-        //         })
-        //     }
-        //     else {
-        //         return false
-        //     }
-        // }
-        //
-        // var a = fn('page?.count', data)
-        // console.log(a)
     }
 
     calcList(i) {
 
         let width = i * 170;
-        if (width < $('.imageView_list').width()) {
+        if (width < this.listWidth) {
             console.log('')
         } else {
 
             // 基本思路： 首先判断点击位后的数组个数，如果小于半个缩略图列表的长度，则基于所处位置剩余数量去进行相关长度的平移。
             // 如果点击位之后的数量大于半个缩略图列表的长度，则平移至居中位置
-            let deviation = Math.floor($('.imageView_list').width() / 170 / 2);
-            let moveLength = (i - deviation) * 170;
+
+            let moveLength = (i - this.deviation) * 170;
             let chooseNum = this.state.imgList && this.state.imgList.length - i;
-            if (chooseNum > deviation) {
+            if (chooseNum > this.deviation) {
                 $('.imageView_box').animate({marginLeft: -(moveLength + 10) + 'px'}, 'normal', 'swing');
             } else {
-                let coverLenth = (i - 2 * deviation - chooseNum) * 170;
+                let coverLenth = (i - 2 * this.deviation - chooseNum) * 170;
                 $('.imageView_box').animate({marginLeft: -(coverLenth + 10)});
             }
 
@@ -121,9 +95,6 @@ class Main extends Component {
 
     changeItem(v, i) {
         this.initImg();
-
-        console.log(v)
-        console.log(i)
         this.setState({
             showImg: i,
             curImg: v.imgUrl
@@ -131,7 +102,36 @@ class Main extends Component {
     }
 
     nextItem(i) {
-        console.log(i)
+        let isNext = this.state.showImg + i
+        console.log(isNext)
+        if (isNext >= 0 && isNext < this.state.imgList.length) {
+            let maxNum = Math.floor(this.listWidth / 170);
+            // if (isNext != 0 && isNext % maxNum == 0) {
+            //     $('.imageView_box').animate({marginLeft: -(this.deviation*170 + 10) + 'px'}, 'normal', 'swing');
+            // }
+            // console.log($('.imageView_list').offset().left)
+            // console.log($('.imageView_active').offset().left)
+            // console.log('---------------')
+            // console.log($('.imageView_active').offset().left - $('.imageView_list').offset().left)
+            let activeLeft = $('.imageView_active').offset().left
+            let listLeft = $('.imageView_list').offset().left
+            if ((i > 0) && (activeLeft - listLeft > (maxNum - 1) * 170)) {
+                this.totalLeft += (this.deviation * 170 + 10)
+                $('.imageView_box').animate({marginLeft: -this.totalLeft + 'px'}, 'normal', 'swing');
+            }
+            if (i > 0 && isNext == this.state.imgList.length - 1) {
+                $('.imageView_box').animate({marginLeft: -this.totalLeft - 170 + 'px'}, 'normal', 'swing');
+            }
+            if (i < 0 && (activeLeft - listLeft < 180) && isNext > 0) {
+                this.totalLeft -= (this.deviation * 170 + 10)
+                $('.imageView_box').animate({marginLeft: -this.totalLeft - 10 + 'px'}, 'normal', 'swing');
+            }
+
+            this.setState({
+                showImg: this.state.showImg + i,
+                curImg: this.state.imgList[this.state.showImg + i].imgUrl
+            })
+        }
     }
 
     imgToSize(size) {
@@ -217,7 +217,9 @@ class Main extends Component {
                                 </div>
                                 <div className="imageView_turnRight"></div>
                                 <div className="imageView_pre">
-                                    <span onClick={() => this.nextItem(-1)}>3</span>
+                                    <span onClick={() => this.nextItem(-1)}>
+                                        <i className="iconfont icon-you"></i>
+                                    </span>
                                 </div>
                                 <div id="imageView_container">
                                     <img src={curImg} id="rotImg" className={rotClass}/>
@@ -225,7 +227,9 @@ class Main extends Component {
 
                                 <div id="imageView_editor"></div>
                                 <div className="imageView_next">
-                                    <span onClick={() => this.nextItem(1)}>3</span>
+                                    <span onClick={() => this.nextItem(1)}>
+                                         <i className="iconfont icon-you"></i>
+                                    </span>
                                 </div>
                             </div> : ''
                     }
@@ -269,5 +273,34 @@ class Main extends Component {
         );
     }
 }
+// if (e && e.keyCode !== 13) {
+//     return false;
+// }
+//
+// if (this.refs.username.value && this.refs.psw.value) {
+//     this.login({
+//         userName: this.refs.username.value,
+//         userPassword: this.refs.psw.value
+//     })
+// }
+// var data = {
+//     page: {
+//         count: '',
+//         total: 1
+//     }
+// }
+// function fn(param, data) {
+//     if (data) {
+//         return param.split('?.').every(function (v) {
+//             return data[v] ? (data = data[v] , true) : false
+//         })
+//     }
+//     else {
+//         return false
+//     }
+// }
+//
+// var a = fn('page?.count', data)
+// console.log(a)
 
 export default Main;
