@@ -49,8 +49,11 @@ class Main extends Component {
             showImg: 0,
             curImg: this.state.imgList[0].imgUrl
         }, () => {
-            $('#imageView_container').imageView({width: '45%', height: '83%'});
+
+            $('#imageView_container').imageView({width: document.body.offsetWidth - '310px', height: '83%'});
+
             this.listWidth = $('.imageView_list').width();
+            $('#imageView_editor').css('left', document.body.offsetWidth * 0.15 + $('#imageView_container').width() + 'px')
             this.deviation = Math.round(this.listWidth / 170 / 2);
             this.totalLeft = 0;
             console.log(this.deviation)
@@ -203,7 +206,11 @@ class Main extends Component {
                     {
                         showImg != -1 ?
                             <div className="imageView_mask">
-                                <div className="imageView_turnLeft"></div>
+                                <div className="imageView_turnLeft">
+
+                                        <i className="iconfont icon-zuo"></i>
+
+                                </div>
                                 <div className="imageView_list">
                                     <div className="imageView_box">
                                         {
@@ -218,17 +225,16 @@ class Main extends Component {
                                 <div className="imageView_turnRight"></div>
                                 <div className="imageView_pre">
                                     <span onClick={() => this.nextItem(-1)}>
-                                        <i className="iconfont icon-you"></i>
+                                        <i className="iconfont icon-zuo"></i>
                                     </span>
                                 </div>
                                 <div id="imageView_container">
                                     <img src={curImg} id="rotImg" className={rotClass}/>
                                 </div>
-
                                 <div id="imageView_editor"></div>
                                 <div className="imageView_next">
                                     <span onClick={() => this.nextItem(1)}>
-                                         <i className="iconfont icon-you"></i>
+                                         <i className="iconfont icon-you1"></i>
                                     </span>
                                 </div>
                             </div> : ''
@@ -253,19 +259,29 @@ class Main extends Component {
                             }} onKeyUp={(e) => this.submit(e)}>登&emsp;录
                             </button>
                         </div>
-                        <div style={{paddingTop: '5px', zIndex: 3000, position: 'relative'}}>
-                            <input type="button" value={showImg} onClick={() => {
+                        <div className="imageView_tools">
+                            <i className="iconfont icon-fangda" onClick={() => {
                                 this.imgToSize(100)
-                            }}/>
-                            <input type="button" value="缩小" onClick={() => {
+                            }}></i>
+                            <i className="iconfont icon-suoxiao" onClick={() => {
                                 this.imgToSize(-100)
-                            }}/>
-                            <input type="button" value="向右旋转" id="rotRight" onClick={() => {
-                                this.turnRight()
-                            }}/>
-                            <input type="button" value="向左旋转" id="rotLeft" onClick={() => {
+                            }}></i>
+                            <i className="iconfont icon-nishizhen" onClick={() => {
                                 this.turnLeft()
-                            }}/>
+                            }}></i>
+                            <i className="iconfont icon-shunshizhen" onClick={() => {
+                                this.turnRight()
+                            }}></i>
+                            {/*<input type="button" value={showImg} />*/}
+                            {/*<input type="button" value="缩小" onClick={() => {*/}
+                                {/*this.imgToSize(-100)*/}
+                            {/*}}/>*/}
+                            {/*<input type="button" value="向右旋转" id="rotRight" onClick={() => {*/}
+                                {/*this.turnRight()*/}
+                            {/*}}/>*/}
+                            {/*<input type="button" value="向左旋转" id="rotLeft" onClick={() => {*/}
+                                {/*this.turnLeft()*/}
+                            {/*}}/>*/}
                         </div>
                     </div>
                 </div>
