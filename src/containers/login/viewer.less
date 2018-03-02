@@ -33,30 +33,38 @@
 }
 
 .imageView_turnLeft {
-  border: 2px solid peru;
   overflow: hidden;
   position: fixed;
   left: 10%;
   display: flex;
   justify-content: center;
   top: 85%;
-  width: 3%;
+  width: 40px;
   height: 13% !important;
   margin-top: 10px;
   z-index: 2001;
   background-color: white;
   &:hover {
     background-color: #dedede
+  }
+  i {
+    cursor: pointer;
+    font-size: 24px;
+    color: #a3aaae;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
   }
 }
 
 .imageView_turnRight {
-  border: 2px solid peru;
   overflow: hidden;
   position: fixed;
-  left: 87%;
+  left: calc(~"(84% + 40px)");
+  display: flex;
+  justify-content: center;
   top: 85%;
-  width: 3%;
+  width: 40px;
   height: 13% !important;
   margin-top: 10px;
   z-index: 2001;
@@ -64,13 +72,20 @@
   &:hover {
     background-color: #dedede
   }
+  i {
+    cursor: pointer;
+    font-size: 24px;
+    color: #a3aaae;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+  }
 }
 
 .imageView_list {
-  border: 2px solid green;
   overflow: hidden;
   position: fixed;
-  left: 13%;
+  left: calc(~"(10% + 40px)");
   top: 85%;
   width: 74%;
   margin-top: 10px;
@@ -191,15 +206,15 @@
   position: fixed;
   height: 40px;
   width: 470px;
-  opacity:0.4;
+  opacity: 0.4;
   display: flex;
-  justify-content:center;
-  background:#000000;
+  justify-content: center;
+  background: #000000;
   border: 1px solid black;
   top: calc(~"(85% - 40px)");
-  left:  calc(~"(50% - 390px)");
+  left: calc(~"(50% - 390px)");
   z-index: 3001;
-  i{
+  i {
     font-size: 24px;
     color: white;
     display: inline-block;

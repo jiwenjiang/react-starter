@@ -112,21 +112,20 @@ class Main extends Component {
             // if (isNext != 0 && isNext % maxNum == 0) {
             //     $('.imageView_box').animate({marginLeft: -(this.deviation*170 + 10) + 'px'}, 'normal', 'swing');
             // }
-            // console.log($('.imageView_list').offset().left)
-            // console.log($('.imageView_active').offset().left)
-            // console.log('---------------')
-            // console.log($('.imageView_active').offset().left - $('.imageView_list').offset().left)
             let activeLeft = $('.imageView_active').offset().left
             let listLeft = $('.imageView_list').offset().left
+            // 向右平移
             if ((i > 0) && (activeLeft - listLeft > (maxNum - 1) * 170)) {
-                this.totalLeft += (this.deviation * 170 + 10)
-                $('.imageView_box').animate({marginLeft: -this.totalLeft + 'px'}, 'normal', 'swing');
+                this.totalLeft += (this.deviation * 170 )
+                $('.imageView_box').animate({marginLeft: -this.totalLeft - 10 + 'px'}, 'normal', 'swing');
             }
+            // 最后不足半屏
             if (i > 0 && isNext == this.state.imgList.length - 1) {
-                $('.imageView_box').animate({marginLeft: -this.totalLeft - 170 + 'px'}, 'normal', 'swing');
+                $('.imageView_box').animate({marginLeft: -this.totalLeft - 180 + 'px'}, 'normal', 'swing');
             }
+            // 向左平移
             if (i < 0 && (activeLeft - listLeft < 180) && isNext > 0) {
-                this.totalLeft -= (this.deviation * 170 + 10)
+                this.totalLeft -= (this.deviation * 170)
                 $('.imageView_box').animate({marginLeft: -this.totalLeft - 10 + 'px'}, 'normal', 'swing');
             }
 
@@ -135,6 +134,25 @@ class Main extends Component {
                 curImg: this.state.imgList[this.state.showImg + i].imgUrl
             })
         }
+    }
+
+    nextArr(i) {
+        let arrMove = Math.floor(this.listWidth / 170) * 170;
+        let goLength = Math.floor(this.listWidth / 170);
+        if (i > 0) {
+            this.totalLeft += arrMove
+        } else {
+            this.totalLeft -= arrMove
+        }
+        $('.imageView_box').animate({marginLeft: -this.totalLeft - 10 + 'px'}, 'normal', 'swing');
+        this.setState({
+            showImg: this.state.showImg + i * goLength,
+            curImg: this.state.imgList[this.state.showImg + i * goLength].imgUrl
+        }, () => {
+            console.log(this.state.curImg)
+            console.log(this.state.showImg)
+        })
+
     }
 
     imgToSize(size) {
@@ -207,9 +225,7 @@ class Main extends Component {
                         showImg != -1 ?
                             <div className="imageView_mask">
                                 <div className="imageView_turnLeft">
-
-                                        <i className="iconfont icon-zuo"></i>
-
+                                    <i className="iconfont icon-zuo" onClick={() => this.nextArr(-1)}></i>
                                 </div>
                                 <div className="imageView_list">
                                     <div className="imageView_box">
@@ -222,7 +238,9 @@ class Main extends Component {
                                         }
                                     </div>
                                 </div>
-                                <div className="imageView_turnRight"></div>
+                                <div className="imageView_turnRight">
+                                    <i className="iconfont icon-you1" onClick={() => this.nextArr(1)}></i>
+                                </div>
                                 <div className="imageView_pre">
                                     <span onClick={() => this.nextItem(-1)}>
                                         <i className="iconfont icon-zuo"></i>
@@ -274,13 +292,13 @@ class Main extends Component {
                             }}></i>
                             {/*<input type="button" value={showImg} />*/}
                             {/*<input type="button" value="缩小" onClick={() => {*/}
-                                {/*this.imgToSize(-100)*/}
+                            {/*this.imgToSize(-100)*/}
                             {/*}}/>*/}
                             {/*<input type="button" value="向右旋转" id="rotRight" onClick={() => {*/}
-                                {/*this.turnRight()*/}
+                            {/*this.turnRight()*/}
                             {/*}}/>*/}
                             {/*<input type="button" value="向左旋转" id="rotLeft" onClick={() => {*/}
-                                {/*this.turnLeft()*/}
+                            {/*this.turnLeft()*/}
                             {/*}}/>*/}
                         </div>
                     </div>
