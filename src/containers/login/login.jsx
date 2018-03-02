@@ -56,6 +56,8 @@ class Main extends Component {
             $('#imageView_editor').css('left', document.body.offsetWidth * 0.15 + $('#imageView_container').width() + 'px')
             this.deviation = Math.round(this.listWidth / 170 / 2);
             this.totalLeft = 0;
+            this.imgListNum = Math.round(this.listWidth / 170);
+            this.imgListLength = this.state.imgList.length * 170;
             console.log(this.deviation)
             // this.calcList(6 + 1);
         })
@@ -104,7 +106,7 @@ class Main extends Component {
         })
     }
 
-    toShowTool(showTool){
+    toShowTool(showTool) {
         this.setState({
             showTool
         })
@@ -131,7 +133,11 @@ class Main extends Component {
             }
             // 向左平移
             if (i < 0 && (activeLeft - listLeft < 180) && isNext > 0) {
-                this.totalLeft -= (this.deviation * 170)
+                if (isNext > this.imgListNum) {
+                    this.totalLeft -= (this.deviation * 170)
+                } else {
+                    this.totalLeft = 0;
+                }
                 $('.imageView_box').animate({marginLeft: -this.totalLeft - 10 + 'px'}, 'normal', 'swing');
             }
 
@@ -144,11 +150,15 @@ class Main extends Component {
 
     nextArr(i) {
         let arrMove = Math.floor(this.listWidth / 170) * 170;
-        let goLength = Math.floor(this.listWidth / 170);
-        if ((this.state.showImg < goLength) && (i < 0)) {
+        if ((this.imgListLength - this.totalLeft < this.listWidth) && (i > 0)) {
             return false
         }
-        if ((this.state.imgList.length - this.state.showImg < goLength) && (i > 0)) {
+        if (this.totalLeft == 0 && (i < 0)) {
+            return false
+        }
+        if ((this.totalLeft > 0 && this.totalLeft < this.listWidth) && i < 0) {
+            this.totalLeft = 0
+            $('.imageView_box').animate({marginLeft: -this.totalLeft - 10 + 'px'}, 'normal', 'swing');
             return false
         }
         if (i > 0) {
@@ -157,11 +167,10 @@ class Main extends Component {
             this.totalLeft -= arrMove
         }
         $('.imageView_box').animate({marginLeft: -this.totalLeft - 10 + 'px'}, 'normal', 'swing');
-        this.setState({
-            showImg: this.state.showImg + i * goLength,
-            curImg: this.state.imgList[this.state.showImg + i * goLength].imgUrl
-        })
-
+        // this.setState({
+        //     showImg: this.state.showImg + i * goLength,
+        //     curImg: this.state.imgList[this.state.showImg + i * goLength].imgUrl
+        // })
     }
 
     imgToSize(size) {
@@ -255,7 +264,8 @@ class Main extends Component {
                                         <i className="iconfont icon-zuo"></i>
                                     </span>
                                 </div>
-                                <div id="imageView_container" onMouseEnter={()=>this.toShowTool(1)} onMouseLeave={()=>this.toShowTool(0)}>
+                                <div id="imageView_container" onMouseEnter={() => this.toShowTool(1)}
+                                     onMouseLeave={() => this.toShowTool(0)}>
                                     {showTool ?
                                         <div className="imageView_tools">
                                             <i className="iconfont icon-fangda" onClick={() => {
