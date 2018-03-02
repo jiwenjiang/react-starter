@@ -104,9 +104,15 @@ class Main extends Component {
         })
     }
 
+    toShowTool(showTool){
+        this.setState({
+            showTool
+        })
+    }
+
     nextItem(i) {
+        this.initImg();
         let isNext = this.state.showImg + i
-        console.log(isNext)
         if (isNext >= 0 && isNext < this.state.imgList.length) {
             let maxNum = Math.floor(this.listWidth / 170);
             // if (isNext != 0 && isNext % maxNum == 0) {
@@ -139,6 +145,12 @@ class Main extends Component {
     nextArr(i) {
         let arrMove = Math.floor(this.listWidth / 170) * 170;
         let goLength = Math.floor(this.listWidth / 170);
+        if ((this.state.showImg < goLength) && (i < 0)) {
+            return false
+        }
+        if ((this.state.imgList.length - this.state.showImg < goLength) && (i > 0)) {
+            return false
+        }
         if (i > 0) {
             this.totalLeft += arrMove
         } else {
@@ -148,9 +160,6 @@ class Main extends Component {
         this.setState({
             showImg: this.state.showImg + i * goLength,
             curImg: this.state.imgList[this.state.showImg + i * goLength].imgUrl
-        }, () => {
-            console.log(this.state.curImg)
-            console.log(this.state.showImg)
         })
 
     }
@@ -215,7 +224,7 @@ class Main extends Component {
     }
 
     render() {
-        const {showImg, rotClass, imgList, curImg} = this.state;
+        const {showImg, rotClass, imgList, curImg, showTool} = this.state;
         return (
             <div className="login-container">
                 <div className="login-box">
@@ -246,7 +255,23 @@ class Main extends Component {
                                         <i className="iconfont icon-zuo"></i>
                                     </span>
                                 </div>
-                                <div id="imageView_container">
+                                <div id="imageView_container" onMouseEnter={()=>this.toShowTool(1)} onMouseLeave={()=>this.toShowTool(0)}>
+                                    {showTool ?
+                                        <div className="imageView_tools">
+                                            <i className="iconfont icon-fangda" onClick={() => {
+                                                this.imgToSize(100)
+                                            }}></i>
+                                            <i className="iconfont icon-suoxiao" onClick={() => {
+                                                this.imgToSize(-100)
+                                            }}></i>
+                                            <i className="iconfont icon-nishizhen" onClick={() => {
+                                                this.turnLeft()
+                                            }}></i>
+                                            <i className="iconfont icon-shunshizhen" onClick={() => {
+                                                this.turnRight()
+                                            }}></i>
+                                        </div> : ''
+                                    }
                                     <img src={curImg} id="rotImg" className={rotClass}/>
                                 </div>
                                 <div id="imageView_editor"></div>
@@ -276,30 +301,6 @@ class Main extends Component {
                                 this.submit()
                             }} onKeyUp={(e) => this.submit(e)}>登&emsp;录
                             </button>
-                        </div>
-                        <div className="imageView_tools">
-                            <i className="iconfont icon-fangda" onClick={() => {
-                                this.imgToSize(100)
-                            }}></i>
-                            <i className="iconfont icon-suoxiao" onClick={() => {
-                                this.imgToSize(-100)
-                            }}></i>
-                            <i className="iconfont icon-nishizhen" onClick={() => {
-                                this.turnLeft()
-                            }}></i>
-                            <i className="iconfont icon-shunshizhen" onClick={() => {
-                                this.turnRight()
-                            }}></i>
-                            {/*<input type="button" value={showImg} />*/}
-                            {/*<input type="button" value="缩小" onClick={() => {*/}
-                            {/*this.imgToSize(-100)*/}
-                            {/*}}/>*/}
-                            {/*<input type="button" value="向右旋转" id="rotRight" onClick={() => {*/}
-                            {/*this.turnRight()*/}
-                            {/*}}/>*/}
-                            {/*<input type="button" value="向左旋转" id="rotLeft" onClick={() => {*/}
-                            {/*this.turnLeft()*/}
-                            {/*}}/>*/}
                         </div>
                     </div>
                 </div>
