@@ -218,6 +218,12 @@ class Main extends Component {
         })
     }
 
+    closeModal() {
+        this.setState({
+            showImg: -1
+        })
+    }
+
     async login(param) {
         await this.toLogin(param);
     }
@@ -286,7 +292,11 @@ class Main extends Component {
                                     }
                                     <img src={curImg} id="rotImg" className={rotClass}/>
                                 </div>
-                                <div id="imageView_editor"></div>
+                                <div id="imageView_editor">
+                                    <div className="imageView_close">
+                                        <i className="iconfont icon-guanbi" onClick={() => this.closeModal()}></i>
+                                    </div>
+                                </div>
                                 <div className="imageView_next">
                                     <span onClick={() => this.nextItem(1)}>
                                          <i className="iconfont icon-you1"></i>
