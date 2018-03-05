@@ -1,5 +1,6 @@
 import React, {Component} from 'react'; // 引入了React和PropTypes
 import './login.less';
+import {Input, Select, DatePicker} from 'antd';
 import url from '_config/ip/about';
 import IMG from '_assets/img/background.jpg';
 import IMG2 from '_assets/img/head.jpg';
@@ -9,6 +10,7 @@ import {PureRender} from '_services/decorator'
 import './viewer.less';
 import './viewer';
 import $ from 'jquery';
+const [Option] = [Select.Option];
 
 
 /* 以类的方式创建一个组件 */
@@ -294,7 +296,30 @@ class Main extends Component {
                                 </div>
                                 <div id="imageView_editor">
                                     <div className="imageView_close">
+                                        <span>查看文件</span>
                                         <i className="iconfont icon-guanbi" onClick={() => this.closeModal()}></i>
+                                    </div>
+                                    <div className="imageView_content">
+                                        <ul>
+                                            <li>
+                                                <label>文件名称：</label>
+                                                <Input size="large" style={{width: '192px'}} placeholder="large size"/>
+                                            </li>
+                                            <li>
+                                                <label>附件分类：</label>
+                                                <Select style={{width: 192}} size="large" dropdownStyle={{zIndex:7000}}>
+                                                    <Option value="jack">Jack</Option>
+                                                    <Option value="lucy">Lucy</Option>
+                                                    <Option value="disabled" disabled>Disabled</Option>
+                                                    <Option value="Yiminghe">yiminghe</Option>
+                                                </Select>
+                                            </li>
+                                            <li>
+                                                <label>报告时间：</label><DatePicker
+                                                getCalendarContainer={() => document.querySelector('.imageView_content')}
+                                                style={{width: 192}} size="large"/>
+                                            </li>
+                                        </ul>
                                     </div>
                                 </div>
                                 <div className="imageView_next">
