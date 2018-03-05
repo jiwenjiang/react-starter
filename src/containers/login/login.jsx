@@ -43,7 +43,9 @@ class Main extends Component {
     }
 
     submit() {
-
+        $(window).resize(function () {          //当浏览器大小变化时
+            $('#imageView_editor').css('left', document.body.offsetWidth * 0.15 + $('#imageView_container').width() + 'px')
+        });
         this.rotParams.rot = 0;
         this.setState({
             showImg: 0,
