@@ -1,8 +1,6 @@
 import React, {Component} from 'react'; // 引入了React和PropTypes
-import './login.less';
 import {Input, Select, DatePicker} from 'antd';
-import IMG from '_assets/img/background.jpg';
-import IMG2 from '_assets/img/head.jpg';
+
 import {PureRender} from '_services/decorator'
 import './index.less';
 import './viewer';
@@ -17,15 +15,9 @@ class Main extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            status: 0,
-            orgs: [],
-            showImg: -1, // 当前影像列表数组索引
-            imgList: [{imgUrl: IMG}, {imgUrl: IMG2}, {imgUrl: IMG}, {imgUrl: IMG},
-                {imgUrl: IMG}, {imgUrl: IMG2}, {imgUrl: IMG}, {imgUrl: IMG}, {imgUrl: IMG2}, {imgUrl: IMG2}, {imgUrl: IMG2}, {imgUrl: IMG2}]
+            showImg: -1,
+            imgList: []
         };
-    }
-
-    componentDidMount() {
         this.marginLeft = 0;
         this.rotParams = {
             right: document.getElementById('rotRight'),
@@ -35,14 +27,22 @@ class Main extends Component {
         }
     }
 
-    submit() {
+    componentDidMount() {
         $(window).resize(function () {          //当浏览器大小变化时
             $('#imageView_editor').css('left', document.body.offsetWidth * 0.15 + $('#imageView_container').width() + 'px')
         });
+    }
+
+    componentDidUpdate() {
+        // console.log(this.props)
+    }
+
+    openImage() {
         this.rotParams.rot = 0;
         this.setState({
-            showImg: 0,
-            curImg: this.state.imgList[0].imgUrl
+            showImg: this.props.showImg,
+            imgList: this.props.imgList,
+            curImg: this.props.imgList[0].imgUrl
         }, () => {
             $('#imageView_container').imageView({width: document.body.offsetWidth - '310px', height: '83%'});
             this.listWidth = $('.imageView_list').width();
@@ -51,7 +51,7 @@ class Main extends Component {
             this.totalLeft = 0;
             this.imgListNum = Math.round(this.listWidth / 170);
             this.imgListLength = this.state.imgList.length * 170;
-            console.log(this.deviation)
+            // console.log(this.deviation)
             // this.calcList(6 + 1);
         })
     }
@@ -216,7 +216,7 @@ class Main extends Component {
     }
 
     render() {
-        const {showImg, rotClass, imgList, curImg, showTool} = this.state;
+        const {rotClass, imgList, curImg, showTool, showImg} = this.state;
         return (
             <div>
                 {
