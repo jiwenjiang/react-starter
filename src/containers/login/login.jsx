@@ -29,7 +29,7 @@ class Main extends Component {
     submit() {
         this.setState({
             showImg: 0,
-            imgList: [{imgUrl: IMG}, {imgUrl: IMG2}, {imgUrl: IMG}, {imgUrl: IMG},
+            imgList: [{imgUrl: IMG}, {imgUrl: 444}, {imgUrl: IMG}, {imgUrl: IMG},
                 {imgUrl: IMG}, {imgUrl: IMG2}, {imgUrl: IMG}, {imgUrl: IMG}, {imgUrl: IMG2}, {imgUrl: IMG2}, {imgUrl: IMG2}, {imgUrl: IMG2}]
         }, () => {
             this.refs.imageView.openImage();

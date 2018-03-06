@@ -87,7 +87,22 @@ class Main extends Component {
         $('#rotImg').css('max-height', '100%')
         $('#rotImg').css('margin-left', '')
         this.setState({
-            rotClass: ''
+            rotClass: '',
+            imgError: false
+        })
+    }
+
+    imgError() {
+        console.log('err')
+        this.setState({
+            imgError: true
+        })
+    }
+
+    imgSucc() {
+        console.log('succ')
+        this.setState({
+            imgError: false
         })
     }
 
@@ -216,7 +231,7 @@ class Main extends Component {
     }
 
     render() {
-        const {rotClass, imgList, curImg, showTool, showImg} = this.state;
+        const {rotClass, imgList, showTool, showImg, imgError, curImg} = this.state;
         return (
             <div>
                 {
@@ -262,7 +277,15 @@ class Main extends Component {
                                         }}></i>
                                     </div> : ''
                                 }
-                                <img src={curImg} id="rotImg" className={rotClass}/>
+                                {
+                                    imgError
+                                        ? <div className="errorImg">
+                                        <i className="iconfont icon-shunshizhen"></i>
+                                    </div>
+                                        : <img src={curImg} id="rotImg" onError={() => this.imgError()}
+                                               className={rotClass}/>
+                                }
+
                             </div>
                             <div id="imageView_editor">
                                 <div className="imageView_close">
