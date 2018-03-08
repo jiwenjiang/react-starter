@@ -27,6 +27,7 @@ class Main extends Component {
     }
 
     componentDidMount() {
+
         this.marginLeft = 0;
         this.data = {
             page: {
@@ -41,6 +42,7 @@ class Main extends Component {
             rot: 0
         }
     }
+
 
     submit() {
 
@@ -202,6 +204,7 @@ class Main extends Component {
                 this.rotParams.rot = -1;
             }
         })
+        browserHistory.push('/home/image');
     }
 
     turnLeft() {
