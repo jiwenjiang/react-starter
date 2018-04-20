@@ -1,46 +1,45 @@
-import noty from '../../component/common/noty';
+// import noty from '../../component/common/noty';
 import axios from 'axios';
-import {browserHistory} from 'react-router';
-import Rx from 'rxjs/Rx';
+// import {browserHistory} from 'react-router';
+// import Rx from 'rxjs/Rx';
 
 
-axios.defaults.headers.common['accessToken'] = sessionStorage.accessToken;
+axios.defaults.headers.common['PRIVATE-TOKEN'] = '-jNnY3bQfcjjJm_2tfUA';
 axios.defaults.headers.common['Content-Type'] = 'application/json;charset=utf-8';
 
 
 const http = {};
-let count = 0;
-const observable = Rx.Observable.create((observer) => {
-    observer.next(count++)
-})
+// const observable = Rx.Observable.create((observer) => {
+//     observer.next(count++)
+// })
 
 
-http.format = (res, succ = () => {}, err = () => {}) => {
-    if (res.data.errcode === 0) {
-        if (res.config.method != 'get') {
-            if (res.data.errmsg) {
-                noty('success', res.data.errmsg);
-            }
-        }
-        succ(res.data.data);
-    } else {
-        if (res.data.errcode === 10001) {
-            observable.subscribe(v => {
-                if (v === 0) {
-                    noty('error', '该账户已在其他地方登录');
-                    browserHistory.push('/login');
-                }
-            })
-            return false;
-        }
-        noty('error', res.data.errmsg);
-        err(res.data.data);
-    }
+http.format = (res, succ = () => {}) => {
+    succ(res.data);
+    // if (res.data.errcode === 0) {
+    //     if (res.config.method != 'get') {
+    //         if (res.data.errmsg) {
+    //             noty('success', res.data.errmsg);
+    //         }
+    //     }
+    //
+    // } else {
+    //     if (res.data.errcode === 10001) {
+    //         observable.subscribe(v => {
+    //             if (v === 0) {
+    //                 noty('error', '该账户已在其他地方登录');
+    //                 browserHistory.push('/login');
+    //             }
+    //         })
+    //         return false;
+    //     }
+    //     noty('error', res.data.errmsg);
+    //     err(res.data.data);
+    // }
 }
 
 http.init = (token) => {
     axios.defaults.headers.common['accessToken'] = token;
-    count = 0;
 }
 
 http.get = (url, data, succ, err) => {

@@ -25,6 +25,8 @@
   },
   "homepage": "https://github.com/jiwenjiang/react-starter",
   "dependencies": {
+    "@antv/data-set": "^0.8.6",
+    "@antv/g2": "^3.0.7",
     "antd": "^2.13.10",
     "axios": "^0.16.2",
     "immutable": "^3.8.1",
