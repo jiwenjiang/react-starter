@@ -27,7 +27,8 @@ module.exports = {
         "no-console": 0,
         "react/jsx-uses-react": "error",
         "react/jsx-uses-vars": "error",
-        "quotes": ["error", "single"]
+        "quotes": ["error", "single"],
+        "no-debugger": 0
         // "quotes": [
         //     "error",
         //     "single"

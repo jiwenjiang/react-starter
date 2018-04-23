@@ -11,6 +11,7 @@ import DataSet from '@antv/data-set';
 const Option = Select.Option;
 const { RangePicker } = DatePicker;
 
+let chart = {};
 
 /* 以类的方式创建一个组件 */
 @PureRender()
@@ -24,11 +25,13 @@ class Main extends Component {
             scope: 'all',
             per_page: 100
         };
-        this.initArr = [35, 37, 41, 42, 47];
+        this.initArr = [46, 40, 36, 35, 45];
         this.dataArr = []
+        this.id = 'mountNode'
     }
 
     componentDidMount() {
+        // this.initChart();
         this.arrQueue();
     }
 
@@ -36,24 +39,34 @@ class Main extends Component {
         this.Arrlength = this.initArr.length;
         this.dataArr = [];
         this.initArr.forEach((v) => {
-            this.getData({ ...this.state, assignee_id: v })
+            this.getData({ ...this.state, assignee_id: v, data: '' })
         })
     }
 
 
     getData(param) {
         xhr.get(url.issues, param, (data) => {
-            console.log(data)
             let ok = 0
             let doing = 0
             let strId = '';
+            this.setState({ data });
             data && data.forEach(v => {
                 v.labels.indexOf('Ok') > -1 ? ok++ : (doing++, strId += `${v.id},`);
             })
             if (data.length) {
                 this.dataArr.push(
-                    { value: ok, type: data[0] && data[0].assignee.name, name: `${data[0].assignee.name}已完成`, strId },
-                    { value: doing, type: data[0] && data[0].assignee.name, name: `${data[0].assignee.name}未完成`, strId }
+                    {
+                        value: ok,
+                        type: `${data[0] && data[0].assignee.name}(${ok + doing})`,
+                        name: `${data[0].assignee.name}已完成(${ok})`,
+                        strId
+                    },
+                    {
+                        value: doing,
+                        type: `${data[0] && data[0].assignee.name}(${ok + doing})`,
+                        name: `${data[0].assignee.name}未完成(${doing})`,
+                        strId
+                    }
                 )
             }
             this.Arrlength--;
@@ -87,10 +100,17 @@ class Main extends Component {
         }
     }
 
+
     renderChart(v) {
+        this.id += +'1';
+        let newItem = document.createElement('div');
+        newItem.setAttribute('id', this.id);
+        let parentItem = document.getElementsByClassName('container')[0]
+        let oldItem = parentItem.childNodes[1]
+        parentItem.replaceChild(newItem, oldItem);
+
         const { DataView } = DataSet;
         const data = v;
-        console.log(v)
         const dv = new DataView();
         dv.source(data).transform({
             type: 'percent',
@@ -98,8 +118,8 @@ class Main extends Component {
             dimension: 'type',
             as: 'percent'
         });
-        const chart = new G2.Chart({
-            container: 'mountNode',
+        chart = new G2.Chart({
+            container: this.id,
             forceFit: true,
             height: 600,
             padding: 0
@@ -167,7 +187,6 @@ class Main extends Component {
         chart.on('interval:click', ev => {
             const data = ev.data;
             if (data) {
-                console.log(data)
                 this.setState({
                     strId: data._origin['strId']
                 })
@@ -175,19 +194,12 @@ class Main extends Component {
                 // window.open('http://www.baidu.com/s?wd=' + name);
             }
         });
-
-        if (this.hasRender) {
-            console.log(v)
-            chart.changeData(v)
-        } else {
-            chart.render();
-        }
-        this.hasRender = true
+        chart.render();
     }
 
 
     render() {
-        const { created_after, created_before, strId } = this.state;
+        const { created_after, created_before, strId, data } = this.state;
         return (
             <div className="container">
                 <div className="box">
@@ -206,6 +218,7 @@ class Main extends Component {
                     <Button type="primary" onClick={() => this.selectDate('month')}>本月</Button>
                 </div>
                 <div id="mountNode"></div>
+                {data && data.length === 0 ? <p style={{ fontSize: 16, textAlign: 'center' }}>暂无数据</p> : ''}
                 <div className='showId'>{strId}</div>
             </div>
         );
