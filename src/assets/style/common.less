@@ -9,13 +9,8 @@ html {
 
 body {
   height: 100%;
-  overflow-y: hidden;
   background-color: #f4f7ed;
   font-family: PingFangSC-Semibold;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
 }
 
 // scrollbar
@@ -28,109 +23,7 @@ body {
   height: 7px;
 }
 
-:global .ant-breadcrumb {
-  & > span {
-    &:last-child {
-      color: rgb(50, 123, 207);
-      font-weight: normal;
-    }
-  }
-}
 
-:global .ant-breadcrumb-link {
-  .anticon + span {
-    margin-left: 4px;
-  }
-}
-
-:global .ant-table {
-  .ant-table-thead > tr > th {
-    text-align: center;
-  }
-  .ant-table-tbody > tr > td {
-    text-align: center;
-  }
-  &.ant-table-small {
-    .ant-table-thead > tr > th {
-      background: #f7f7f7;
-    }
-    .ant-table-body > table {
-      padding: 0;
-    }
-  }
-}
-
-:global .ant-table-pagination {
-  float: none !important;
-  display: table;
-  margin: 16px auto !important;
-}
-
-:global .ant-popover-inner {
-  border: none;
-  border-radius: 0;
-  box-shadow: 0 0 20px rgb(50, 123, 207);
-}
-
-:global .vertical-center-modal {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  .ant-modal {
-    top: 0;
-    .ant-modal-body {
-      max-height: 500px;
-      overflow-y: auto;
-    }
-  }
-}
-
-:global .ant-form-item-control {
-  vertical-align: middle;
-}
-
-.spin {
-  :global .ant-spin-container {
-    height: 100vh;
-  }
-}
-
-:global .actived-menu-item, ant-menu-item-selected, ant-menu-inline {
-  background-color: rgb(50, 123, 207);
-}
-
-.ant-menu-dark .ant-menu-inline .ant-menu-item-selected {
-  background-color: #327bcf;
-}
-
-.ant-menu .ant-menu-item-selected {
-  background-color: #327bcf !important;
-}
-
-:global .ant-menu-dark {
-  background-color: #408ee6 !important;
-}
-
-:global .ant-menu-sub {
-  background-color: #408ee6 !important;
-}
-
-:global .layout .ant-layout-sider-collapsed .anticon {
-  margin-left: 0;
-}
-
-/** 重定义 start **/
-.ant-layout-sider, .ant-layout-sider-trigger {
-  background-color: rgb(64, 142, 230);
-}
-
-.ant-layout-sider-trigger {
-  display: none;
-}
-
-.ant-menu-item > a {
-  display: inline;
-}
 
 /** 重定义 end **/
 

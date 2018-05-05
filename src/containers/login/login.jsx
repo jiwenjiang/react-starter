@@ -51,7 +51,7 @@ class Main extends Component {
             let strId = '';
             this.setState({ data });
             data && data.forEach(v => {
-                v.labels.indexOf('Ok') > -1 ? ok++ : (doing++, strId += `${v.id},`);
+                v.labels.indexOf('Ok') > -1 || v.labels.indexOf('ok') > -1 ? ok++ : (doing++, strId += `${v.id},`);
             })
             if (data.length) {
                 this.dataArr.push(
@@ -102,12 +102,15 @@ class Main extends Component {
 
 
     renderChart(v) {
-        this.id += +'1';
+        // TODO 这里antv的动态渲染api(changeData)不起作用，插件本身可能又做了类似单例的优化，同一个node不在重复渲染，故手动替换node，强制渲染。
+        // 手动替换标签
+        this.id += '1';
         let newItem = document.createElement('div');
         newItem.setAttribute('id', this.id);
         let parentItem = document.getElementsByClassName('container')[0]
         let oldItem = parentItem.childNodes[1]
         parentItem.replaceChild(newItem, oldItem);
+        // 手动替换标签
 
         const { DataView } = DataSet;
         const data = v;
